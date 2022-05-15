@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { DefaultEventsMap } from '@socket.io/component-emitter';
 import { useSearchParams } from 'react-router-dom';
+import { PaperPlaneRight } from 'phosphor-react';
 
 //styles
 import { Container } from './styles';
@@ -31,7 +32,9 @@ export const Chat = () => {
     }
   }, []);
 
-  const sendMessage = () => {
+  const onSubmitMessage = (event: FormEvent) => {
+    event.preventDefault();
+
     const newMessage = `${messageText} - ${username}`;
 
     socket?.emit('send_message', newMessage);
@@ -57,7 +60,7 @@ export const Chat = () => {
           ))}
         </ul>
 
-        <div>
+        <form onSubmit={onSubmitMessage}>
           <input 
             type="text" 
             placeholder="message text..." 
@@ -67,13 +70,10 @@ export const Chat = () => {
             }
           />
 
-          <button 
-            type="button" 
-            onClick={sendMessage}
-          >
-            send message
+          <button type="submit" disabled={!messageText}>
+            <PaperPlaneRight color='#FFF' weight='bold' size={18} />
           </button>
-        </div>
+        </form>
       </ChatBox>
     </Container>
   );
