@@ -4,6 +4,9 @@ import { DefaultEventsMap } from '@socket.io/component-emitter';
 import { useSearchParams } from 'react-router-dom';
 import { PaperPlaneRight } from 'phosphor-react';
 
+//constants
+import { constans } from '../../constants';
+
 //styles
 import { Container } from './styles';
 import { ProfileBar } from './components/ProfileBar/ProfileBar';
@@ -13,13 +16,14 @@ export const Chat = () => {
   const [searchParams] = useSearchParams();
   const username = searchParams.get('username');
   const profilePhotoURL = searchParams.get('profile_photo');
+  const { socketPort } = constans;
 
   const [socket, setSocket] = useState<Socket<DefaultEventsMap, DefaultEventsMap>>();
   const [messageText, setMessageText] = useState<string>('');
   const [messages, setMessages] = useState<Array<string>>([]);
 
   useEffect(() => {
-    const socket = io('http://localhost:3333');
+    const socket = io(socketPort);
 
     setSocket(socket);
 
@@ -30,7 +34,7 @@ export const Chat = () => {
     return () => {
       socket.disconnect();
     }
-  }, []);
+  }, [socketPort]);
 
   const onSubmitMessage = (event: FormEvent) => {
     event.preventDefault();
