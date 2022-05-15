@@ -35,6 +35,11 @@ export const Chat = () => {
   const onSubmitMessage = (event: FormEvent) => {
     event.preventDefault();
 
+    if (!messageText) {
+      alert('message field is required');
+      return;
+    }
+
     const newMessage = `${messageText} - ${username}`;
 
     socket?.emit('send_message', newMessage);
