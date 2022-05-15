@@ -12,6 +12,7 @@ export const Container = styled.main`
 
   div img {
     max-width: 6.25rem;
+    height: 6.25rem;
     width: 100%;
     border-radius: 100%;
     color: #fff;
