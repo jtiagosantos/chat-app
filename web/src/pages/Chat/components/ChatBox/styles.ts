@@ -11,6 +11,12 @@ export const Container = styled.section`
 
   border: 2px solid gray;
   border-radius: 8px;
+
+  ul {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 1rem;
+  }
   
   form {
     display: flex;
