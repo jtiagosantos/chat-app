@@ -3,31 +3,39 @@ import { io, Socket } from 'socket.io-client';
 import { DefaultEventsMap } from '@socket.io/component-emitter';
 import { useSearchParams } from 'react-router-dom';
 import { PaperPlaneRight } from 'phosphor-react';
+import { v4 as uuidv4 } from 'uuid';
+import dayjs from 'dayjs';
+
+//components
+import { ProfileBar } from './components/ProfileBar/ProfileBar';
+import { ChatBox } from './components/ChatBox/ChatBox';
+import { Message } from './components/Message/Message';
+
+//types
+import { MessageType } from '../../types/message';
 
 //constants
 import { constans } from '../../constants';
 
 //styles
 import { Container } from './styles';
-import { ProfileBar } from './components/ProfileBar/ProfileBar';
-import { ChatBox } from './components/ChatBox/ChatBox';
 
 export const Chat = () => {
   const [searchParams] = useSearchParams();
   const username = searchParams.get('username');
-  const profilePhotoURL = searchParams.get('profile_photo');
+  const profilePhotoUrl = searchParams.get('profile_photo');
   const { socketPort } = constans;
 
   const [socket, setSocket] = useState<Socket<DefaultEventsMap, DefaultEventsMap>>();
   const [messageText, setMessageText] = useState<string>('');
-  const [messages, setMessages] = useState<Array<string>>([]);
+  const [messages, setMessages] = useState<Array<MessageType>>([]);
 
   useEffect(() => {
     const socket = io(socketPort);
 
     setSocket(socket);
 
-    socket.on('previous_messages', (previousMessages: Array<string>) => {
+    socket.on('previous_messages', (previousMessages: Array<MessageType>) => {
       setMessages([...previousMessages.reverse()]);
     })
 
@@ -44,14 +52,22 @@ export const Chat = () => {
       return;
     }
 
-    const newMessage = `${messageText} - ${username}`;
+    const currentDateTime = dayjs().format('DD/MM/YYYY à[s] HH:mm');
+
+    const newMessage: MessageType = {
+      id: uuidv4(),
+      text: messageText,
+      author: username!,
+      createdAt: currentDateTime,
+      profilePhotoUrl: profilePhotoUrl!,
+    };
 
     socket?.emit('send_message', newMessage);
     setMessages([newMessage, ...messages]);
     setMessageText('');
   }
 
-  socket?.on('message_received', (message: string) => {
+  socket?.on('message_received', (message: MessageType) => {
     setMessages([message, ...messages]);
   });
 
@@ -59,13 +75,19 @@ export const Chat = () => {
     <Container>
       <ProfileBar 
         username={username!} 
-        profilePhotoURL={profilePhotoURL!} 
+        profilePhotoURL={profilePhotoUrl!} 
       />
 
       <ChatBox>
         <ul>
-          {messages.map((message, index) => (
-            <li key={index}>{message}</li>
+          {messages.map((message) => (
+            <Message 
+              key={message.id} 
+              text={message.text} 
+              username={message.author}
+              profilePhotoUrl={message.profilePhotoUrl}
+              dateTime={message.createdAt}
+            />
           ))}
         </ul>
 
