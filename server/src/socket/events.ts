@@ -1,6 +1,7 @@
 import { io } from './io';
+import { Message } from '../types/message';
 
-const messages: Array<string> = [];
+const messages: Array<Message> = [];
 
 export const socketEvents = () => {
   const events = io.on('connection', (socket) => {  
