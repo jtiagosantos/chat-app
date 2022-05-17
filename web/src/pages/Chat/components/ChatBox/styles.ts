@@ -13,9 +13,23 @@ export const Container = styled.section`
   border-radius: 8px;
 
   ul {
+    max-height: calc(100vh - 200px);
+    height: 100%;
+
     display: flex;
     flex-direction: column-reverse;
     gap: 1rem;
+
+    overflow-y: scroll;
+    
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 5px;
+    }
   }
   
   form {
