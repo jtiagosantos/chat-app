@@ -24,8 +24,8 @@ export const Chat = () => {
   const [searchParams] = useSearchParams();
   const username = searchParams.get('username');
   const profilePhotoUrl = searchParams.get('profile_photo');
-  const { SOCKET, EVENTS } = constants;
   const socketRef = useRef<Socket<DefaultEventsMap, DefaultEventsMap>>();
+  const { SOCKET, EVENTS } = constants;
 
   const [messageText, setMessageText] = useState<string>('');
   const [messages, setMessages] = useState<Array<MessageType>>([]);
