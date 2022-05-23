@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { DefaultEventsMap } from '@socket.io/component-emitter';
 import { useSearchParams } from 'react-router-dom';
@@ -25,23 +25,21 @@ export const Chat = () => {
   const username = searchParams.get('username');
   const profilePhotoUrl = searchParams.get('profile_photo');
   const { socketPort } = constans;
+  const socketRef = useRef<Socket<DefaultEventsMap, DefaultEventsMap>>();
 
-  const [socket, setSocket] = useState<Socket<DefaultEventsMap, DefaultEventsMap>>();
   const [messageText, setMessageText] = useState<string>('');
   const [messages, setMessages] = useState<Array<MessageType>>([]);
+  const [usersCount, setUsersCount] = useState<number>(0);
 
   useEffect(() => {
-    const socket = io(socketPort);
+    socketRef.current = io(socketPort);
 
-    setSocket(socket);
-
-    socket.on('previous_messages', (previousMessages: Array<MessageType>) => {
-      setMessages([...previousMessages.reverse()]);
-    })
-
-    return () => {
-      socket.disconnect();
-    }
+    socketRef.current.on('previous_messages', (previousMessages: Array<MessageType>) => {
+      setMessages(previousMessages.reverse());
+    });
+    socketRef.current.on('new_user_connected', (data: number) => {
+      setUsersCount(data)
+    });
   }, [socketPort]);
 
   const onSubmitMessage = (event: FormEvent) => {
@@ -62,14 +60,18 @@ export const Chat = () => {
       profilePhotoUrl: profilePhotoUrl!,
     };
 
-    socket?.emit('send_message', newMessage);
+    socketRef?.current?.emit('send_message', newMessage);
     setMessages([newMessage, ...messages]);
     setMessageText('');
   }
 
-  socket?.on('message_received', (message: MessageType) => {
+  socketRef?.current?.on('message_received', (message: MessageType) => {
     setMessages([message, ...messages]);
   });
+
+  socketRef?.current?.on('user_disconnected', (data: number) => {
+    setUsersCount(data);
+  })
 
   return (
     <Container>
