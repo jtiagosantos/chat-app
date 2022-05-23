@@ -15,7 +15,7 @@ import { Message } from './components/Message/Message';
 import { MessageType } from '../../types/message';
 
 //constants
-import { constans } from '../../constants';
+import { constants } from '../../constants';
 
 //styles
 import { Container } from './styles';
@@ -24,7 +24,7 @@ export const Chat = () => {
   const [searchParams] = useSearchParams();
   const username = searchParams.get('username');
   const profilePhotoUrl = searchParams.get('profile_photo');
-  const { socketPort } = constans;
+  const { SOCKET, EVENTS } = constants;
   const socketRef = useRef<Socket<DefaultEventsMap, DefaultEventsMap>>();
 
   const [messageText, setMessageText] = useState<string>('');
@@ -32,15 +32,19 @@ export const Chat = () => {
   const [quantityUsersOnline, setQuantityUsersOnline] = useState<number>(0);
 
   useEffect(() => {
-    socketRef.current = io(socketPort);
+    socketRef.current = io(SOCKET.PORT);
 
-    socketRef.current.on('previous_messages', (previousMessages: Array<MessageType>) => {
+    socketRef.current.on(EVENTS.PREVIOUS_MESSAGES, (previousMessages: Array<MessageType>) => {
       setMessages(previousMessages.reverse());
     });
-    socketRef.current.on('new_user_connected', (newQuantityUsersOnline: number) => {
+    socketRef.current.on(EVENTS.NEW_USER_CONNECTED, (newQuantityUsersOnline: number) => {
       setQuantityUsersOnline(newQuantityUsersOnline)
     });
-  }, [socketPort]);
+  }, [
+    SOCKET.PORT, 
+    EVENTS.PREVIOUS_MESSAGES, 
+    EVENTS.NEW_USER_CONNECTED
+  ]);
 
   const onSubmitMessage = (event: FormEvent) => {
     event.preventDefault();
@@ -60,16 +64,16 @@ export const Chat = () => {
       profilePhotoUrl: profilePhotoUrl!,
     };
 
-    socketRef?.current?.emit('send_message', newMessage);
+    socketRef?.current?.emit(EVENTS.SEND_MESSAGE, newMessage);
     setMessages([newMessage, ...messages]);
     setMessageText('');
   }
 
-  socketRef?.current?.on('message_received', (message: MessageType) => {
+  socketRef?.current?.on(EVENTS.MESSAGE_RECEIVED, (message: MessageType) => {
     setMessages([message, ...messages]);
   });
 
-  socketRef?.current?.on('user_disconnected', (newQuantityUsersOnline: number) => {
+  socketRef?.current?.on(EVENTS.USER_DISCONNECTED, (newQuantityUsersOnline: number) => {
     setQuantityUsersOnline(newQuantityUsersOnline);
   })
 

@@ -2,14 +2,14 @@ import { FormEvent, useState } from 'react';
 import { useNavigate, createSearchParams } from 'react-router-dom';
 
 //constants
-import { constans } from '../../constants';
+import { constants } from '../../constants';
 
 //styles
 import { Container } from './styles';
 
 export const Home = () => {
   const navigate = useNavigate();
-  const { defaultImageUrl } = constans;
+  const { USER_IMAGE } = constants;
 
   const [usernameInput, setUsernameInput] = useState<string>('');
   const [profilePhotoURLInput, setProfilePhotoURLInput] = useState<string>('');
@@ -43,7 +43,7 @@ export const Home = () => {
   return (
     <Container>
       <div>
-        <img src={profilePhotoURLInput || defaultImageUrl} alt="not found" />
+        <img src={profilePhotoURLInput || USER_IMAGE.DEFAULT} alt="not found" />
       </div>
 
       <form onSubmit={handleSubmitForm}>
