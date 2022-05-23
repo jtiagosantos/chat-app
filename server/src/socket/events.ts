@@ -1,21 +1,23 @@
+import { constants } from '../constants'
 import { io } from './io';
 import { Message } from '../types/message';
 
+const { EVENTS } = constants;
 const messages: Array<Message> = [];
 let usersCount = 0;
 
 export const socketEvents = () => {
   const events = io.on('connection', (socket) => {
-    io.emit('new_user_connected', usersCount += 1);
-    io.emit('previous_messages', messages);
+    io.emit(EVENTS.NEW_USER_CONNECTED, usersCount += 1);
+    io.emit(EVENTS.PREVIOUS_MESSAGES, messages);
   
-    socket.on('send_message', (message) => {
+    socket.on(EVENTS.SEND_MESSAGE, (message) => {
       messages.push(message);
-      socket.broadcast.emit('message_received', message);
+      socket.broadcast.emit(EVENTS.MESSAGE_RECEIVED, message);
     });
 
     socket.on('disconnect', () => {
-      io.emit('user_disconnected', usersCount -= 1);
+      io.emit(EVENTS.USER_DISCONNECTED, usersCount -= 1);
     })
   });
 
