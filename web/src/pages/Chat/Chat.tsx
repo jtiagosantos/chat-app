@@ -29,7 +29,7 @@ export const Chat = () => {
 
   const [messageText, setMessageText] = useState<string>('');
   const [messages, setMessages] = useState<Array<MessageType>>([]);
-  const [usersCount, setUsersCount] = useState<number>(0);
+  const [quantityUsersOnline, setQuantityUsersOnline] = useState<number>(0);
 
   useEffect(() => {
     socketRef.current = io(socketPort);
@@ -38,7 +38,7 @@ export const Chat = () => {
       setMessages(previousMessages.reverse());
     });
     socketRef.current.on('new_user_connected', (data: number) => {
-      setUsersCount(data)
+      setQuantityUsersOnline(data)
     });
   }, [socketPort]);
 
@@ -70,7 +70,7 @@ export const Chat = () => {
   });
 
   socketRef?.current?.on('user_disconnected', (data: number) => {
-    setUsersCount(data);
+    setQuantityUsersOnline(data);
   })
 
   return (
@@ -78,6 +78,7 @@ export const Chat = () => {
       <ProfileBar 
         username={username!} 
         profilePhotoURL={profilePhotoUrl!} 
+        quantityUsersOnline={quantityUsersOnline}
       />
 
       <ChatBox>
