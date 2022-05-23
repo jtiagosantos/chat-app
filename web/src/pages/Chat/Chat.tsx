@@ -37,8 +37,8 @@ export const Chat = () => {
     socketRef.current.on('previous_messages', (previousMessages: Array<MessageType>) => {
       setMessages(previousMessages.reverse());
     });
-    socketRef.current.on('new_user_connected', (data: number) => {
-      setQuantityUsersOnline(data)
+    socketRef.current.on('new_user_connected', (newQuantityUsersOnline: number) => {
+      setQuantityUsersOnline(newQuantityUsersOnline)
     });
   }, [socketPort]);
 
@@ -69,8 +69,8 @@ export const Chat = () => {
     setMessages([message, ...messages]);
   });
 
-  socketRef?.current?.on('user_disconnected', (data: number) => {
-    setQuantityUsersOnline(data);
+  socketRef?.current?.on('user_disconnected', (newQuantityUsersOnline: number) => {
+    setQuantityUsersOnline(newQuantityUsersOnline);
   })
 
   return (
