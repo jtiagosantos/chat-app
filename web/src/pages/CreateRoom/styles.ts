@@ -36,5 +36,12 @@ export const Container = styled.main`
         color: #A1A1AA;
       }
     }
+
+    button {
+      &:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+    }
   }
 `;
