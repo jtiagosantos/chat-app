@@ -1,0 +1,15 @@
+import styled from 'styled-components';
+
+export const Container = styled.div`
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  top: 0;
+  
+  background: rgba(23, 23, 23, 0.7);
+`;
