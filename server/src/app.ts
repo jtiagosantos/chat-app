@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors'
 import { constants } from './constants';
 import { server } from './http/server';
 import { socketEvents } from './socket/events';
@@ -8,6 +9,7 @@ import { routes } from './routes';
 const { PORT } = constants;
 
 socketEvents();
+app.use(cors());
 app.use(express.json());
 app.use(routes);
 
