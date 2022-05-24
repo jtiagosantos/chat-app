@@ -1,5 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
+//components
+import { Button } from '../../components/Button/Button';
+
 //styles
 import { Container } from './styles';
 
@@ -16,18 +19,18 @@ export const Home = () => {
 
   return (
     <Container>
-      <button 
+      <Button 
         type="button" 
         onClick={navigateToCreateRoomPage}
       >
         Create a Room
-      </button>
-      <button 
+      </Button>
+      <Button 
         type="button" 
         onClick={navigateToEnterRoomPage}
       >
         Enter a Room
-      </button>
+      </Button>
     </Container>
   );
 }
