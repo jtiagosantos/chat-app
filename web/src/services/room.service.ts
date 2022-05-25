@@ -17,4 +17,19 @@ export class RoomService {
       }
     }
   }
+
+  static async findUniqueRoomByCode(roomCode: string): Promise<Dto<RoomDto>> {
+    try {
+      const { data } = await api.get(`/room/read/${roomCode}`);
+
+      return data;
+    } catch (error: any) {
+      const { data } = error.response;
+
+      return {
+        data: null,
+        error: data.error,
+      }
+    }
+  }
 }
