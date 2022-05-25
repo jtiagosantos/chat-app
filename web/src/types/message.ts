@@ -3,5 +3,6 @@ export interface MessageType {
   text: string;
   author: string;
   profilePhotoUrl: string;
+  roomCode: string;
   createdAt: string;
 }
