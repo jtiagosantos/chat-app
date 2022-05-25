@@ -24,6 +24,7 @@ export const Chat = () => {
   const [searchParams] = useSearchParams();
   const username = searchParams.get('username');
   const profilePhotoUrl = searchParams.get('profile_photo');
+  const roomCode = searchParams.get('room_code');
   const socketRef = useRef<Socket<DefaultEventsMap, DefaultEventsMap>>();
   const { SOCKET, EVENTS } = constants;
 
@@ -32,7 +33,11 @@ export const Chat = () => {
   const [quantityUsersOnline, setQuantityUsersOnline] = useState<number>(0);
 
   useEffect(() => {
-    socketRef.current = io(SOCKET.PORT);
+    socketRef.current = io(SOCKET.PORT, {
+      query: {
+        roomCode,
+      }
+    });
 
     socketRef.current.on(EVENTS.PREVIOUS_MESSAGES, (previousMessages: Array<MessageType>) => {
       setMessages(previousMessages.reverse());
@@ -41,9 +46,10 @@ export const Chat = () => {
       setQuantityUsersOnline(newQuantityUsersOnline)
     });
   }, [
+    roomCode,
     SOCKET.PORT, 
     EVENTS.PREVIOUS_MESSAGES, 
-    EVENTS.NEW_USER_CONNECTED
+    EVENTS.NEW_USER_CONNECTED,
   ]);
 
   const onSubmitMessage = (event: FormEvent) => {
@@ -61,6 +67,7 @@ export const Chat = () => {
       text: messageText,
       author: username!,
       createdAt: currentDateTime,
+      roomCode: roomCode!,
       profilePhotoUrl: profilePhotoUrl!,
     };
 
