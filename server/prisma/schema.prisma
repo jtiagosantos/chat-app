@@ -11,5 +11,15 @@ model Room {
   id          Int        @id @default(autoincrement())
   name        String
   code        String     @unique
+  messages    Message[]
   createdAt   DateTime   @default(now())
+}
+
+model Message {
+  id                 Int       @id @default(autoincrement())
+  text               String
+  author             String
+  profilePhotoUrl    String
+  room               Room @relation(fields: [roomCode], references: [code])
+  roomCode           String    
 }
