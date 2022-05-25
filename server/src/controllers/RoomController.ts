@@ -30,7 +30,16 @@ export class RoomController {
 
       const room = await RoomRepository.read(code);
 
-      res.status(202).json({ data: room });
+      if (!room) {
+        res.status(404).json({
+          data: null,
+          error: 'Does not exist a room with this code',
+        });
+
+        return;
+      }
+
+      res.status(200).json({ data: room });
     } catch (error: any) {
       res.status(500).json({
         data: null,
