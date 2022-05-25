@@ -2,6 +2,9 @@ import { FormEvent, useState } from 'react';
 import { useNavigate, createSearchParams } from 'react-router-dom';
 import { Button } from '../../components/Button/Button';
 
+//api services
+import { RoomService } from '../../services/room.service';
+
 //constants
 import { constants } from '../../constants';
 
@@ -22,11 +25,12 @@ export const EnterRoom = () => {
       search: createSearchParams({
         username: usernameInput,
         profile_photo: profilePhotoURLInput,
+        room_code: roomCode,
       }).toString(),
     })
   }
 
-  const handleSubmitForm = (event: FormEvent) => {
+  const handleSubmitForm = async (event: FormEvent) => {
     event.preventDefault();
 
     if (!usernameInput) {
@@ -41,6 +45,13 @@ export const EnterRoom = () => {
 
     if (!roomCode) {
       alert('room code is required');
+      return;
+    }
+
+    const { data, error } = await RoomService.findUniqueRoomByCode(roomCode);
+
+    if (!data) {
+      alert(error);
       return;
     }
 
@@ -78,7 +89,7 @@ export const EnterRoom = () => {
             ({ target }) => setRoomCode(target.value)
           }
         />
-        <Button type="submit">Enter on chat</Button>
+        <Button type="submit">Enter Room</Button>
       </form>
     </Container>
   );
