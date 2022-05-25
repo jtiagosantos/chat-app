@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { constants } from '../constants';
 
-const { SOCKET } = constants;
+const { SERVER } = constants;
 
 export const api = axios.create({
-  baseURL: SOCKET.PORT,
+  baseURL: SERVER.URL,
 });

@@ -26,14 +26,14 @@ export const Chat = () => {
   const profilePhotoUrl = searchParams.get('profile_photo');
   const roomCode = searchParams.get('room_code');
   const socketRef = useRef<Socket<DefaultEventsMap, DefaultEventsMap>>();
-  const { SOCKET, EVENTS } = constants;
+  const { SERVER, EVENTS } = constants;
 
   const [messageText, setMessageText] = useState<string>('');
   const [messages, setMessages] = useState<Array<MessageType>>([]);
   const [quantityUsersOnline, setQuantityUsersOnline] = useState<number>(0);
 
   useEffect(() => {
-    socketRef.current = io(SOCKET.PORT, {
+    socketRef.current = io(SERVER.URL, {
       query: {
         roomCode,
       }
@@ -47,7 +47,7 @@ export const Chat = () => {
     });
   }, [
     roomCode,
-    SOCKET.PORT, 
+    SERVER.URL, 
     EVENTS.PREVIOUS_MESSAGES, 
     EVENTS.NEW_USER_CONNECTED,
   ]);

@@ -1,6 +1,6 @@
 export const constants = {
-  SOCKET: {
-    PORT: 'http://localhost:3333', 
+  SERVER: {
+    URL: process.env.REACT_APP_SERVER_URL!, 
   },
   EVENTS: {
     NEW_USER_CONNECTED: 'new_user_connected',
