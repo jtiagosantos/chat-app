@@ -22,4 +22,5 @@ model Message {
   profilePhotoUrl    String
   room               Room @relation(fields: [roomCode], references: [code])
   roomCode           String    
+  createdAt          DateTime   @default(now())
 }
