@@ -1,8 +1,8 @@
-export interface MessageType {
-  id: string;
+export interface Message {
+  id?: number;
   text: string;
   author: string;
   profilePhotoUrl: string;
   roomCode: string;
-  createdAt: string;
+  createdAt: Date;
 }
