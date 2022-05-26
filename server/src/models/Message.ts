@@ -5,5 +5,6 @@ export class MessageDto {
     public author: string,
     public profilePhotoUrl: string,
     public roomCode: string,
+    public createdAt: Date,
   ) {}
 }
