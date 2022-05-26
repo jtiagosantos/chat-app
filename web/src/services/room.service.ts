@@ -11,9 +11,11 @@ export class RoomService {
 
       return data;
     } catch (error: any) {
+      const { data } = error.response;
+
       return {
         data: null,
-        error: error.message,
+        error: data.error,
       }
     }
   }
