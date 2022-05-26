@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import dayjs from 'dayjs';
 
 //styles
 import { Container } from './styles';
@@ -7,7 +8,7 @@ interface MessageProps {
   text: string;
   username: string;
   profilePhotoUrl: string;
-  dateTime: string;
+  dateTime: Date;
 }
 
 export const Message: FC<MessageProps> = ({ 
@@ -16,12 +17,14 @@ export const Message: FC<MessageProps> = ({
   profilePhotoUrl, 
   dateTime 
 }) => {
+  const formattedDatetime = dayjs(dateTime).format('DD/MM/YYYY à[s] HH:mm');
+
   return (
     <Container>
       <div>
         <img src={profilePhotoUrl} alt={username} />
         <span>{username}</span>
-        <span>{dateTime}</span>
+        <span>{formattedDatetime}</span>
       </div>
       <div>
         <p>{text}</p>
