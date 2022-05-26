@@ -3,16 +3,17 @@ import { io, Socket } from 'socket.io-client';
 import { DefaultEventsMap } from '@socket.io/component-emitter';
 import { useSearchParams } from 'react-router-dom';
 import { PaperPlaneRight } from 'phosphor-react';
-import { v4 as uuidv4 } from 'uuid';
-import dayjs from 'dayjs';
 
 //components
 import { ProfileBar } from './components/ProfileBar/ProfileBar';
 import { ChatBox } from './components/ChatBox/ChatBox';
 import { Message } from './components/Message/Message';
 
+//api services
+import { MessageService } from '../../services/message.service';
+
 //types
-import { MessageType } from '../../types/message';
+import { Message as IMessage } from '../../types/message';
 
 //constants
 import { constants } from '../../constants';
@@ -29,7 +30,7 @@ export const Chat = () => {
   const { SERVER, EVENTS } = constants;
 
   const [messageText, setMessageText] = useState<string>('');
-  const [messages, setMessages] = useState<Array<MessageType>>([]);
+  const [messages, setMessages] = useState<Array<IMessage>>([]);
   const [quantityUsersOnline, setQuantityUsersOnline] = useState<number>(0);
 
   useEffect(() => {
@@ -39,7 +40,7 @@ export const Chat = () => {
       }
     });
 
-    socketRef.current.on(EVENTS.PREVIOUS_MESSAGES, (previousMessages: Array<MessageType>) => {
+    socketRef.current.on(EVENTS.PREVIOUS_MESSAGES, (previousMessages: Array<IMessage>) => {
       setMessages(previousMessages.reverse());
     });
     socketRef.current.on(EVENTS.NEW_USER_CONNECTED, (newQuantityUsersOnline: number) => {
@@ -52,7 +53,7 @@ export const Chat = () => {
     EVENTS.NEW_USER_CONNECTED,
   ]);
 
-  const onSubmitMessage = (event: FormEvent) => {
+  const onSubmitMessage = async (event: FormEvent) => {
     event.preventDefault();
 
     if (!messageText) {
@@ -60,23 +61,26 @@ export const Chat = () => {
       return;
     }
 
-    const currentDateTime = dayjs().format('DD/MM/YYYY à[s] HH:mm');
-
-    const newMessage: MessageType = {
-      id: uuidv4(),
+    const message = {
       text: messageText,
       author: username!,
-      createdAt: currentDateTime,
       roomCode: roomCode!,
       profilePhotoUrl: profilePhotoUrl!,
     };
 
-    socketRef?.current?.emit(EVENTS.SEND_MESSAGE, newMessage);
-    setMessages([newMessage, ...messages]);
+    const { data, error } = await MessageService.createMessage(message);
+
+    if (!data) {
+      alert(error);
+      return;
+    }
+
+    socketRef?.current?.emit(EVENTS.SEND_MESSAGE, data);
+    setMessages([data, ...messages]);
     setMessageText('');
   }
 
-  socketRef?.current?.on(EVENTS.MESSAGE_RECEIVED, (message: MessageType) => {
+  socketRef?.current?.on(EVENTS.MESSAGE_RECEIVED, (message: IMessage) => {
     setMessages([message, ...messages]);
   });
 
