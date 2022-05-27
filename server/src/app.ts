@@ -10,6 +10,7 @@ import { messageRoutes } from './routes/message.routes';
 const { PORT } = constants;
 
 socketEvents();
+
 app.use(cors());
 app.use(express.json());
 app.use(roomRoutes);

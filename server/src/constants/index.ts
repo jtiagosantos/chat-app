@@ -1,5 +1,5 @@
 export const constants = {
-  PORT: 3333,
+  PORT: process.env.PORT || 3333,
   EVENTS: {
     NEW_USER_CONNECTED: 'new_user_connected',
     SEND_MESSAGE: 'send_message',
