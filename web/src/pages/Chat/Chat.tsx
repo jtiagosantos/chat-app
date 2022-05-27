@@ -39,10 +39,15 @@ export const Chat = () => {
         roomCode,
       }
     });
-    
+
     socketRef.current.on(EVENTS.NEW_USER_CONNECTED, (newQuantityUsersOnline: number) => {
       setQuantityUsersOnline(newQuantityUsersOnline)
     });
+
+    return () => {
+      socketRef.current?.disconnect();
+    }
+
   }, [
     roomCode,
     SERVER.URL, 
