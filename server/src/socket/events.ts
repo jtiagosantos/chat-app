@@ -15,7 +15,6 @@ export const socketEvents = () => {
     socket.join(roomCode);
 
     io.to(roomCode).emit(EVENTS.NEW_USER_CONNECTED, onlineUsers?.size ?? 1);
-    io.to(roomCode).emit(EVENTS.PREVIOUS_MESSAGES, messagesByRoom);
   
     socket.on(EVENTS.SEND_MESSAGE, (message) => {
       messages.push(message);

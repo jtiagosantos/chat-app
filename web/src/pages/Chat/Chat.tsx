@@ -50,8 +50,7 @@ export const Chat = () => {
 
   }, [
     roomCode,
-    SERVER.URL, 
-    EVENTS.PREVIOUS_MESSAGES, 
+    SERVER.URL,  
     EVENTS.NEW_USER_CONNECTED,
   ]);
 

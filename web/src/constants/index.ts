@@ -4,7 +4,6 @@ export const constants = {
   },
   EVENTS: {
     NEW_USER_CONNECTED: 'new_user_connected',
-    PREVIOUS_MESSAGES: 'previous_messages',
     SEND_MESSAGE: 'send_message',
     MESSAGE_RECEIVED: 'message_received',
     USER_DISCONNECTED: 'user_disconnected',
