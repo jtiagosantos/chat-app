@@ -39,10 +39,7 @@ export const Chat = () => {
         roomCode,
       }
     });
-
-    socketRef.current.on(EVENTS.PREVIOUS_MESSAGES, (previousMessages: Array<IMessage>) => {
-      setMessages(previousMessages.reverse());
-    });
+    
     socketRef.current.on(EVENTS.NEW_USER_CONNECTED, (newQuantityUsersOnline: number) => {
       setQuantityUsersOnline(newQuantityUsersOnline)
     });
@@ -52,6 +49,20 @@ export const Chat = () => {
     EVENTS.PREVIOUS_MESSAGES, 
     EVENTS.NEW_USER_CONNECTED,
   ]);
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      const { data, error } = await MessageService.findMessagesByRoomCode(roomCode!);
+
+      if (!data) {
+        alert(error);
+      } else {
+        setMessages(data);
+      }
+    }
+
+    fetchMessages();
+  }, [roomCode]);
 
   const onSubmitMessage = async (event: FormEvent) => {
     event.preventDefault();
