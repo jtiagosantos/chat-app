@@ -61,7 +61,7 @@ export const Chat = () => {
       if (!data) {
         alert(error);
       } else {
-        setMessages(data);
+        setMessages(data.reverse());
       }
     }
 
