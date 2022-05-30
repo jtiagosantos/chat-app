@@ -8,6 +8,7 @@ import { PaperPlaneRight } from 'phosphor-react';
 import { ProfileBar } from './components/ProfileBar/ProfileBar';
 import { ChatBox } from './components/ChatBox/ChatBox';
 import { Message } from './components/Message/Message';
+import { UserDialog } from './components/UserDialog/UserDialog';
 
 //api services
 import { MessageService } from '../../services/message.service';
@@ -139,6 +140,8 @@ export const Chat = () => {
           </button>
         </form>
       </ChatBox>
+
+      <UserDialog />
     </Container>
   );
 }
