@@ -4,7 +4,7 @@ import { X } from 'phosphor-react';
 import { useUserDialog } from '../../../../hooks/useUserDialog';
 
 //styles
-import { Container } from './styles';
+import { Container, ProfileImage } from './styles';
 
 export const UserDialog = () => {
   const { user, onCloseDialog, isOpenDialog } = useUserDialog();
@@ -22,7 +22,9 @@ export const UserDialog = () => {
             onClick={onCloseDialog} 
           />
         </div>
-        <img src={profileImage} alt={name} />
+        <ProfileImage>
+          <img src={profileImage} alt={name} />
+        </ProfileImage>
         <h1>{name}</h1>
       </Container>
     );
