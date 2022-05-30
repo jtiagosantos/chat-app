@@ -16,6 +16,7 @@ export const Container = styled.li`
       height: 25px;
       width: 100%;
       border-radius: 100%;
+      cursor: pointer;
     }
 
     span {
