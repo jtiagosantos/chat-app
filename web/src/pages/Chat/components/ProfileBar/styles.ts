@@ -13,6 +13,12 @@ export const Container = styled.section`
     align-items: center;
     gap: 0.8rem;
 
+    img {
+      max-width: 2rem;
+      width: 100%;
+      border-radius: 100%;
+    }
+
     &:last-of-type {
       span {
         display: inline-block;

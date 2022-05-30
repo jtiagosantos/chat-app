@@ -6,11 +6,7 @@ export const Container = styled.main`
   margin: 0 auto;
   padding: 2rem 0 1rem;
 
-  img {
-    max-width: 2rem;
-    width: 100%;
-    border-radius: 100%;
-  }
+  position: relative;
 
   h2 {
     font-size: 1rem;
