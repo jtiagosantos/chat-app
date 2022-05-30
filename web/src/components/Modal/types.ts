@@ -1,10 +1,8 @@
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 
 export interface ModalHandler {
   open: () => void;
   close: () => void;
 }
 
-export interface ModalProps {
-  children: ReactNode;
-}
+export type ModalProps = PropsWithChildren<unknown>;

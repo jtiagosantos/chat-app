@@ -1,15 +1,11 @@
 import { FC } from 'react';
 import dayjs from 'dayjs';
 
+//types
+import { MessageProps } from './types';
+
 //styles
 import { Container } from './styles';
-
-interface MessageProps {
-  text: string;
-  username: string;
-  profilePhotoUrl: string;
-  dateTime: Date;
-}
 
 export const Message: FC<MessageProps> = ({ 
   text, 

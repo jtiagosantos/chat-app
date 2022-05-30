@@ -1,13 +1,10 @@
 import { FC } from 'react';
 
+//types
+import { ProfileBarProps } from './types';
+
 //styles
 import { Container } from './styles';
-
-interface ProfileBarProps {
-  username: string;
-  profilePhotoURL: string;
-  quantityUsersOnline: number;
-}
 
 export const ProfileBar: FC<ProfileBarProps> = ({ 
   username, 
