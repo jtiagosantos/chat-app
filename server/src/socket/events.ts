@@ -4,12 +4,10 @@ import { Message } from '../types/message';
 import { getOnlineUsers } from '../utils/getOnlineUsers';
 
 const { EVENTS } = constants;
-const messages: Array<Message> = [];
 
 export const socketEvents = () => {
   const events = io.on('connection', (socket) => {
     const roomCode = socket.handshake.query.roomCode as string;
-    const messagesByRoom = messages.filter((message) => message.roomCode === roomCode);
     let onlineUsers = getOnlineUsers(roomCode);
 
     socket.join(roomCode);
@@ -17,7 +15,6 @@ export const socketEvents = () => {
     io.to(roomCode).emit(EVENTS.NEW_USER_CONNECTED, onlineUsers?.size ?? 1);
   
     socket.on(EVENTS.SEND_MESSAGE, (message) => {
-      messages.push(message);
       socket.broadcast.to(roomCode).emit(EVENTS.MESSAGE_RECEIVED, message);
     });
 
