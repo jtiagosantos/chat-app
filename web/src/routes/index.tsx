@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes as Router, Route } from "react-router-dom";
 
+import { UserDialogContextProvider } from '../contexts/userDialog';
+
 //pages
 import { Home } from "../pages/Home/Home";
 import { Chat } from "../pages/Chat/Chat";
@@ -13,7 +15,11 @@ export const Routes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/room/enter" element={<EnterRoom />} />
         <Route path="/room/create" element={<CreateRoom />} />
-        <Route path="/chat" element={<Chat />} />
+        <Route path="/chat" element={
+          <UserDialogContextProvider>
+            <Chat />
+          </UserDialogContextProvider>
+        } />
       </Router>
     </BrowserRouter>
   );
