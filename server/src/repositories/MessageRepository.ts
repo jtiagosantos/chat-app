@@ -6,9 +6,8 @@ export class MessageRepository {
     const message = await prisma.message.create({
       data: {
         text: data.text,
-        author: data.author,
-        profilePhotoUrl: data.profilePhotoUrl,
         roomCode: data.roomCode,
+        userId: data.userId,
       }
     });
 
@@ -19,6 +18,14 @@ export class MessageRepository {
     const messages = await prisma.message.findMany({
       where: {
         roomCode,
+      },
+      include: {
+        user: {
+          select: {
+            username: true,
+            profileImage: true,
+          }
+        }
       }
     });
 
