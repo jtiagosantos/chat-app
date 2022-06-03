@@ -89,7 +89,13 @@ export const EnterRoom = () => {
             ({ target }) => setRoomCode(target.value)
           }
         />
-        <Button type="submit">Enter Room</Button>
+        <Button 
+          type="submit"
+          width="100%"
+          height="3rem"
+        >
+          Enter Room
+        </Button>
       </form>
     </Container>
   );

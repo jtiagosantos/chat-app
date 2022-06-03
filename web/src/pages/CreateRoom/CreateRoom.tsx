@@ -74,9 +74,11 @@ export const CreateRoom = () => {
           />
           <Button 
             type="submit"
-            disabled={isCreatingRoom}
+            width="18.75rem"
+            height="3rem"
+            loading={isCreatingRoom}
           >
-            {isCreatingRoom ? 'Creating room...' : 'Create room'}
+            Create room
           </Button>
         </form>
       </Container>

@@ -21,12 +21,16 @@ export const Home = () => {
     <Container>
       <Button 
         type="button" 
+        width="18.75rem"
+        height="3rem"
         onClick={navigateToCreateRoomPage}
       >
         Create a Room
       </Button>
       <Button 
         type="button" 
+        width="18.75rem"
+        height="3rem"
         onClick={navigateToEnterRoomPage}
       >
         Enter a Room

@@ -33,14 +33,4 @@ export const Container = styled.main`
     font-size: 1.3rem;
     text-align: center;
   }
-
-  button {
-    margin-top: 1rem;
-    max-width: 100%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-  }
 `;

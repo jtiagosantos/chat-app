@@ -36,8 +36,14 @@ export const RoomCodeModalContents: FC<RoomCodeModalProps> = ({
     <Container>
       <h2>Your room code</h2>
       <input type="text" defaultValue={roomCode} readOnly />
-      <Button onClick={handleCloseModal}>
-        <Copy size={20} weight="bold" />
+      <Button 
+        type="button"
+        width="100%"
+        height="3rem"
+        marginTop="1rem"
+        icon={<Copy size={20} weight="bold" />}
+        onClick={handleCloseModal}
+      >
         Copy to clipboard
       </Button>
     </Container>
