@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import validator from 'validator';
+import jwt from 'jsonwebtoken';
 import { UserRepository } from '../repositories/UserRepository';
 
 export class UserController {
@@ -97,9 +98,15 @@ export class UserController {
         return;
       }
 
+      const jwtSecretKey = process.env.JWT_SECRET_KEY!;
+
+      const token = jwt.sign({ userId: user.id }, jwtSecretKey, { expiresIn: '30000' });
+
       delete user.password;
+
+      const data = { ...user, token };
       
-      res.status(200).json({ data: user });
+      res.status(200).json({ data });
     } catch (error: any) {
       res.status(500).json({
         data: null,
