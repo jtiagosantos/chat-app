@@ -1,11 +1,23 @@
 import { Request, Response } from 'express';
-import { UserRepository } from '../repositories/UserRepository';
 import bcrypt from 'bcrypt';
+import validator from 'validator';
+import { UserRepository } from '../repositories/UserRepository';
 
 export class UserController {
   static async signUp(req: Request, res: Response) {
     try {
       const { body } = req;
+
+      const isValidEmail = validator.isEmail(body.email);
+
+      if (!isValidEmail) {
+        res.status(400).json({
+          data: null,
+          error: 'The email provided is invalid',
+        });
+
+        return;
+      }
 
       const userAlreadyExists = await UserRepository.read(body.email);
 
