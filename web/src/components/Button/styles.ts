@@ -1,19 +1,36 @@
 import styled from "styled-components";
+import { ContainerProps } from './types';
 
-export const Container = styled.button`
-  max-width: 18.75rem;
+export const Container = styled.button<ContainerProps>`
+  max-width: ${({ styles }) => styles.width};
+  height: ${({ styles }) => styles.height};
   width: 100%;
-  height: 3rem;
-  margin-top: 0.5rem;
 
-  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  margin: ${({ styles }) => styles.margin || 0};
+  margin-top: ${({ styles }) => styles.marginTop || 0};
+  margin-bottom: ${({ styles }) => styles.marginBottom || 0};
+  margin-right: ${({ styles }) => styles.marginRight || 0};
+  margin-left: ${({ styles }) => styles.marginLeft || 0};
+
   background-color: #8257E5;
-  color: #fff;
+  border-radius: 8px;
+
   font-size: 1rem;
+  color: #fff;
 
   transition: filter 0.2ms;
 
   &:hover {
     filter: brightness(0.9);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
   }
 `;
