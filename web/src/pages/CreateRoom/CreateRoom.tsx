@@ -6,6 +6,7 @@ import { Modal } from '../../components/Modal/Modal';
 import { 
   RoomCodeModalContents 
 } from './components/RoomCodeModalContents/RoomCodeModalContents';
+import { Form } from '../../components/Form';
 
 //api services
 import { RoomService } from '../../services/room.service';
@@ -63,7 +64,10 @@ export const CreateRoom = () => {
   return (
     <>
       <Container>
-        <form onSubmit={handleCreateNewRoom}>
+        <Form 
+          width="18.75rem"
+          onSubmit={handleCreateNewRoom}
+        >
           <input 
             type="text" 
             placeholder="Insert the room name" 
@@ -80,7 +84,7 @@ export const CreateRoom = () => {
           >
             Create room
           </Button>
-        </form>
+        </Form>
       </Container>
 
       <Modal ref={modalRef}>

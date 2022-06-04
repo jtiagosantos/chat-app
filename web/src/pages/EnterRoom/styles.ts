@@ -19,15 +19,6 @@ export const Container = styled.main`
   }
 
   form {
-    max-width: 18.75rem;
-    width: 100%;
-    margin-top: 20px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-
     input {
       width: 100%;
       height: 2.5rem;

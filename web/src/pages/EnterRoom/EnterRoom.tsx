@@ -1,6 +1,9 @@
 import { FormEvent, useState } from 'react';
 import { useNavigate, createSearchParams } from 'react-router-dom';
+
+//components
 import { Button } from '../../components/Button/Button';
+import { Form } from '../../components/Form';
 
 //api services
 import { RoomService } from '../../services/room.service';
@@ -64,7 +67,11 @@ export const EnterRoom = () => {
         <img src={profilePhotoURLInput || USER_IMAGE.DEFAULT} alt="not found" />
       </div>
 
-      <form onSubmit={handleSubmitForm}>
+      <Form 
+        width="18.75rem"
+        marginTop="20px"
+        onSubmit={handleSubmitForm}
+      >
         <input 
           type="text" 
           placeholder="Insert your username" 
@@ -96,7 +103,7 @@ export const EnterRoom = () => {
         >
           Enter Room
         </Button>
-      </form>
+      </Form>
     </Container>
   );
 }
