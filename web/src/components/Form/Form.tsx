@@ -18,6 +18,7 @@ export const Form: FC<FormProps> = ({ children, ...rest }) => {
     paddingBottom: rest.paddingBottom,
     paddingRight: rest.paddingRight,
     paddingLeft: rest.paddingLeft,
+    padding: rest.padding, 
   };
 
   return (

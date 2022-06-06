@@ -16,7 +16,7 @@ export const Container = styled.form<ContainerProps>`
   margin-right: ${({ styles }) => styles.marginRight || 0};
   margin-left: ${({ styles }) => styles.marginLeft || 0};
 
-  padding: ${({ styles }) => styles.padding || 0};
+  padding: ${({ styles }) => styles.padding || 0} !important;
   padding-top: ${({ styles }) => styles.paddingTop || 0};
   padding-bottom: ${({ styles }) => styles.paddingBottom || 0};
   padding-right: ${({ styles }) => styles.paddingRight || 0};
