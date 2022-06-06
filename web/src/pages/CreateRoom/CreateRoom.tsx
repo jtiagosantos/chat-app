@@ -7,6 +7,7 @@ import {
   RoomCodeModalContents 
 } from './components/RoomCodeModalContents/RoomCodeModalContents';
 import { Form } from '../../components/Form/Form';
+import { Input } from '../../components/Input/Input';
 
 //api services
 import { RoomService } from '../../services/room.service';
@@ -68,8 +69,14 @@ export const CreateRoom = () => {
           width="18.75rem"
           onSubmit={handleCreateNewRoom}
         >
-          <input 
+          <Input 
             type="text" 
+            width="100%"
+            height="2.5rem"
+            fontSize="0.875rem"
+            textColor="#A1A1AA"
+            placeholderColor="#A1A1AA"
+            padding="0.5rem 0.625rem"
             placeholder="Insert the room name" 
             value={roomName}
             onChange={

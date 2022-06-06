@@ -4,6 +4,7 @@ import { useNavigate, createSearchParams } from 'react-router-dom';
 //components
 import { Button } from '../../components/Button/Button';
 import { Form } from '../../components/Form/Form';
+import { Input } from '../../components/Input/Input';
 
 //api services
 import { RoomService } from '../../services/room.service';
@@ -72,24 +73,42 @@ export const EnterRoom = () => {
         marginTop="20px"
         onSubmit={handleSubmitForm}
       >
-        <input 
+        <Input 
           type="text" 
+          width="100%"
+          height="2.5rem"
+          fontSize="0.875rem"
+          textColor="#A1A1AA"
+          placeholderColor="#A1A1AA"
+          padding="0.5rem 0.625rem"
           placeholder="Insert your username" 
           value={usernameInput}
           onChange={
             ({ target }) => setUsernameInput(target.value)
           }
         />
-        <input 
+        <Input 
           type="text" 
+          width="100%"
+          height="2.5rem"
+          fontSize="0.875rem"
+          textColor="#A1A1AA"
+          placeholderColor="#A1A1AA"
+          padding="0.5rem 0.625rem" 
           placeholder="Insert your profile photo URL" 
           value={profilePhotoURLInput}
           onChange={
             ({ target }) => setProfilePhotoURLInput(target.value)
           }
         />
-        <input 
+        <Input 
           type="text" 
+          width="100%"
+          height="2.5rem"
+          fontSize="0.875rem"
+          textColor="#A1A1AA"
+          placeholderColor="#A1A1AA"
+          padding="0.5rem 0.625rem" 
           placeholder="Insert the room code" 
           value={roomCode}
           onChange={

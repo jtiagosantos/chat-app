@@ -9,23 +9,4 @@ export const Container = styled.main`
   align-items: center;
   justify-content: center;
   gap: 1.2rem;
-
-  form {
-    input {
-      width: 100%;
-      height: 2.5rem;
-      padding: 0.5rem 0.625rem;
-
-      border: 1px solid gray;
-      border-radius: 8px;
-      background-color: #52525B;
-
-      color: #A1A1AA;
-      font-size: 0.875rem;
-
-      &::placeholder {
-        color: #A1A1AA;
-      }
-    }
-  }
 `;
