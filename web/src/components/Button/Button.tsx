@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 //components
-import { SpinnerLoading } from '../SpinnerLoading';
+import { SpinnerLoading } from '../SpinnerLoading/SpinnerLoading';
 
 //types
 import { ButtonProps } from './types';

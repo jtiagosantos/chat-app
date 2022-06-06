@@ -3,7 +3,7 @@ import { useNavigate, createSearchParams } from 'react-router-dom';
 
 //components
 import { Button } from '../../components/Button/Button';
-import { Form } from '../../components/Form';
+import { Form } from '../../components/Form/Form';
 
 //api services
 import { RoomService } from '../../services/room.service';

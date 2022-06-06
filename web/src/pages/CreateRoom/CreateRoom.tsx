@@ -6,7 +6,7 @@ import { Modal } from '../../components/Modal/Modal';
 import { 
   RoomCodeModalContents 
 } from './components/RoomCodeModalContents/RoomCodeModalContents';
-import { Form } from '../../components/Form';
+import { Form } from '../../components/Form/Form';
 
 //api services
 import { RoomService } from '../../services/room.service';
