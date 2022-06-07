@@ -18,9 +18,20 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    }
   },
   "include": [
-    "src"
+    "src",
+    "react-app-env.d.ts", 
+    "config-overrides.js"  
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }
