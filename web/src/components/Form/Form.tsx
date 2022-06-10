@@ -23,7 +23,8 @@ export const Form: FC<FormProps> = ({ children, ...rest }) => {
 
   return (
     <Container
-      styles={styleProperties}
+    styles={styleProperties}
+    {...rest}
     >
       {children}
     </Container>
