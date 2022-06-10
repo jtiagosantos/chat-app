@@ -1,19 +1,17 @@
 import { FormEvent, useRef, useState } from 'react';
 
 //components
-import { Button } from '../../components/Button/Button';
-import { Modal } from '../../components/Modal/Modal';
-import { 
-  RoomCodeModalContents 
-} from './components/RoomCodeModalContents/RoomCodeModalContents';
-import { Form } from '../../components/Form/Form';
-import { Input } from '../../components/Input/Input';
+import { Button } from '@/components';
+import { Modal } from '@/components';
+import { Form } from '@/components';
+import { Input } from '@/components';
+import { RoomCodeModalContents } from './components';
 
 //api services
-import { RoomService } from '../../services/room.service';
+import { RoomService } from '@/services/room.service';
 
 //types
-import { ModalHandler } from '../../components/Modal/types';
+import { ModalHandler } from '@/components/Modal/types';
 
 //styles
 import { Container } from './styles';

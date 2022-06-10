@@ -1,7 +1,7 @@
 import { X } from 'phosphor-react';
 
 //hooks
-import { useUserDialog } from '../../../../hooks/useUserDialog';
+import { useUserDialog } from '@/hooks/useUserDialog';
 
 //styles
 import { Container, ProfileImage } from './styles';

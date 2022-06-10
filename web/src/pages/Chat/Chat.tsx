@@ -5,19 +5,19 @@ import { useSearchParams } from 'react-router-dom';
 import { PaperPlaneRight } from 'phosphor-react';
 
 //components
-import { ProfileBar } from './components/ProfileBar/ProfileBar';
-import { ChatBox } from './components/ChatBox/ChatBox';
-import { Message } from './components/Message/Message';
-import { UserDialog } from './components/UserDialog/UserDialog';
+import { ProfileBar } from './components';
+import { ChatBox } from './components';
+import { Message } from './components';
+import { UserDialog } from './components';
 
 //api services
-import { MessageService } from '../../services/message.service';
+import { MessageService } from '@/services/message.service';
 
 //types
-import { Message as IMessage } from '../../types/message';
+import { Message as IMessage } from '@/types/message';
 
 //constants
-import { constants } from '../../constants';
+import { constants } from '@/constants';
 
 //styles
 import { Container } from './styles';

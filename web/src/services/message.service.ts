@@ -1,7 +1,7 @@
 import { api } from './api';
-import { Dto } from '../models/Dto';
-import { MessageDto } from '../models/Message';
-import { Message } from '../types/message';
+import { Dto } from '@/models/Dto';
+import { MessageDto } from '@/models/Message';
+import { Message } from '@/types/message';
 
 export class MessageService {
   static async createMessage(message: MessageDto): Promise<Dto<Message>> {

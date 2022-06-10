@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 //components
-import { Button } from '../../components/Button/Button';
+import { Button } from '@/components';
 
 //styles
 import { Container } from './styles';

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Copy } from 'phosphor-react';
 
 //components
-import { Button } from '../../../../components/Button/Button';
+import { Button } from '@/components';
 
 //types
 import { RoomCodeModalProps } from './types';

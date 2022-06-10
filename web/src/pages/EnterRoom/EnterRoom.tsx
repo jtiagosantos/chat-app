@@ -2,15 +2,15 @@ import { FormEvent, useState } from 'react';
 import { useNavigate, createSearchParams } from 'react-router-dom';
 
 //components
-import { Button } from '../../components/Button/Button';
-import { Form } from '../../components/Form/Form';
-import { Input } from '../../components/Input/Input';
+import { Button } from '@/components';
+import { Form } from '@/components';
+import { Input } from '@/components';
 
 //api services
-import { RoomService } from '../../services/room.service';
+import { RoomService } from '@/services/room.service';
 
 //constants
-import { constants } from '../../constants';
+import { constants } from '@/constants';
 
 //styles
 import { Container } from './styles';

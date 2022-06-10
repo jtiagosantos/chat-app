@@ -1,6 +1,6 @@
 import { api } from './api';
-import { Dto } from '../models/Dto';
-import { RoomDto } from '../models/Room';
+import { Dto } from '@/models/Dto';
+import { RoomDto } from '@/models/Room';
 
 export class RoomService {
   static async createRoom(roomName: string): Promise<Dto<RoomDto>> {
