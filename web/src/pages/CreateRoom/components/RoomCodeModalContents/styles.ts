@@ -19,18 +19,4 @@ export const Container = styled.main`
     text-align: left;
     color: #ffffff;
   }
-
-  input {
-    width: 100%;
-    height: 3rem;
-    padding: 0.5rem 0.625rem;
-
-    border: 1px solid gray;
-    border-radius: 8px;
-    background-color: #52525B;
-
-    color: #A1A1AA;
-    font-size: 1.3rem;
-    text-align: center;
-  }
 `;

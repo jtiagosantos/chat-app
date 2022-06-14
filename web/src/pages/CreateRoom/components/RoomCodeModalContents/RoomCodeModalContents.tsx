@@ -4,6 +4,7 @@ import { Copy } from 'phosphor-react';
 
 //components
 import { Button } from '@/components';
+import { Input } from '@/components';
 
 //types
 import { RoomCodeModalProps } from './types';
@@ -35,7 +36,16 @@ export const RoomCodeModalContents: FC<RoomCodeModalProps> = ({
   return (
     <Container>
       <h2>Your room code</h2>
-      <input type="text" defaultValue={roomCode} readOnly />
+      <Input 
+        type="text" 
+        width="100%"
+        height="3rem"
+        fontSize="1.3rem"
+        textColor="#A1A1AA"
+        padding="0.5rem 0.625rem"
+        defaultValue={roomCode} 
+        readOnly 
+      />
       <Button 
         type="button"
         width="100%"
