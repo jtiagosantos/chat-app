@@ -8,7 +8,7 @@ export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   type: InputType;
   fontSize: string;
   textColor: string;
-  placeholderColor: string;
+  placeholderColor?: string;
   marginTop?: string;
   marginBottom?: string;
   marginRight?: string;
