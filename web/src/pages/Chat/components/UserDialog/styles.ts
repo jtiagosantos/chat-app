@@ -11,41 +11,41 @@ export const Container = styled.div`
   border-radius: 8px;
 
   overflow: hidden;
+`;
 
-  div:nth-of-type(1) {
-    width: 100%;
-    height: 3.5rem;
-    background-color: #8257E5;
-    padding: 5px;
+export const Wrapper = styled.div`
+  width: 100%;
+  height: 3.5rem;
+  background-color: #8257E5;
+  padding: 5px;
 
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
 
-    svg {
-      cursor: pointer;
-    } 
-  }
-
-  h1 {
-    font-size: 1.25rem;
-    color: #ffffff;
-    margin-left: 1rem;
-    transform: translateY(-80%);
+  svg {
+    cursor: pointer;
   }
 `;
 
-export const ProfileImage = styled.div`
+export const ProfileImageWrapper = styled.div`
   width: 5rem;
   height: 5rem;
+`;
 
-  img {
-    width: 100%;
-    height: 100%;
-    border-radius: 100%;
-    transform: translateY(-50%);
-    margin-left: 1rem;
+export const ProfileImage = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  transform: translateY(-50%);
+  margin-left: 1rem;
 
-    color: #ffffff;
-  }
+  color: #ffffff;
+`;
+
+export const Name = styled.h1`
+  font-size: 1.25rem;
+  color: #ffffff;
+  margin-left: 1rem;
+  transform: translateY(-80%);
 `;
