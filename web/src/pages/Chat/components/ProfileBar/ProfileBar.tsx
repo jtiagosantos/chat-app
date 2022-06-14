@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { ProfileBarProps } from './types';
 
 //styles
-import { Container } from './styles';
+import * as S from './styles';
 
 export const ProfileBar: FC<ProfileBarProps> = ({ 
   username, 
@@ -12,15 +12,15 @@ export const ProfileBar: FC<ProfileBarProps> = ({
   quantityUsersOnline
 }) => {
   return (
-    <Container>
-      <div>
+    <S.Container>
+      <S.ProfileDataWrapper>
         <img src={profilePhotoURL} alt={username} />
         <h2>{username}</h2>
-      </div>
-      <div>
+      </S.ProfileDataWrapper>
+      <S.Online>
         <span />
         <h2>{quantityUsersOnline}{' online'}</h2>
-      </div>
-    </Container>
+      </S.Online>
+    </S.Container>
   );
 }
