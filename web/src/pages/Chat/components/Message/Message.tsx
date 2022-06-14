@@ -8,7 +8,7 @@ import { useUserDialog } from '@/hooks/useUserDialog';
 import { MessageProps } from './types';
 
 //styles
-import { Container } from './styles';
+import * as S from './styles';
 
 export const Message: FC<MessageProps> = ({ 
   text, 
@@ -26,19 +26,19 @@ export const Message: FC<MessageProps> = ({
   }
 
   return (
-    <Container>
-      <div>
+    <S.Container>
+      <S.Wrapper>
         <img 
           src={profilePhotoUrl} 
           alt={username} 
           onClick={handleShowUserDialog} 
         />
-        <span>{username}</span>
-        <span>{formattedDatetime}</span>
-      </div>
+        <S.Username>{username}</S.Username>
+        <S.DateTime>{formattedDatetime}</S.DateTime>
+      </S.Wrapper>
       <div>
-        <p>{text}</p>
+        <S.MessageText>{text}</S.MessageText>
       </div>
-    </Container>
+    </S.Container>
   );
 }
