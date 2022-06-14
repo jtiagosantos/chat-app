@@ -1,5 +1,6 @@
 export const colors = {
   white: '#ffffff',
+  black: '#141414',
   mediumslateblue: '#8257E5',
   dimgray: '#52525B',
   woodsmoke: '#121212',
