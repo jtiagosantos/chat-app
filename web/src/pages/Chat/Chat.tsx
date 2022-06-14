@@ -6,9 +6,9 @@ import { PaperPlaneRight } from 'phosphor-react';
 
 //components
 import { ProfileBar } from './components';
-import { ChatBox } from './components';
 import { Message } from './components';
 import { UserDialog } from './components';
+import { Input } from '@/components';
 
 //api services
 import { MessageService } from '@/services/message.service';
@@ -20,7 +20,7 @@ import { Message as IMessage } from '@/types/message';
 import { constants } from '@/constants';
 
 //styles
-import { Container } from './styles';
+import * as S from './styles';
 
 export const Chat = () => {
   const [searchParams] = useSearchParams();
@@ -105,15 +105,15 @@ export const Chat = () => {
   })
 
   return (
-    <Container>
+    <S.Container>
       <ProfileBar 
         username={username!} 
         profilePhotoURL={profilePhotoUrl!} 
         quantityUsersOnline={quantityUsersOnline}
       />
 
-      <ChatBox>
-        <ul>
+      <S.ChatBox>
+        <S.MessageList>
           {messages.map((message) => (
             <Message 
               key={message.id} 
@@ -123,11 +123,17 @@ export const Chat = () => {
               dateTime={message.createdAt}
             />
           ))}
-        </ul>
+        </S.MessageList>
 
         <form onSubmit={onSubmitMessage}>
-          <input 
+          <Input 
             type="text" 
+            width="100%"
+            height="2.5rem"
+            padding="0.5rem 0.625rem"
+            textColor="#A1A1AA"
+            placeholderColor="#A1A1AA"
+            fontSize="0.875rem"
             placeholder="message text..." 
             value={messageText}
             onChange={
@@ -135,13 +141,13 @@ export const Chat = () => {
             }
           />
 
-          <button type="submit" disabled={!messageText}>
+          <S.SendMessageButton type="submit" disabled={!messageText}>
             <PaperPlaneRight color='#FFF' weight='bold' size={18} />
-          </button>
+          </S.SendMessageButton>
         </form>
-      </ChatBox>
+      </S.ChatBox>
 
       <UserDialog />
-    </Container>
+    </S.Container>
   );
 }
