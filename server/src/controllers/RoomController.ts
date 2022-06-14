@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { RoomRepository } from '../repositories/RoomRepository';
-import { generateRoomCode } from '../utils/generateRoomCode';
+import { RoomRepository } from '@/repositories/RoomRepository';
+import { generateRoomCode } from '@/utils/generateRoomCode';
 
 export class RoomController {
   static async createRoom(req: Request, res: Response) {

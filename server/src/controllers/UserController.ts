@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import validator from 'validator';
 import jwt from 'jsonwebtoken';
-import { UserRepository } from '../repositories/UserRepository';
+import { UserRepository } from '@/repositories/UserRepository';
 
 export class UserController {
   static async signUp(req: Request, res: Response) {

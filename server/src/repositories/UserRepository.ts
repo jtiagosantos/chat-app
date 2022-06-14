@@ -1,6 +1,6 @@
-import { prisma } from '../services/prisma';
-import { UserDto } from '../models/User';
-import { User } from '../types/user';
+import { prisma } from '@/services/prisma';
+import { UserDto } from '@/models/User';
+import { User } from '@/types/user';
 
 export class UserRepository {
   static async create(data: UserDto) {

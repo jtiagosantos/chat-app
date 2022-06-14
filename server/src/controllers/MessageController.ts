@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { MessageRepository } from '../repositories/MessageRepository';
+import { MessageRepository } from '@/repositories/MessageRepository';
 
 export class MessageController {
   static async createMessage(req: Request, res: Response) {

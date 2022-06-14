@@ -1,5 +1,5 @@
-import { prisma } from '../services/prisma';
-import { MessageDto } from '../models/Message';
+import { prisma } from '@/services/prisma';
+import { MessageDto } from '@/models/Message';
 
 export class MessageRepository {
   static async create(data: MessageDto): Promise<MessageDto> {

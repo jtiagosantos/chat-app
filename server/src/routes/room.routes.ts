@@ -1,7 +1,7 @@
-import { Router } from "express";
+import { Router } from 'express';
 
-import { RoomController } from '../controllers/RoomController';
-import { auth } from '../middlewares/auth';
+import { RoomController } from '@/controllers/RoomController';
+import { auth } from '@/middlewares/auth';
 
 export const roomRoutes = Router();
 

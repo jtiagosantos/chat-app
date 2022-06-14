@@ -1,7 +1,6 @@
-import { constants } from '../constants'
+import { constants } from '@/constants'
 import { io } from './io';
-import { Message } from '../types/message';
-import { getOnlineUsers } from '../utils/getOnlineUsers';
+import { getOnlineUsers } from '@/utils/getOnlineUsers';
 
 const { EVENTS } = constants;
 

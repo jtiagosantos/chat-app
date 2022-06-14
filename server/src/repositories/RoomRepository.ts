@@ -1,5 +1,5 @@
-import { prisma } from '../services/prisma';
-import { RoomDto } from '../models/Room';
+import { prisma } from '@/services/prisma';
+import { RoomDto } from '@/models/Room';
 
 export class RoomRepository {
   static async create(data: RoomDto): Promise<RoomDto> {
