@@ -2,7 +2,7 @@ import { FC } from 'react';
 import dayjs from 'dayjs';
 
 //hooks
-import { useUserDialog } from '@/hooks/useUserDialog';
+import { useUserDialogDispatch } from '@/hooks/userDialog';
 
 //types
 import { MessageProps } from './types';
@@ -16,13 +16,13 @@ export const Message: FC<MessageProps> = ({
   profilePhotoUrl, 
   dateTime 
 }) => {
-  const { setUserData, onOpenDialog } = useUserDialog();
+  const { setUserData, openDialog } = useUserDialogDispatch();
 
   const formattedDatetime = dayjs(dateTime).format('DD/MM/YYYY à[s] HH:mm');
 
   const handleShowUserDialog = () => {
     setUserData({ name: username, profileImage: profilePhotoUrl });
-    onOpenDialog();
+    openDialog();
   }
 
   return (

@@ -1,18 +1,19 @@
 import { X } from 'phosphor-react';
 
 //hooks
-import { useUserDialog } from '@/hooks/useUserDialog';
+import { useUserDialogState, useUserDialogDispatch } from '@/hooks/userDialog';
 
 //styles
 import * as S from './styles';
 import { theme } from '@/styles/theme';
 
 export const UserDialog = () => {
-  const { user, onCloseDialog, isOpenDialog } = useUserDialog();
+  const { user, isOpenedDialog } = useUserDialogState();
+  const { closeDialog } = useUserDialogDispatch();
 
   const { name, profileImage } = user;
 
-  if (isOpenDialog) {
+  if (isOpenedDialog) {
     return (
       <S.Container>
         <S.Wrapper>
@@ -20,7 +21,7 @@ export const UserDialog = () => {
             size={20} 
             weight='bold' 
             color={theme.colors.white}
-            onClick={onCloseDialog} 
+            onClick={closeDialog} 
           />
         </S.Wrapper>
         <S.ProfileImageWrapper>
