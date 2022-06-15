@@ -33,12 +33,12 @@ export const Online = styled.div`
     width: 10px;
     height: 10px;
     border-radius: 100%;
-    background-color: #32ed48;
-    box-shadow: 0px 0px 5px 1px #5cdb6b;
+    background-color: ${({ theme }) => theme.colors.limegreen};
+    box-shadow: 0px 0px 5px 1px ${({ theme }) => theme.colors.lightgreen};
   }
 
   h2 {
     font-size: 0.9rem;
-    color: #cbd2d9;
+    color: ${({ theme }) => theme.colors.mischka};
   }
 `;  

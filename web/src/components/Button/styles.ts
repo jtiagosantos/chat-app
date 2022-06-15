@@ -17,11 +17,11 @@ export const Container = styled.button<ContainerProps>`
   margin-right: ${({ styles }) => styles.marginRight || 0};
   margin-left: ${({ styles }) => styles.marginLeft || 0};
 
-  background-color: #8257E5;
+  background-color: ${({ theme }) => theme.colors.mediumslateblue};
   border-radius: 8px;
 
   font-size: 1rem;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.white};
 
   transition: filter 0.2ms;
 

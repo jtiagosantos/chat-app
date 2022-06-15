@@ -11,7 +11,7 @@ export const Container = styled.main`
 
   h2 {
     font-size: 1rem;
-    color: #FFF;
+    color: ${({ theme }) => theme.colors.white};
     font-weight: normal;
   }
 `;
@@ -50,7 +50,7 @@ export const MessageList = styled.ul`
   }
   
   ::-webkit-scrollbar-thumb {
-    background-color: #ccc;
+    background-color: ${({ theme }) => theme.colors.lightgray};
     border-radius: 5px;
   }
 `;
@@ -60,7 +60,7 @@ export const SendMessageButton = styled.button`
   height: 2.5rem;
 
   border-radius: 100%;
-  background-color: #8257E5;
+  background-color: ${({ theme }) => theme.colors.mediumslateblue};
 
   display: flex;
   align-items: center;

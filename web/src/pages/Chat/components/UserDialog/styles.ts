@@ -7,7 +7,7 @@ export const Container = styled.div`
   right: 70%;
 
   min-width: 270px;
-  background-color: #141414;
+  background-color: ${({ theme }) => theme.colors.black};
   border-radius: 8px;
 
   overflow: hidden;
@@ -16,7 +16,7 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
   width: 100%;
   height: 3.5rem;
-  background-color: #8257E5;
+  background-color: ${({ theme }) => theme.colors.mediumslateblue};
   padding: 5px;
 
   display: flex;
@@ -40,12 +40,12 @@ export const ProfileImage = styled.img`
   transform: translateY(-50%);
   margin-left: 1rem;
 
-  color: #ffffff;
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 export const Name = styled.h1`
   font-size: 1.25rem;
-  color: #ffffff;
+  color: ${({ theme }) => theme.colors.white};
   margin-left: 1rem;
   transform: translateY(-80%);
 `;

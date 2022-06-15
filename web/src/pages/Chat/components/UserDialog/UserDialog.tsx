@@ -5,6 +5,7 @@ import { useUserDialog } from '@/hooks/useUserDialog';
 
 //styles
 import * as S from './styles';
+import { theme } from '@/styles/theme';
 
 export const UserDialog = () => {
   const { user, onCloseDialog, isOpenDialog } = useUserDialog();
@@ -18,7 +19,7 @@ export const UserDialog = () => {
           <X 
             size={20} 
             weight='bold' 
-            color='#ffffff' 
+            color={theme.colors.white}
             onClick={onCloseDialog} 
           />
         </S.Wrapper>

@@ -21,6 +21,7 @@ import { constants } from '@/constants';
 
 //styles
 import * as S from './styles';
+import { theme } from '@/styles/theme';
 
 export const Chat = () => {
   const [searchParams] = useSearchParams();
@@ -131,8 +132,8 @@ export const Chat = () => {
             width="100%"
             height="2.5rem"
             padding="0.5rem 0.625rem"
-            textColor="#A1A1AA"
-            placeholderColor="#A1A1AA"
+            textColor={theme.colors.manatee}
+            placeholderColor={theme.colors.manatee}
             fontSize="0.875rem"
             placeholder="message text..." 
             value={messageText}
@@ -142,7 +143,7 @@ export const Chat = () => {
           />
 
           <S.SendMessageButton type="submit" disabled={!messageText}>
-            <PaperPlaneRight color='#FFF' weight='bold' size={18} />
+            <PaperPlaneRight color={theme.colors.white} weight='bold' size={18} />
           </S.SendMessageButton>
         </form>
       </S.ChatBox>

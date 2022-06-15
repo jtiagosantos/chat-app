@@ -11,6 +11,7 @@ import { RoomCodeModalProps } from './types';
 
 //styles
 import { Container } from './styles';
+import { theme } from '@/styles/theme';
 
 export const RoomCodeModalContents: FC<RoomCodeModalProps> = ({ 
   roomCode,
@@ -41,7 +42,7 @@ export const RoomCodeModalContents: FC<RoomCodeModalProps> = ({
         width="100%"
         height="3rem"
         fontSize="1.3rem"
-        textColor="#A1A1AA"
+        textColor={theme.colors.manatee}
         padding="0.5rem 0.625rem"
         defaultValue={roomCode} 
         readOnly 

@@ -15,6 +15,7 @@ import { ModalHandler } from '@/components/Modal/types';
 
 //styles
 import { Container } from './styles';
+import { theme } from '@/styles/theme';
 
 export const CreateRoom = () => {
   const modalRef = useRef<ModalHandler>(null);
@@ -72,8 +73,8 @@ export const CreateRoom = () => {
             width="100%"
             height="2.5rem"
             fontSize="0.875rem"
-            textColor="#A1A1AA"
-            placeholderColor="#A1A1AA"
+            textColor={theme.colors.manatee}
+            placeholderColor={theme.colors.manatee}
             padding="0.5rem 0.625rem"
             placeholder="Insert the room name" 
             value={roomName}

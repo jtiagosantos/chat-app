@@ -5,7 +5,7 @@ export const InputElement = styled.input<InputElementProps>`
   max-width: ${({ styles }) => styles.width};
   width: 100%;
   height: ${({ styles }) => styles.height};
-  background-color: #52525B;
+  background-color: ${({ theme }) => theme.colors.dimgray};
   border: 1px solid gray;
   border-radius: 8px;
 

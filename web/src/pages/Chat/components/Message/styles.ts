@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.li`
   list-style-type: none;
-  border: 1px solid #303030;
+  border: 1px solid ${({ theme }) => theme.colors.darkslategray};
   border-radius: 8px;
   padding: 9px 7px;
 `;
@@ -22,17 +22,17 @@ export const Wrapper = styled.div`
 `;
 
 export const Username = styled.span`
-  color: #FFFFFF;
+  color: ${({ theme }) => theme.colors.white};
   font-size: 1rem;
 `;
 
 export const DateTime = styled.p`
-  color: #9aa5b1;
+  color: ${({ theme }) => theme.colors.darkgray};
   font-size: 0.75rem;
 `;
 
 export const MessageText = styled.p`
-  color: #FFFFFF;
+  color: ${({ theme }) => theme.colors.white};
   opacity: 0.9;
   font-size: 1rem;
   margin-top: 10px;

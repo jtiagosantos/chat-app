@@ -8,6 +8,7 @@ import { ButtonProps } from './types';
 
 //styles
 import { Container } from './styles';
+import { theme } from '@/styles/theme';
 
 export const Button: FC<ButtonProps> = ({ children, loading, icon, ...rest }) => {
   const styleProperties = { 
@@ -32,8 +33,8 @@ export const Button: FC<ButtonProps> = ({ children, loading, icon, ...rest }) =>
         <SpinnerLoading 
           size={20}
           borderSize={3}
-          secondaryColor="#8257e5"
-          primaryColor="#ffffff"
+          secondaryColor={theme.colors.mediumslateblue}
+          primaryColor={theme.colors.white}
         />
       )}
     </Container>

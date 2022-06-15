@@ -11,5 +11,5 @@ export const Container = styled.div`
   position: fixed;
   top: 0;
   
-  background: rgba(23, 23, 23, 0.7);
+  background: ${({ theme }) => theme.colors.overlay};
 `;

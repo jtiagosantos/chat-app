@@ -10,13 +10,13 @@ export const Container = styled.main`
   justify-content: center;
   gap: 0.8rem;
 
-  background-color: #121212;
+  background-color: ${({ theme }) => theme.colors.woodsmoke};
   border-radius: 8px;
   padding: 1rem;
 
   h2 {
     width: 100%;
     text-align: left;
-    color: #ffffff;
+    color: ${({ theme }) => theme.colors.white};
   }
 `;

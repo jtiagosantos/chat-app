@@ -14,6 +14,7 @@ import { constants } from '@/constants';
 
 //styles
 import { Container } from './styles';
+import { theme } from '@/styles/theme';
 
 export const EnterRoom = () => {
   const navigate = useNavigate();
@@ -78,8 +79,8 @@ export const EnterRoom = () => {
           width="100%"
           height="2.5rem"
           fontSize="0.875rem"
-          textColor="#A1A1AA"
-          placeholderColor="#A1A1AA"
+          textColor={theme.colors.manatee}
+          placeholderColor={theme.colors.manatee}
           padding="0.5rem 0.625rem"
           placeholder="Insert your username" 
           value={usernameInput}
@@ -92,8 +93,8 @@ export const EnterRoom = () => {
           width="100%"
           height="2.5rem"
           fontSize="0.875rem"
-          textColor="#A1A1AA"
-          placeholderColor="#A1A1AA"
+          textColor={theme.colors.manatee}
+          placeholderColor={theme.colors.manatee}
           padding="0.5rem 0.625rem" 
           placeholder="Insert your profile photo URL" 
           value={profilePhotoURLInput}
@@ -106,8 +107,8 @@ export const EnterRoom = () => {
           width="100%"
           height="2.5rem"
           fontSize="0.875rem"
-          textColor="#A1A1AA"
-          placeholderColor="#A1A1AA"
+          textColor={theme.colors.manatee}
+          placeholderColor={theme.colors.manatee}
           padding="0.5rem 0.625rem" 
           placeholder="Insert the room code" 
           value={roomCode}
