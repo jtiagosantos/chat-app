@@ -1,15 +1,19 @@
+import { FC } from 'react';
 import { UserCircle } from 'phosphor-react';
 
 //components
 import { Form, Input, PasswordField, Button } from '@/components';
 
+//types
+import { SignUpFormProps } from './types';
+
 //styles
 import { Container } from './styles';
 import { theme } from '@/styles/theme';
 
-export const SignUpForm = () => {
+export const SignUpForm: FC<SignUpFormProps> = ({ className }) => {
   return (
-    <Container>
+    <Container className={className}>
       <UserCircle size={125} color={theme.colors.white} weight='fill' />
 
       <Form width="100%" marginTop="30px">

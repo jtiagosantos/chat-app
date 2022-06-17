@@ -1,13 +1,18 @@
+import { FC } from 'react';
+
 //components
 import { Form, Input, Button, PasswordField } from '@/components';
+
+//types
+import { SignInFormProps } from './types';
 
 //styles
 import * as S from './styles';
 import { theme } from '@/styles/theme';
 
-export const SignInForm = () => {
+export const SignInForm: FC<SignInFormProps> = ({ className }) => {
   return (
-    <S.Container>
+    <S.Container className={className}>
       <Form width="100%">
         <Input 
           type="email" 
