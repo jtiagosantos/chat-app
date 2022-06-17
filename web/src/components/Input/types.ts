@@ -1,11 +1,9 @@
 import { InputHTMLAttributes } from 'react';
 
-type InputType = 'text' | 'password' | 'email';
-
 export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
-  width: string;
-  height: string;
-  type: InputType;
+  width: string | number;
+  height: string | number;
+  type: string;
   fontSize: string;
   textColor: string;
   placeholderColor?: string;
