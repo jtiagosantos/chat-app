@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { XCircle } from 'phosphor-react';
 
 export const Container = styled.main`
   max-width: 1000px;
@@ -34,5 +35,23 @@ export const ImageWrapper = styled.div`
     width: 100%;
     height: 100%;
     transform: scaleX(-1);
+  }
+`;
+
+export const Wrapper = styled.div`
+  max-width: 350px;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+`;
+
+export const CloseIcon = styled(XCircle)`
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(0.8);
   }
 `;

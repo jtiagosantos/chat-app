@@ -1,0 +1,1 @@
+export type SelectedForm = 'signIn' | 'signUp' | '';
