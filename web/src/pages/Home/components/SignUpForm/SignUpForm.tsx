@@ -51,7 +51,7 @@ export const SignUpForm = () => {
           height="2.5rem"
           marginTop="10px"
         >
-          Cadastrar
+          Register
         </Button>
       </Form>
     </Container>

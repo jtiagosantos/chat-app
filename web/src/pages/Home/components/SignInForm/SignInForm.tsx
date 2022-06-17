@@ -27,10 +27,10 @@ export const SignInForm = () => {
             width="30%"
             height="2.5rem"
           >
-            Entrar
+            Login
           </Button>
 
-          <S.Link href="/forgot-password">Esqueceu a senha?</S.Link>
+          <S.Link href="/forgot-password">Forgot password?</S.Link>
         </S.Actions>
       </Form>
     </S.Container>
