@@ -1,14 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+//layouts
+import { Main } from '@/layouts';
 
 //components
-import { Button } from '@/components';
-import { SignInForm, SignUpForm } from './components';
+import { SignInForm, SignUpForm, ButtonGroup } from './components';
 
 //types
 import { SelectedForm } from './types';
-
-//images
-import banner from '@/images/banner.svg';
 
 //styles
 import * as S from './styles';
@@ -16,52 +15,85 @@ import { theme } from '@/styles/theme';
 
 export const Home = () => {
   const [selectedForm, setSelectedForm] = useState<SelectedForm>('');
+  const [isOpening, setIsOpening] = useState(true);
+  const [isClosing, setIsClosing] = useState(false);
+  const isFirstRendering = useRef(true);
 
-  const openSignInForm = () => setSelectedForm('signIn')
-  const openSignUpForm = () => setSelectedForm('signUp');
-  const closeForm = () => setSelectedForm('');
+  const openForm = () => {
+    setIsOpening(true);
+    setIsClosing(false);
+  }
+
+  const openSignInForm = () => {
+    openForm();
+    setSelectedForm('signIn');
+  }
+
+  const openSignUpForm = () => {
+    openForm();
+    setSelectedForm('signUp');
+  }
+
+  const closeForm = () => {
+    setIsOpening(false);
+    setIsClosing(true);
+    
+    setTimeout(() => {
+      setSelectedForm('');
+    }, 850);
+  }
+
+  useEffect(() => {
+    isFirstRendering.current = false;
+  }, []);
+  
+  if (!selectedForm) {
+    return (
+      <Main>
+        {isOpening && (
+          <ButtonGroup 
+            className={!isFirstRendering ? 'hiding-button-group' : ''}
+            onOpenSignInForm={openSignInForm}
+            onOpenSignUpForm={openSignUpForm}
+          />
+        )}
+
+        {isClosing && (
+          <ButtonGroup 
+            className='showing-button-group'
+            onOpenSignInForm={openSignInForm}
+            onOpenSignUpForm={openSignUpForm}
+          />
+        )}
+
+      </Main>
+    );
+  }
 
   return (
-    <S.Container>
-      {!selectedForm && (
-        <S.ButtonGroup>
-          <Button 
-            type="button" 
-            width="100%"
-            height="3rem"
-            onClick={openSignInForm}
-          >
-            Login
-          </Button>
-          <Button 
-            type="button" 
-            width="100%"
-            height="3rem"
-            onClick={openSignUpForm}
-          >
-            Register
-          </Button>
-        </S.ButtonGroup>
-      )}
+    <Main>
+      <S.Wrapper>
+        <S.CloseIcon 
+          size={30} 
+          color={theme.colors.white} 
+          weight='light' 
+          onClick={closeForm}
+        />
 
-      {selectedForm && (
-        <S.Wrapper>
-          <S.CloseIcon 
-            size={30} 
-            color={theme.colors.white} 
-            weight='light' 
-            onClick={closeForm}
-          />
+        {selectedForm === 'signIn' && (
+          <>
+            {isOpening && <SignInForm className='opening-form' />}
+            {isClosing && <SignInForm className='closing-form' />}
+          </>
+        )}
 
-          {selectedForm === 'signIn' && <SignInForm />}
-
-          {selectedForm === 'signUp' && <SignUpForm />}
-        </S.Wrapper>
-      )}
-
-      <S.ImageWrapper>
-        <img src={banner} alt="" />
-      </S.ImageWrapper>
-    </S.Container>
+        {selectedForm === 'signUp' && (
+          <>
+            {isOpening && <SignUpForm className='opening-form' />}
+            {isClosing && <SignUpForm className='closing-form' />}
+          </>
+        )}
+      </S.Wrapper>
+    </Main>
   );
 }
