@@ -17,6 +17,7 @@ export const Home = () => {
   const [selectedForm, setSelectedForm] = useState<SelectedForm>('');
   const [isOpening, setIsOpening] = useState(true);
   const [isClosing, setIsClosing] = useState(false);
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>();
   const isFirstRendering = useRef(true);
 
   const openForm = () => {
@@ -38,14 +39,21 @@ export const Home = () => {
     setIsOpening(false);
     setIsClosing(true);
     
-    setTimeout(() => {
+    const id = setTimeout(() => {
       setSelectedForm('');
     }, 850);
+
+    setTimeoutId(id);
   }
 
   useEffect(() => {
     isFirstRendering.current = false;
   }, []);
+
+  useEffect(() => {
+    clearTimeout(timeoutId);
+    setTimeoutId(undefined);
+  }, [selectedForm]);
   
   if (!selectedForm) {
     return (
