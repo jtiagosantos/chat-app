@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from 'react';
 
 //images
-import banner from '@/images/banner.svg';
+import bannerImage from '@/images/banner.svg';
 
 //styles
 import { Container, ImageWrapper } from './styles';
@@ -11,7 +11,7 @@ export const Main: FC<PropsWithChildren<unknown>> = ({ children }) => {
     <Container>
       {children}
       <ImageWrapper>
-        <img src={banner} alt="" />
+        <img src={bannerImage} alt="" />
       </ImageWrapper>
     </Container>
   );
