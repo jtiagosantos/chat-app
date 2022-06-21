@@ -10,8 +10,9 @@ import { ButtonGroup, CreateRoomForm, EnterRoomForm } from './components';
 import { SelectedForm } from './types';
 
 //styles
-import { Wrapper, CloseIcon } from './styles';
+import { Wrapper } from './styles';
 import { theme } from '@/styles/theme';
+import { CloseFormButton } from '@/styles/components/CloseFormButton';
 
 export const Room = () => {
   const [selectedForm, setSelectedForm] = useState<SelectedForm>('');
@@ -80,12 +81,7 @@ export const Room = () => {
   return (
     <Main>
       <Wrapper>
-        <CloseIcon 
-          size={30} 
-          color={theme.colors.white} 
-          weight='light' 
-          onClick={closeForm}
-        />
+        <CloseFormButton weight='light' onClick={closeForm} />
 
         {selectedForm === 'createRoom' && (
           <>

@@ -10,8 +10,9 @@ import { SignInForm, SignUpForm, ButtonGroup } from './components';
 import { SelectedForm } from './types';
 
 //styles
-import { Wrapper, CloseIcon } from './styles';
+import { Wrapper } from './styles';
 import { theme } from '@/styles/theme';
+import { CloseFormButton } from '@/styles/components/CloseFormButton';
 
 export const Home = () => {
   const [selectedForm, setSelectedForm] = useState<SelectedForm>('');
@@ -81,12 +82,7 @@ export const Home = () => {
   return (
     <Main>
       <Wrapper>
-        <CloseIcon 
-          size={30} 
-          color={theme.colors.white} 
-          weight='light' 
-          onClick={closeForm}
-        />
+        <CloseFormButton weight='light' onClick={closeForm} />
 
         {selectedForm === 'signIn' && (
           <>
