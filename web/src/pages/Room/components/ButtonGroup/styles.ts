@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { slideForm } from '@/styles/animations/slideForm';
+import { slide } from '@/styles/animations/slide';
 
 export const Container = styled.div`
   max-width: 350px;
@@ -12,10 +12,10 @@ export const Container = styled.div`
   gap: 1rem;
 
   &.showing-button-group {
-    animation: ${slideForm} .9s ease;
+    animation: ${slide} .9s ease;
   }
 
   &.hiding-button-group {
-    animation: ${slideForm} .9s ease reverse;
+    animation: ${slide} .9s ease reverse;
   }
 `;

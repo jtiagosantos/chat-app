@@ -1,15 +1,15 @@
 import styled from 'styled-components';
-import { slideForm } from '@/styles/animations/slideForm';
+import { slide } from '@/styles/animations/slide';
 
 export const Container = styled.div`
   width: 100%;
 
   &.opening-form {
-    animation: ${slideForm} .9s ease;
+    animation: ${slide} .9s ease;
   }
 
   &.closing-form {
-    animation: ${slideForm} .9s ease reverse;
+    animation: ${slide} .9s ease reverse;
   }
 `;
 
