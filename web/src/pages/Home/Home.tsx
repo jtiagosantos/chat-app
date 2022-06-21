@@ -10,7 +10,7 @@ import { SignInForm, SignUpForm, ButtonGroup } from './components';
 import { SelectedForm } from './types';
 
 //styles
-import * as S from './styles';
+import { Wrapper, CloseIcon } from './styles';
 import { theme } from '@/styles/theme';
 
 export const Home = () => {
@@ -80,8 +80,8 @@ export const Home = () => {
 
   return (
     <Main>
-      <S.Wrapper>
-        <S.CloseIcon 
+      <Wrapper>
+        <CloseIcon 
           size={30} 
           color={theme.colors.white} 
           weight='light' 
@@ -101,7 +101,7 @@ export const Home = () => {
             {isClosing && <SignUpForm className='closing-form' />}
           </>
         )}
-      </S.Wrapper>
+      </Wrapper>
     </Main>
   );
 }
