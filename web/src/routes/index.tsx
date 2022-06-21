@@ -7,6 +7,7 @@ import { Home } from '@/pages';
 import { Chat } from '@/pages';
 import { EnterRoom } from '@/pages';
 import { CreateRoom } from '@/pages';
+import { Room } from '@/pages';
 
 export const Routes = () => {
   return (
@@ -20,6 +21,7 @@ export const Routes = () => {
             <Chat />
           </UserDialogProvider>
         } />
+        <Route path='/room' element={<Room />} />
       </Router>
     </BrowserRouter>
   );
