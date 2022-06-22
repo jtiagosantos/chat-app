@@ -12,5 +12,6 @@ export const colors = {
   darkgray: '#9AA5B1',
   bunker: '#18181B',
   manatee: '#A1A1AA',
+  crimson: '#BF1650',
   overlay: 'rgba(23, 23, 23, 0.7)',
 };
