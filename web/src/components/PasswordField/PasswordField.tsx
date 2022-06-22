@@ -11,7 +11,7 @@ import { PasswordFieldProps } from './types';
 import { Container } from './styles';
 import { theme } from '@/styles/theme';
 
-export const PasswordField: FC<PasswordFieldProps> = ({ ...rest }) => {
+export const PasswordField: FC<PasswordFieldProps> = ({ control, name, ...rest }) => {
   const [isShowPassword, setIsShowPassword] = useState(false);
 
   const handleShowPassword = () => {
@@ -29,6 +29,8 @@ export const PasswordField: FC<PasswordFieldProps> = ({ ...rest }) => {
         placeholderColor={theme.colors.manatee}
         padding="0.5rem 3rem 0.5rem 0.625rem"
         placeholder="Insert your password"  
+        control={control}
+        name={name}
         {...rest}
       />
       {isShowPassword ? (
