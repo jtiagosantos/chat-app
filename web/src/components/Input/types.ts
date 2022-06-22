@@ -1,4 +1,5 @@
 import { InputHTMLAttributes } from 'react';
+import { Control } from 'react-hook-form';
 
 export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   width: string | number;
@@ -17,16 +18,24 @@ export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   paddingRight?: string;
   paddingLeft?: string;
   padding?: string;
+  name: string;
+  control: Control<any, any>;
 };
 
-type StyleProperties = Pick<
+type InputStyleProperties = Pick<
   InputProps,
-  'width' | 'height' |
+  'height' |
   'fontSize' | 'textColor' | 'placeholderColor' |
   'marginTop' | 'marginBottom' | 'marginRight' | 'marginLeft' | 'margin' |
   'paddingTop' | 'paddingBottom' | 'paddingRight' | 'paddingLeft' | 'padding'
 >;
 
+type ContainerStyleProperies = Pick<InputProps, 'width'>;
+
 export interface InputElementProps {
-  styles: StyleProperties;
+  styles: InputStyleProperties;
+}
+
+export interface ContainerProps {
+  styles: ContainerStyleProperies;
 }

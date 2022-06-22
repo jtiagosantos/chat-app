@@ -1,14 +1,17 @@
 import { FC } from 'react';
+import { useController } from 'react-hook-form'
+
+//components
+import { Error } from '@/components';
 
 //types
 import { InputProps } from './types';
 
 //styles
-import { InputElement } from './styles';
+import { InputElement, Container } from './styles';
 
-export const Input: FC<InputProps> = ({ ...rest }) => {
-  const styleProperties = { 
-    width: rest.width,
+export const Input: FC<InputProps> = ({ control, name, ...rest }) => {
+  const inputStyleProperties = { 
     height: rest.height,
     fontSize: rest.fontSize,
     textColor: rest.textColor,
@@ -25,7 +28,23 @@ export const Input: FC<InputProps> = ({ ...rest }) => {
     padding: rest.padding,
   };
 
+  const containerStyleProperties = {
+    width: rest.width,
+  }
+
+  const { 
+    field,
+    formState: { errors }
+  } = useController({ control, name });
+
   return (
-    <InputElement styles={styleProperties} {...rest} />
+    <Container styles={containerStyleProperties}>
+      <InputElement 
+        styles={inputStyleProperties} 
+        {...field}
+        {...rest} 
+      />
+      <Error errors={errors} name={name} />
+    </Container>
   );
 }

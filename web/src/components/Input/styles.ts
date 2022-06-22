@@ -1,8 +1,12 @@
 import styled from 'styled-components';
-import { InputElementProps } from './types';
+import { InputElementProps, ContainerProps } from './types';
+
+export const Container = styled.div<ContainerProps>`
+  max-width: ${({ styles }) => styles.width};
+  width: 100%;
+`;
 
 export const InputElement = styled.input<InputElementProps>`
-  max-width: ${({ styles }) => styles.width};
   width: 100%;
   height: ${({ styles }) => styles.height};
   background-color: ${({ theme }) => theme.colors.dimgray};
