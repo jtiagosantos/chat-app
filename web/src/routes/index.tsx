@@ -5,8 +5,6 @@ import { UserDialogProvider } from '@/contexts/userDialog/UserDialogProvider';
 //pages
 import { Home } from '@/pages';
 import { Chat } from '@/pages';
-import { EnterRoom } from '@/pages';
-import { CreateRoom } from '@/pages';
 import { Room } from '@/pages';
 
 export const Routes = () => {
@@ -14,8 +12,6 @@ export const Routes = () => {
     <BrowserRouter>
       <Router>
         <Route path='/' element={<Home />} />
-        <Route path='/room/enter' element={<EnterRoom />} />
-        <Route path='/room/create' element={<CreateRoom />} />
         <Route path='/chat' element={
           <UserDialogProvider>
             <Chat />
