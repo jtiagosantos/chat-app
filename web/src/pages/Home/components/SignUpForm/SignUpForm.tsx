@@ -23,14 +23,14 @@ export const SignUpForm: FC<SignUpFormProps> = ({ className }) => {
   const { control, handleSubmit, watch } = useForm<FormData>({
     defaultValues: {
       username: '',
-      profileImageUrl: '',
+      profileImage: '',
       email: '',
       password: ''
     },
     resolver: yupResolver(signUpSchema),
   });
 
-  const watchProfileImageUrl = watch('profileImageUrl');
+  const watchProfileImage = watch('profileImage');
 
   useEffect(() => {
     if (isFirstRendering.current) {
@@ -39,9 +39,9 @@ export const SignUpForm: FC<SignUpFormProps> = ({ className }) => {
       return;
     }
 
-    setImageUrl(watchProfileImageUrl);
+    setImageUrl(watchProfileImage);
   }, [
-    watchProfileImageUrl
+    watchProfileImage
   ]);
 
   return (
@@ -75,7 +75,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ className }) => {
           padding="0.5rem 0.625rem"
           placeholder="Insert your profile image url"
           control={control}
-          name='profileImageUrl'
+          name='profileImage'
         />
         <Input 
           type="email" 

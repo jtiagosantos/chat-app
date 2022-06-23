@@ -5,7 +5,7 @@ export const signUpSchema = yup.object().shape({
     .string()
     .trim()
     .required('Required field'),
-  profileImageUrl: yup
+  profileImage: yup
     .string()
     .trim()
     .required('Required field'),
