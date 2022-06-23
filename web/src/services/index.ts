@@ -1,0 +1,1 @@
+export { signUpService } from './userServices/signUpService/service';
