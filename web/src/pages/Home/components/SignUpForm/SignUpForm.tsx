@@ -2,6 +2,10 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { UserCircle } from 'phosphor-react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from 'react-query';
+
+//services
+import { signUpService } from '@/services';
 
 //components
 import { Form, Input, PasswordField, Button } from '@/components';
@@ -19,7 +23,7 @@ import { theme } from '@/styles/theme';
 export const SignUpForm: FC<SignUpFormProps> = ({ className }) => {
   const [imageUrl, setImageUrl] = useState('');
   const isFirstRendering = useRef(true);
-
+  
   const { control, handleSubmit, watch } = useForm<FormData>({
     defaultValues: {
       username: '',
@@ -29,9 +33,18 @@ export const SignUpForm: FC<SignUpFormProps> = ({ className }) => {
     },
     resolver: yupResolver(signUpSchema),
   });
-
+  
   const watchProfileImage = watch('profileImage');
+  
+  const { mutate: signUp } = useMutation(signUpService);
 
+  const handleSignUp = (data: FormData) => {
+    signUp(data, {
+      onError: () => {}, //handle
+      onSuccess: () => {}, //handle
+    });
+  }
+  
   useEffect(() => {
     if (isFirstRendering.current) {
       isFirstRendering.current = false;
@@ -52,7 +65,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ className }) => {
         <UserCircle size={125} color={theme.colors.white} weight='fill' />
       )}
 
-      <Form width="100%" marginTop="30px" onSubmit={handleSubmit(() => {})}>
+      <Form width="100%" marginTop="30px" onSubmit={handleSubmit(handleSignUp)}>
         <Input 
           type="text" 
           width="100%"

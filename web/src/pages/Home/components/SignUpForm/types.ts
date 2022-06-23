@@ -4,7 +4,7 @@ export interface SignUpFormProps {
 
 export interface FormData {
   username: string;
-  profileImageUrl: string;
+  profileImage: string;
   email: string;
   password: string;
 }
