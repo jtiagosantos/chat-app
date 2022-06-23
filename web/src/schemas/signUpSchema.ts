@@ -4,7 +4,8 @@ export const signUpSchema = yup.object().shape({
   username: yup
     .string()
     .trim()
-    .required('Required field'),
+    .required('Required field')
+    .max(20, 'Maximum of 20 characters'),
   profileImage: yup
     .string()
     .trim()
