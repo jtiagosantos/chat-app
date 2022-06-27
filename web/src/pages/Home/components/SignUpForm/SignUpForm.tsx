@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from 'react-query';
 
-//services
-import { signUpService } from '@/services';
+//hooks
+import { useAuthDispatch } from '@/hooks';
 
 //components
 import { Form, Input, PasswordField, Button } from '@/components';
@@ -23,6 +23,8 @@ import { theme } from '@/styles/theme';
 export const SignUpForm: FC<SignUpFormProps> = ({ className }) => {
   const [imageUrl, setImageUrl] = useState('');
   const isFirstRendering = useRef(true);
+
+  const { signUp } = useAuthDispatch();
   
   const { control, handleSubmit, watch } = useForm<FormData>({
     defaultValues: {
@@ -34,17 +36,17 @@ export const SignUpForm: FC<SignUpFormProps> = ({ className }) => {
     resolver: yupResolver(signUpSchema),
   });
   
-  const watchProfileImage = watch('profileImage');
-  
-  const { mutate: signUp } = useMutation(signUpService);
+  const { mutate } = useMutation(signUp, {
+    onError: () => {}, //handle
+    onSuccess: () => {}, //handle
+  });
 
   const handleSignUp = (data: FormData) => {
-    signUp(data, {
-      onError: () => {}, //handle
-      onSuccess: () => {}, //handle
-    });
+    mutate(data);
   }
-  
+
+  const watchProfileImage = watch('profileImage');
+
   useEffect(() => {
     if (isFirstRendering.current) {
       isFirstRendering.current = false;
