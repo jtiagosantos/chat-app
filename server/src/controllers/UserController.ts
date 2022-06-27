@@ -106,7 +106,7 @@ export class UserController {
 
       const data = { ...user, token };
       
-      res.status(200).json({ data });
+      res.status(200).json(data);
     } catch (error: any) {
       res.status(500).json({
         data: null,
