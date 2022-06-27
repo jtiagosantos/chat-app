@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 //hooks
 import { useAuthDispatch } from '@/hooks';
@@ -20,6 +21,7 @@ import * as S from './styles';
 import { theme } from '@/styles/theme';
 
 export const SignInForm: FC<SignInFormProps> = ({ className }) => {
+  const navigate = useNavigate();
   const { control, handleSubmit } = useForm({
     defaultValues: {
       email: '',
@@ -30,13 +32,17 @@ export const SignInForm: FC<SignInFormProps> = ({ className }) => {
 
   const { signIn } = useAuthDispatch();
 
-  const { mutate } = useMutation(signIn, {
+  const { mutate, isLoading } = useMutation(signIn, {
     onError: (error) => console.log(error),
-    onSuccess: (data) => console.log(data)
+    onSuccess: () => navigateToRoomPage(),
   });
 
   const handleSignIn = (data: FormData) => {
     mutate(data);
+  }
+
+  const navigateToRoomPage = () => {
+    navigate('/room');
   }
 
   return (
@@ -61,6 +67,7 @@ export const SignInForm: FC<SignInFormProps> = ({ className }) => {
             type="submit" 
             width="30%"
             height="2.5rem"
+            loading={isLoading}
           >
             Login
           </Button>
