@@ -1,7 +1,7 @@
 import { X } from 'phosphor-react';
 
 //hooks
-import { useUserDialogState, useUserDialogDispatch } from '@/hooks/userDialog';
+import { useUserDialogDispatch, useUserDialogState } from '@/hooks';
 
 //styles
 import * as S from './styles';

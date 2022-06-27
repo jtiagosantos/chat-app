@@ -2,7 +2,7 @@ import { FC } from 'react';
 import dayjs from 'dayjs';
 
 //hooks
-import { useUserDialogDispatch } from '@/hooks/userDialog';
+import { useUserDialogDispatch } from '@/hooks';
 
 //types
 import { MessageProps } from './types';
