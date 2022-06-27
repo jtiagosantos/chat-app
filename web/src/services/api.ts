@@ -3,6 +3,12 @@ import { constants } from '@/constants';
 
 const { SERVER } = constants;
 
-export const api = axios.create({
+const api = axios.create({
   baseURL: SERVER.URL,
 });
+
+const token = localStorage.getItem('@ChatApp:token') as string;
+
+api.defaults.headers.common['x-access-token'] = token;
+
+export { api };
