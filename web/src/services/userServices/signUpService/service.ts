@@ -1,5 +1,9 @@
 import { api } from '@/services/api';
+
+//dto
 import { SignUpDto } from './SignUpDto';
+
+//utils
 import { errorHandler } from '@/utils';
 
 export const signUpService = async ({ 
