@@ -15,7 +15,6 @@ import { SelectedForm } from './types';
 
 //styles
 import { Wrapper } from './styles';
-import { theme } from '@/styles/theme';
 import { CloseFormButton } from '@/styles/components/CloseFormButton';
 
 export const Home = () => {
