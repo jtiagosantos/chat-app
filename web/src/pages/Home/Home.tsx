@@ -1,10 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 //layouts
 import { Main } from '@/layouts';
 
 //components
 import { SignInForm, SignUpForm, ButtonGroup } from './components';
+
+//hooks
+import { useAuthValidation } from '@/hooks';
 
 //types
 import { SelectedForm } from './types';
@@ -20,6 +24,9 @@ export const Home = () => {
   const [isClosing, setIsClosing] = useState(false);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>();
   const isFirstRendering = useRef(true);
+
+  const navigate = useNavigate();
+  const { isUserAuthenticated } = useAuthValidation();
 
   const openForm = () => {
     setIsOpening(true);
@@ -47,6 +54,10 @@ export const Home = () => {
     setTimeoutId(id);
   }
 
+  const navigateToRoomPage = useCallback(() => {
+    navigate('/room');
+  }, [navigate]);
+
   useEffect(() => {
     isFirstRendering.current = false;
   }, []);
@@ -55,6 +66,15 @@ export const Home = () => {
     clearTimeout(timeoutId);
     setTimeoutId(undefined);
   }, [selectedForm]);
+
+  useEffect(() => {
+    if (isUserAuthenticated) {
+      navigateToRoomPage();
+    }
+  }, [
+    navigateToRoomPage,
+    isUserAuthenticated, 
+  ]);
   
   if (!selectedForm) {
     return (
