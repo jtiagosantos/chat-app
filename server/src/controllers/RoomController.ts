@@ -15,7 +15,7 @@ export class RoomController {
 
       const newRoom = await RoomRepository.create(room);
 
-      res.status(202).json({ data: newRoom });
+      res.status(202).json(newRoom);
     } catch (error: any) {
       res.status(500).json({
         data: null,
