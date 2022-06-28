@@ -36,7 +36,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ className }) => {
     resolver: yupResolver(signUpSchema),
   });
   
-  const { mutate } = useMutation(signUp, {
+  const { mutate, isLoading } = useMutation(signUp, {
     onError: () => {}, //handle
     onSuccess: () => {}, //handle
   });
@@ -111,6 +111,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ className }) => {
           width="100%"
           height="2.5rem"
           marginTop="10px"
+          loading={isLoading}
         >
           Register
         </Button>
