@@ -7,8 +7,14 @@ const api = axios.create({
   baseURL: SERVER.URL,
 });
 
-const token = localStorage.getItem('@ChatApp:token') as string;
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('@ChatApp:token');
 
-api.defaults.headers.common['x-access-token'] = token;
+  if (!!token) {
+    config.headers!['x-access-token'] = token.replaceAll('"', '');
+  }
+
+  return config;
+});
 
 export { api };
