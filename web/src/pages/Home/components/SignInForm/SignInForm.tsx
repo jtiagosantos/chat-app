@@ -22,7 +22,7 @@ import { theme } from '@/styles/theme';
 
 export const SignInForm: FC<SignInFormProps> = ({ className }) => {
   const navigate = useNavigate();
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit } = useForm<FormData>({
     defaultValues: {
       email: '',
       password: '',
