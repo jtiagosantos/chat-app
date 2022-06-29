@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react';
+import { FC, useRef, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -18,18 +18,21 @@ import { useAuthValidation } from '@/hooks';
 import { createRoomSchema } from '@/schemas/createRoomSchema';
 
 //types
-import { CreateRoomFormProps, FormData } from './types';
+import { CreateRoomFormProps, ComponentProps, FormData } from './types';
 
 //styles
 import { Container } from './styles';
 import { theme } from '@/styles/theme';
 
-export const CreateRoomForm: FC<CreateRoomFormProps> = ({ className }) => {
+const Component: FC<ComponentProps> = ({ 
+  className, 
+  isShowCodeDialog, 
+  setCode, 
+  openCodeDialog, 
+  code 
+}) => {
   const navigate = useNavigate();
   const { isUserAuthenticated } = useAuthValidation();
-
-  const [isShowCodeDialog, setIsShowCodeDialog] = useState(false);
-  const codeRef = useRef('');
 
   const { control, handleSubmit } = useForm<FormData>({
     defaultValues: {
@@ -40,8 +43,8 @@ export const CreateRoomForm: FC<CreateRoomFormProps> = ({ className }) => {
 
   const { mutate, isLoading } = useMutation(createRoomService, {
     onSuccess: (data) => {
-      codeRef.current = data?.code!;
-      setIsShowCodeDialog(true);
+      setCode(data?.code!)
+      openCodeDialog()
     },
     onError: (error) => console.log(error)
   });
@@ -90,8 +93,44 @@ export const CreateRoomForm: FC<CreateRoomFormProps> = ({ className }) => {
           </Button>
         </Form>
       ) : (
-        <CodeDialog code={codeRef.current} />
+        <CodeDialog code={code} />
       )}
     </Container>
+  );
+}
+
+export const CreateRoomForm: FC<CreateRoomFormProps> = ({ className }) => {
+  const [isShowCodeDialog, setIsShowCodeDialog] = useState(false);
+  const codeRef = useRef('');
+
+  const openCodeDialog = useCallback(() => {
+    setIsShowCodeDialog(true);
+  }, []);
+
+  const setCode = useCallback((code: string) => {
+    codeRef.current = code;
+  }, []);
+
+  return (
+    <>
+      {className === 'opening-form' && (
+        <Component 
+          className='opening-form'
+          isShowCodeDialog={isShowCodeDialog}
+          openCodeDialog={openCodeDialog}
+          setCode={setCode}
+          code={codeRef.current}
+        />
+      )}
+      {className === 'closing-form' && (
+        <Component 
+          className='closing-form'
+          isShowCodeDialog={isShowCodeDialog}
+          openCodeDialog={openCodeDialog}
+          setCode={setCode}
+          code={codeRef.current}
+        />
+      )}
+    </>
   );    
 }

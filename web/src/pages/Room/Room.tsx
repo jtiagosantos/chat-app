@@ -104,10 +104,9 @@ export const Room = () => {
         <CloseFormButton weight='light' onClick={closeForm} />
 
         {selectedForm === 'createRoom' && (
-          <>
-            {isOpening && <CreateRoomForm className='opening-form' />}
-            {isClosing && <CreateRoomForm className='closing-form' />}
-          </>
+          <CreateRoomForm
+            className={isOpening ? 'opening-form' : 'closing-form'} 
+          />
         )}
 
         {selectedForm === 'enterRoom' && (
