@@ -39,7 +39,7 @@ export class RoomController {
         return;
       }
 
-      res.status(200).json({ data: room });
+      res.status(200).json(room);
     } catch (error: any) {
       res.status(500).json({
         data: null,
