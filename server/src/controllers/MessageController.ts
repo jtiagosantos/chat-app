@@ -8,7 +8,7 @@ export class MessageController {
 
       const message = await MessageRepository.create(body);
 
-      res.status(202).json({ data: message });
+      res.status(202).json(message);
     } catch (error: any) {
       res.status(500).json({
         data: null,
