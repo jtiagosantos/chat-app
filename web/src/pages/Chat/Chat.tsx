@@ -9,7 +9,7 @@ import { useMutation } from 'react-query';
 
 //api services
 import { sendMessageService } from '@/services';
-import { findMessagesService } from '@/services';
+import { fetchMessagesService } from '@/services';
 
 //components
 import { ProfileBar } from './components';
@@ -73,15 +73,15 @@ export const Chat = () => {
     EVENTS.NEW_USER_CONNECTED,
   ]);
 
-  const { mutate: findMessages } = useMutation(findMessagesService, {
+  const { mutate: fetchMessages } = useMutation(fetchMessagesService, {
     onSuccess: (data) => setMessages(data!.reverse()),
   });
 
   useEffect(() => {
-    findMessages({ roomCode });
+    fetchMessages({ roomCode });
   }, [
     roomCode, 
-    findMessages
+    fetchMessages
   ]);
 
   const { mutate: sendMessage } = useMutation(sendMessageService, {

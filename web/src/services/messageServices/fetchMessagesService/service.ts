@@ -6,7 +6,7 @@ import { FindMessagesRequest, FindMessagesResponse } from './types';
 //utils
 import { errorHandler } from '@/utils';
 
-export const findMessagesService = async (
+export const fetchMessagesService = async (
   { roomCode }: FindMessagesRequest
 ): Promise<Array<FindMessagesResponse> | undefined> => {
   try {
