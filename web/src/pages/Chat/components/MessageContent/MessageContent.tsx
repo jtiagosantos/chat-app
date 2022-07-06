@@ -10,7 +10,7 @@ import { MessageProps } from './types';
 //styles
 import * as S from './styles';
 
-export const Message: FC<MessageProps> = ({ 
+export const MessageContent: FC<MessageProps> = ({ 
   text, 
   username, 
   profilePhotoUrl, 
