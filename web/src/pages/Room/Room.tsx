@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
 
 //layouts
 import { Main } from '@/layouts';
@@ -7,15 +6,11 @@ import { Main } from '@/layouts';
 //components
 import { ButtonGroup, CreateRoomForm, EnterRoomForm } from './components';
 
-//hooks
-import { useAuthValidation } from '@/hooks';
-
 //types
 import { SelectedForm } from './types';
 
 //styles
 import { Wrapper } from './styles';
-import { theme } from '@/styles/theme';
 import { CloseFormButton } from '@/styles/components/CloseFormButton';
 
 export const Room = () => {
@@ -24,9 +19,6 @@ export const Room = () => {
   const [isClosing, setIsClosing] = useState(false);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>();
   const isFirstRendering = useRef(true);
-
-  const navigate = useNavigate();
-  const { isUserAuthenticated } = useAuthValidation();
 
   const openForm = () => {
     setIsOpening(true);
@@ -54,10 +46,6 @@ export const Room = () => {
     setTimeoutId(id);
   }
 
-  const navigateToHomePage = useCallback(() => {
-    navigate('/');
-  }, [navigate]);
-
   useEffect(() => {
     isFirstRendering.current = false;
   }, []);
@@ -66,15 +54,6 @@ export const Room = () => {
     clearTimeout(timeoutId);
     setTimeoutId(undefined);
   }, [selectedForm]);
-
-  useEffect(() => {
-    if (!isUserAuthenticated) {
-      navigateToHomePage();
-    }
-  }, [
-    isUserAuthenticated,
-    navigateToHomePage,
-  ]);
 
   if (!selectedForm) {
     return (

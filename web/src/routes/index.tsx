@@ -1,6 +1,10 @@
 import { BrowserRouter, Routes as Router, Route } from 'react-router-dom';
 
+//providers
 import { UserDialogProvider } from '@/contexts/userDialog/UserDialogProvider';
+
+//layouts
+import { PageHandler } from '@/layouts';
 
 //pages
 import { Home } from '@/pages';
@@ -11,13 +15,32 @@ export const Routes = () => {
   return (
     <BrowserRouter>
       <Router>
-        <Route path='/' element={<Home />} />
-        <Route path='/chat' element={
-          <UserDialogProvider>
-            <Chat />
-          </UserDialogProvider>
-        } />
-        <Route path='/room' element={<Room />} />
+        <Route 
+          path='/' 
+          element={
+            <PageHandler typePage='isNotProtectedPage'>
+              <Home />
+            </PageHandler>
+          } 
+        />
+        <Route 
+          path='/chat' 
+          element={
+            <PageHandler typePage='isProtectedPage'>
+              <UserDialogProvider>
+                <Chat />
+              </UserDialogProvider>
+            </PageHandler>
+          } 
+        />
+        <Route 
+          path='/room' 
+          element={
+            <PageHandler typePage='isProtectedPage'>
+              <Room />
+            </PageHandler>
+          } 
+        />
       </Router>
     </BrowserRouter>
   );
