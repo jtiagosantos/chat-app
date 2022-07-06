@@ -1,20 +1,29 @@
-import { FormEvent, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { DefaultEventsMap } from '@socket.io/component-emitter';
 import { useSearchParams } from 'react-router-dom';
 import { PaperPlaneRight } from 'phosphor-react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from 'react-query';
+
+//api services
+import { sendMessageService } from '@/services';
 
 //components
 import { ProfileBar } from './components';
-import { Message } from './components';
+import { MessageContent } from './components';
 import { UserDialog } from './components';
 import { Input } from '@/components';
 
-//api services
-import { MessageService } from '@/services/message.service';
+//hooks
+import { useAuthState } from '@/hooks';
+
+//schemas
+import { chatSchema } from '@/schemas';
 
 //types
-import { Message as IMessage } from '@/types/message';
+import { Message, FormData } from './types';
 
 //constants
 import { constants } from '@/constants';
@@ -25,15 +34,22 @@ import { theme } from '@/styles/theme';
 
 export const Chat = () => {
   const [searchParams] = useSearchParams();
-  const username = searchParams.get('username');
-  const profilePhotoUrl = searchParams.get('profile_photo');
-  const roomCode = searchParams.get('room_code');
+  const roomCode = searchParams.get('room_code') as string;
   const socketRef = useRef<Socket<DefaultEventsMap, DefaultEventsMap>>();
   const { SERVER, EVENTS } = constants;
+  const { userId, username, profileImage } = useAuthState();
 
-  const [messageText, setMessageText] = useState<string>('');
-  const [messages, setMessages] = useState<Array<IMessage>>([]);
+  const [messages, setMessages] = useState<Array<Message>>([]);
   const [quantityUsersOnline, setQuantityUsersOnline] = useState<number>(0);
+
+  const { control, handleSubmit, watch, reset } = useForm<FormData>({
+    defaultValues: {
+      messageText: '',
+    },
+    resolver: yupResolver(chatSchema),
+  });
+
+  const watchMessageText = watch('messageText');
 
   useEffect(() => {
     socketRef.current = io(SERVER.URL, {
@@ -56,7 +72,7 @@ export const Chat = () => {
     EVENTS.NEW_USER_CONNECTED,
   ]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     const fetchMessages = async () => {
       const { data, error } = await MessageService.findMessagesByRoomCode(roomCode!);
 
@@ -68,10 +84,18 @@ export const Chat = () => {
     }
 
     fetchMessages();
-  }, [roomCode]);
+  }, [roomCode]); */
 
-  const onSubmitMessage = async (event: FormEvent) => {
-    event.preventDefault();
+  const { mutate } = useMutation(sendMessageService, {
+    onSuccess: (data) => {
+      reset();
+      socketRef?.current?.emit(EVENTS.SEND_MESSAGE, data);
+      setMessages([data!, ...messages]);
+    },
+  });
+
+  const handleSendMessage = async (formData: FormData) => {
+    const { messageText } = formData;
 
     if (!messageText) {
       alert('message field is required');
@@ -79,25 +103,15 @@ export const Chat = () => {
     }
 
     const message = {
+      userId: Number(userId),
       text: messageText,
-      author: username!,
-      roomCode: roomCode!,
-      profilePhotoUrl: profilePhotoUrl!,
+      roomCode: roomCode,
     };
 
-    const { data, error } = await MessageService.createMessage(message);
-
-    if (!data) {
-      alert(error);
-      return;
-    }
-
-    socketRef?.current?.emit(EVENTS.SEND_MESSAGE, data);
-    setMessages([data, ...messages]);
-    setMessageText('');
+    mutate(message);
   }
 
-  socketRef?.current?.on(EVENTS.MESSAGE_RECEIVED, (message: IMessage) => {
+  socketRef?.current?.on(EVENTS.MESSAGE_RECEIVED, (message: Message) => {
     setMessages([message, ...messages]);
   });
 
@@ -108,25 +122,25 @@ export const Chat = () => {
   return (
     <S.Container>
       <ProfileBar 
-        username={username!} 
-        profilePhotoURL={profilePhotoUrl!} 
+        username={username} 
+        profilePhotoURL={profileImage} 
         quantityUsersOnline={quantityUsersOnline}
       />
 
       <S.ChatBox>
         <S.MessageList>
           {messages.map((message) => (
-            <Message 
+            <MessageContent 
               key={message.id} 
               text={message.text} 
-              username={message.author}
-              profilePhotoUrl={message.profilePhotoUrl}
+              username={message.user.username}
+              profilePhotoUrl={message.user.profileImage}
               dateTime={message.createdAt}
             />
           ))}
         </S.MessageList>
 
-        <form onSubmit={onSubmitMessage}>
+        <form onSubmit={handleSubmit(handleSendMessage)}>
           <Input 
             type="text" 
             width="100%"
@@ -136,13 +150,11 @@ export const Chat = () => {
             placeholderColor={theme.colors.manatee}
             fontSize="0.875rem"
             placeholder="message text..." 
-            value={messageText}
-            onChange={
-              ({ target }) => setMessageText(target.value)
-            }
+            control={control}
+            name='messageText'
           />
 
-          <S.SendMessageButton type="submit" disabled={!messageText}>
+          <S.SendMessageButton type="submit" disabled={!watchMessageText}>
             <PaperPlaneRight color={theme.colors.white} weight='bold' size={18} />
           </S.SendMessageButton>
         </form>
