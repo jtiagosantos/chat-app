@@ -1,8 +1,9 @@
 export interface Message {
-  id: string;
+  id: number;
   text: string;
-  author: string;
-  profilePhotoUrl: string;
-  roomCode: string;
-  createdAt: string;
+  user: {
+    username: string;
+    profileImage: string;
+  };
+  createdAt: Date;
 }
