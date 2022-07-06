@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useState, useMemo, useCallback } from 'react';
+import { FC, PropsWithChildren, useMemo, useCallback } from 'react';
 
 //services
 import { signUpService } from '@/services';
@@ -10,6 +10,14 @@ import { AuthStateContext, AuthDispatchContext } from './authContext';
 //hooks
 import { useLocalStorage } from '@/hooks';
 
+//constants
+import {
+  USER_ID_STORAGE_KEY,
+  TOKEN_STORAGE_KEY,
+  USERNAME_STORAGE_KEY,
+  USER_PROFILE_IMAGE_STORAGE_KEY,
+} from '@/constants';
+
 //types
 import { SignUpUserData, SignInUserData } from './types';
 
@@ -17,10 +25,10 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
   const AuthStateProvider = AuthStateContext.Provider;
   const AuthDispatchProvider = AuthDispatchContext.Provider;
 
-  const [userId, setUserId] = useLocalStorage('@ChatApp:id', '');
-  const [, setToken] = useLocalStorage('@ChatApp:token');
-  const [username, setUsername] = useLocalStorage('@ChatApp:username', '');
-  const [profileImage, setProfileImage] = useLocalStorage('@ChatApp:imageURL', '');
+  const [userId, setUserId] = useLocalStorage(USER_ID_STORAGE_KEY, '');
+  const [, setToken] = useLocalStorage(TOKEN_STORAGE_KEY);
+  const [username, setUsername] = useLocalStorage(USERNAME_STORAGE_KEY, '');
+  const [profileImage, setProfileImage] = useLocalStorage(USER_PROFILE_IMAGE_STORAGE_KEY, '');
 
   const handleSignUp = useCallback(async (data: SignUpUserData) => {
     await signUpService(data);

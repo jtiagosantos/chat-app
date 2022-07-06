@@ -1,15 +1,14 @@
-export const constants = {
-  SERVER: {
-    URL: process.env.REACT_APP_SERVER_URL!, 
-  },
-  EVENTS: {
-    NEW_USER_CONNECTED: 'new_user_connected',
-    SEND_MESSAGE: 'send_message',
-    MESSAGE_RECEIVED: 'message_received',
-    USER_DISCONNECTED: 'user_disconnected',
-  },
-  USER_IMAGE: {
-    DEFAULT: 'https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg',
-  },
-  ONE_SECOND: 1000,
-};
+export { 
+  USER_ID_STORAGE_KEY,
+  TOKEN_STORAGE_KEY,
+  USERNAME_STORAGE_KEY,
+  USER_PROFILE_IMAGE_STORAGE_KEY,
+} from './storage';
+export {
+  NEW_USER_CONNECTED,
+  SEND_MESSAGE,
+  MESSAGE_RECEIVED,
+  USER_DISCONNECTED,
+} from './events';
+export { SERVER_URL } from './server';
+export { ONE_SECOND } from './time';

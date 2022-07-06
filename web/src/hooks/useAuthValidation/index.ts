@@ -1,14 +1,14 @@
 import JWTDecoder from 'jwt-decode';
 
 //contants
-import { constants } from '@/constants';
+import { USER_ID_STORAGE_KEY, TOKEN_STORAGE_KEY, ONE_SECOND } from '@/constants';
 
 //types
 import { TokenData } from './types';
 
 export const useAuthValidation = () => {
-  const id = localStorage.getItem('@ChatApp:id');
-  const token = localStorage.getItem('@ChatApp:token');
+  const id = localStorage.getItem(USER_ID_STORAGE_KEY);
+  const token = localStorage.getItem(TOKEN_STORAGE_KEY);
 
   if (!id || !token) {
     return { isUserAuthenticated: false };
@@ -20,7 +20,7 @@ export const useAuthValidation = () => {
     return { isUserAuthenticated: false };
   }
   
-  const expireTokenTime = exp * constants.ONE_SECOND;
+  const expireTokenTime = exp * ONE_SECOND;
   const dateNow = new Date();
   const currentTime = dateNow.getTime();
 

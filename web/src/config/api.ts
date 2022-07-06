@@ -1,14 +1,14 @@
 import axios from 'axios';
-import { constants } from '@/constants';
 
-const { SERVER } = constants;
+//constants
+import { SERVER_URL, TOKEN_STORAGE_KEY } from '@/constants';
 
 const api = axios.create({
-  baseURL: SERVER.URL,
+  baseURL: SERVER_URL,
 });
 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('@ChatApp:token');
+  const token = localStorage.getItem(TOKEN_STORAGE_KEY);
 
   if (!!token) {
     config.headers!['x-access-token'] = token.replaceAll('"', '');

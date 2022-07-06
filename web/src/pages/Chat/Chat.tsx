@@ -29,7 +29,13 @@ import { chatSchema } from '@/schemas';
 import { Message, FormData } from './types';
 
 //constants
-import { constants } from '@/constants';
+import {
+  SERVER_URL,
+  SEND_MESSAGE,
+  MESSAGE_RECEIVED,
+  USER_DISCONNECTED,
+  NEW_USER_CONNECTED,
+} from '@/constants';
 
 //styles
 import * as S from './styles';
@@ -39,7 +45,6 @@ export const Chat = () => {
   const [searchParams] = useSearchParams();
   const roomCode = searchParams.get('room_code') as string;
   const socketRef = useRef<Socket<DefaultEventsMap, DefaultEventsMap>>();
-  const { SERVER, EVENTS } = constants;
   const { userId, username, profileImage } = useAuthState();
   const navigate = useNavigate();
   const { isUserAuthenticated } = useAuthValidation();
@@ -63,7 +68,7 @@ export const Chat = () => {
   const { mutate: sendMessage } = useMutation(sendMessageService, {
     onSuccess: (data) => {
       reset();
-      socketRef?.current?.emit(EVENTS.SEND_MESSAGE, data);
+      socketRef?.current?.emit(SEND_MESSAGE, data);
       setMessages([data!, ...messages]);
     },
   });
@@ -93,11 +98,11 @@ export const Chat = () => {
     sendMessage(message);
   }
 
-  socketRef?.current?.on(EVENTS.MESSAGE_RECEIVED, (message: Message) => {
+  socketRef?.current?.on(MESSAGE_RECEIVED, (message: Message) => {
     setMessages([message, ...messages]);
   });
 
-  socketRef?.current?.on(EVENTS.USER_DISCONNECTED, (newQuantityUsersOnline: number) => {
+  socketRef?.current?.on(USER_DISCONNECTED, (newQuantityUsersOnline: number) => {
     setQuantityUsersOnline(newQuantityUsersOnline);
   });
 
@@ -105,13 +110,13 @@ export const Chat = () => {
     if (!isUserAuthenticated) {
       navigateToHomePage();
     } else {
-      socketRef.current = io(SERVER.URL, {
+      socketRef.current = io(SERVER_URL, {
         query: {
           roomCode,
         }
       });
   
-      socketRef.current.on(EVENTS.NEW_USER_CONNECTED, (newQuantityUsersOnline: number) => {
+      socketRef.current.on(NEW_USER_CONNECTED, (newQuantityUsersOnline: number) => {
         setQuantityUsersOnline(newQuantityUsersOnline)
       });
     }
@@ -122,8 +127,6 @@ export const Chat = () => {
 
   }, [
     roomCode,
-    SERVER.URL,  
-    EVENTS.NEW_USER_CONNECTED,
     isUserAuthenticated,
     navigateToHomePage,
   ]);
