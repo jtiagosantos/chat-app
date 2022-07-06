@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from 'react-query';
@@ -27,7 +27,7 @@ export const EnterRoomForm: FC<EnterRoomFormProps> = ({ className }) => {
   const navigate = useNavigate();
   const { isUserAuthenticated } = useAuthValidation();
 
-  const { control, handleSubmit } = useForm<FormData>({
+  const { control, handleSubmit, getValues } = useForm<FormData>({
     defaultValues: {
       roomCode: '',
     },
@@ -56,7 +56,14 @@ export const EnterRoomForm: FC<EnterRoomFormProps> = ({ className }) => {
   }
 
   const navigateToChatPage = () => {
-    navigate('/chat');
+    const roomCode = getValues('roomCode');
+
+    navigate({
+      pathname: '/chat',
+      search: createSearchParams({
+        room_code: roomCode,
+      }).toString(),
+    });
   }
 
   return (
