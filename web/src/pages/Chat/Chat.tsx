@@ -9,6 +9,7 @@ import { useMutation } from 'react-query';
 
 //api services
 import { sendMessageService } from '@/services';
+import { findMessagesService } from '@/services';
 
 //components
 import { ProfileBar } from './components';
@@ -72,21 +73,18 @@ export const Chat = () => {
     EVENTS.NEW_USER_CONNECTED,
   ]);
 
-  /* useEffect(() => {
-    const fetchMessages = async () => {
-      const { data, error } = await MessageService.findMessagesByRoomCode(roomCode!);
+  const { mutate: findMessages } = useMutation(findMessagesService, {
+    onSuccess: (data) => setMessages(data!.reverse()),
+  });
 
-      if (!data) {
-        alert(error);
-      } else {
-        setMessages(data.reverse());
-      }
-    }
+  useEffect(() => {
+    findMessages({ roomCode });
+  }, [
+    roomCode, 
+    findMessages
+  ]);
 
-    fetchMessages();
-  }, [roomCode]); */
-
-  const { mutate } = useMutation(sendMessageService, {
+  const { mutate: sendMessage } = useMutation(sendMessageService, {
     onSuccess: (data) => {
       reset();
       socketRef?.current?.emit(EVENTS.SEND_MESSAGE, data);
@@ -108,7 +106,7 @@ export const Chat = () => {
       roomCode: roomCode,
     };
 
-    mutate(message);
+    sendMessage(message);
   }
 
   socketRef?.current?.on(EVENTS.MESSAGE_RECEIVED, (message: Message) => {
