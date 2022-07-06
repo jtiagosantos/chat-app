@@ -1,4 +1,4 @@
-import { api } from '@/services/api';
+import { api } from '@/config/api';
 
 //dto
 import { MessageDto } from './MessageDto';

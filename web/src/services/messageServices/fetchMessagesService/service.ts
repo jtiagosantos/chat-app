@@ -1,4 +1,4 @@
-import { api } from '@/services/api';
+import { api } from '@/config/api';
 
 //types
 import { FindMessagesRequest, FindMessagesResponse } from './types';
