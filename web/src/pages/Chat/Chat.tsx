@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { DefaultEventsMap } from '@socket.io/component-emitter';
 import { useSearchParams } from 'react-router-dom';
@@ -6,6 +6,7 @@ import { PaperPlaneRight } from 'phosphor-react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 //api services
 import { sendMessageService } from '@/services';
@@ -19,6 +20,7 @@ import { Input } from '@/components';
 
 //hooks
 import { useAuthState } from '@/hooks';
+import { useAuthValidation } from '@/hooks';
 
 //schemas
 import { chatSchema } from '@/schemas';
@@ -39,6 +41,8 @@ export const Chat = () => {
   const socketRef = useRef<Socket<DefaultEventsMap, DefaultEventsMap>>();
   const { SERVER, EVENTS } = constants;
   const { userId, username, profileImage } = useAuthState();
+  const navigate = useNavigate();
+  const { isUserAuthenticated } = useAuthValidation();
 
   const [messages, setMessages] = useState<Array<Message>>([]);
   const [quantityUsersOnline, setQuantityUsersOnline] = useState<number>(0);
@@ -52,37 +56,9 @@ export const Chat = () => {
 
   const watchMessageText = watch('messageText');
 
-  useEffect(() => {
-    socketRef.current = io(SERVER.URL, {
-      query: {
-        roomCode,
-      }
-    });
-
-    socketRef.current.on(EVENTS.NEW_USER_CONNECTED, (newQuantityUsersOnline: number) => {
-      setQuantityUsersOnline(newQuantityUsersOnline)
-    });
-
-    return () => {
-      socketRef.current?.disconnect();
-    }
-
-  }, [
-    roomCode,
-    SERVER.URL,  
-    EVENTS.NEW_USER_CONNECTED,
-  ]);
-
   const { mutate: fetchMessages } = useMutation(fetchMessagesService, {
     onSuccess: (data) => setMessages(data!.reverse()),
   });
-
-  useEffect(() => {
-    fetchMessages({ roomCode });
-  }, [
-    roomCode, 
-    fetchMessages
-  ]);
 
   const { mutate: sendMessage } = useMutation(sendMessageService, {
     onSuccess: (data) => {
@@ -92,7 +68,15 @@ export const Chat = () => {
     },
   });
 
+  const navigateToHomePage = useCallback(() => {
+    navigate('/');
+  }, [navigate]);
+
   const handleSendMessage = async (formData: FormData) => {
+    if (!isUserAuthenticated) {
+      navigateToHomePage();
+    }
+
     const { messageText } = formData;
 
     if (!messageText) {
@@ -115,7 +99,56 @@ export const Chat = () => {
 
   socketRef?.current?.on(EVENTS.USER_DISCONNECTED, (newQuantityUsersOnline: number) => {
     setQuantityUsersOnline(newQuantityUsersOnline);
-  })
+  });
+
+  useEffect(() => {
+    if (!isUserAuthenticated) {
+      navigateToHomePage();
+    } else {
+      socketRef.current = io(SERVER.URL, {
+        query: {
+          roomCode,
+        }
+      });
+  
+      socketRef.current.on(EVENTS.NEW_USER_CONNECTED, (newQuantityUsersOnline: number) => {
+        setQuantityUsersOnline(newQuantityUsersOnline)
+      });
+    }
+
+    return () => {
+      socketRef.current?.disconnect();
+    }
+
+  }, [
+    roomCode,
+    SERVER.URL,  
+    EVENTS.NEW_USER_CONNECTED,
+    isUserAuthenticated,
+    navigateToHomePage,
+  ]);
+
+  useEffect(() => {
+    if (!isUserAuthenticated) {
+      navigateToHomePage();
+    } else {
+      fetchMessages({ roomCode });
+    }
+  }, [
+    roomCode, 
+    fetchMessages,
+    isUserAuthenticated,
+    navigateToHomePage,
+  ]);
+
+  useEffect(() => {
+    if (!isUserAuthenticated) {
+      navigateToHomePage();
+    }
+  }, [
+    isUserAuthenticated,
+    navigateToHomePage,
+  ]);
 
   return (
     <S.Container>
