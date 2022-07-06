@@ -1,14 +1,24 @@
 import { prisma } from '@/services/prisma';
 import { MessageDto } from '@/models/Message';
+import { Message } from '@/types/message';
 
 export class MessageRepository {
-  static async create(data: MessageDto): Promise<MessageDto> {
+  static async create(data: MessageDto): Promise<Message> {
     const message = await prisma.message.create({
       data: {
         text: data.text,
-        roomCode: data.roomCode,
         userId: data.userId,
-      }
+        roomCode: data.roomCode,
+        createdAt: new Date(),
+      },
+      include: {
+        user: {
+          select: {
+            username: true,
+            profileImage: true,
+          },
+        },
+      },
     });
 
     return message;
