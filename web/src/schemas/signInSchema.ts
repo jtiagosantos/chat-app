@@ -1,11 +1,11 @@
-import * as yup from 'yup';
+import yup from '@/config/yup';
 
 export const signInSchema = yup.object().shape({
   email: yup
     .string()
-    .email('Insert a valid e-mail')
-    .required('Required field'),
+    .email()
+    .required(),
   password: yup
     .string()
-    .required('Required field')
+    .required()
 });

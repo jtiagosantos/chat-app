@@ -1,23 +1,23 @@
-import * as yup from 'yup';
+import yup from '@/config/yup';
 
 export const signUpSchema = yup.object().shape({
   username: yup
     .string()
     .trim()
-    .required('Required field')
+    .required()
     .max(20, 'Maximum of 20 characters'),
   profileImage: yup
     .string()
     .trim()
-    .required('Required field'),
+    .required(),
   email: yup
     .string()
-    .email('Insert a valid e-mail')
+    .email()
     .trim()
-    .required('Required field'),
+    .required(),
   password: yup
     .string()
     .trim()
-    .required('Required field')
+    .required()
     .min(8, 'At least 8 characters')
 });
