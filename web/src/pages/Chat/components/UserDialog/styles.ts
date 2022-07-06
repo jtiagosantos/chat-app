@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   position: absolute;
-  left: 14px;
+  left: 30px;
   bottom: -20px;
   right: 70%;
 
