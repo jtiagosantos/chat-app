@@ -23,7 +23,7 @@ export class MessageController {
 
       const messages = await MessageRepository.read(code);
 
-      res.status(200).json({ data: messages });
+      res.status(200).json(messages);
     } catch (error: any) {
       res.status(500).json({
         data: null,
