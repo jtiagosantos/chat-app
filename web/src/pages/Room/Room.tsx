@@ -30,25 +30,13 @@ export const Room = () => {
     isFirstRendering,
   );
 
-  const openCreateRoomForm = () => {
+  const openForm = (form: SelectedForm) => {
     setIsOpenButtonGroup(false);
     setIsOpenForm(false);
     
     const id = setTimeout(() => {
       setIsOpenForm(true);
-      setSelectedForm('createRoom');
-    }, 400);
-
-    setTimeoutId(id);
-  }
-
-  const openEnterRoomForm = () => {
-    setIsOpenButtonGroup(false);
-    setIsOpenForm(false);
-    
-    const id = setTimeout(() => {
-      setIsOpenForm(true);
-      setSelectedForm('enterRoom');
+      setSelectedForm(form);
     }, 400);
 
     setTimeoutId(id);
@@ -81,8 +69,8 @@ export const Room = () => {
           item && (
             <ButtonGroup 
               style={style}
-              onOpenCreateRoomForm={openCreateRoomForm}
-              onOpenEnterRoomForm={openEnterRoomForm}
+              onOpenCreateRoomForm={() => openForm('createRoom')}
+              onOpenEnterRoomForm={() => openForm('enterRoom')}
             />
           )
         ))}

@@ -29,28 +29,16 @@ export const Home = () => {
     isOpenButtonGroup,
     isFirstRendering,
   );
+
+  const openForm = (form: SelectedForm) => {
+    setIsOpenButtonGroup(false);
+    setIsOpenForm(false);
+    
+    const id = setTimeout(() => {
+      setIsOpenForm(true);
+      setSelectedForm(form);
+    }, 400);
   
-  const openSignInForm = () => {
-    setIsOpenButtonGroup(false);
-    setIsOpenForm(false);
-    
-    const id = setTimeout(() => {
-      setIsOpenForm(true);
-      setSelectedForm('signIn');
-    }, 400);
-
-    setTimeoutId(id);
-  }
-
-  const openSignUpForm = () => {
-    setIsOpenButtonGroup(false);
-    setIsOpenForm(false);
-    
-    const id = setTimeout(() => {
-      setIsOpenForm(true);
-      setSelectedForm('signUp');
-    }, 400);
-
     setTimeoutId(id);
   }
 
@@ -81,8 +69,8 @@ export const Home = () => {
           item && (
             <ButtonGroup 
               style={style}
-              onOpenSignInForm={openSignInForm}
-              onOpenSignUpForm={openSignUpForm}
+              onOpenSignInForm={() => openForm('signIn')}
+              onOpenSignUpForm={() => openForm('signUp')}
             />
           )
         ))}
