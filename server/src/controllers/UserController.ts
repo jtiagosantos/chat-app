@@ -100,9 +100,12 @@ export class UserController {
 
       const jwtSecretKey = process.env.JWT_SECRET_KEY!;
 
-      const token = jwt.sign({ userId: user.id }, jwtSecretKey, { expiresIn: '30000' });
+      const token = jwt.sign({ userId: user.id }, jwtSecretKey, { expiresIn: '1d' });
 
       delete user.password;
+      delete user.email;
+      delete user.createdAt;
+      delete user.updatedAt;
 
       const data = { ...user, token };
       

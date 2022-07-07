@@ -1,6 +1,7 @@
-export class Dto<T> {
+/* export class Dto<T> {
   constructor(
-    public data?: T | null,
-    public error?: string,
+    public data?: T,
   ) {}
-}
+} */
+
+export type Dto<T> = T | undefined;

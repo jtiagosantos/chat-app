@@ -1,5 +1,8 @@
 import { api } from '@/config/api';
 
+//dtos
+import { Dto } from '@/models/Dto';
+
 //types
 import { FindMessagesRequest, FindMessagesResponse } from './types';
 
@@ -8,7 +11,7 @@ import { errorHandler } from '@/utils';
 
 export const fetchMessagesService = async (
   { roomCode }: FindMessagesRequest
-): Promise<Array<FindMessagesResponse> | undefined> => {
+): Promise<Dto<Array<FindMessagesResponse>>> => {
   try {
     const { data } = await api.get(`messages/read/${roomCode}`);
 

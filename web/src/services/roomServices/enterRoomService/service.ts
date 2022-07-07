@@ -1,18 +1,16 @@
 import { api } from '@/config/api';
 
 //types
-import { EnterRoomRequest, EnterRoomResponse } from './types';
+import { EnterRoomRequest } from './types';
 
 //utils
 import { errorHandler } from '@/utils';
 
 export const enterRoomService = async ({ 
   roomCode 
-}: EnterRoomRequest): Promise<EnterRoomResponse | undefined> => {
+}: EnterRoomRequest): Promise<void> => {
   try {
-    const { data } = await api.get(`/room/read/${roomCode}`);
-
-    return data;
+    await api.get(`/room/read/${roomCode}`);
   } catch (error) {
     errorHandler(error)
   }

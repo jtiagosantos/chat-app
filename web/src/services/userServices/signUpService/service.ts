@@ -1,6 +1,6 @@
 import { api } from '@/config/api';
 
-//dto
+//dtos
 import { SignUpDto } from './SignUpDto';
 
 //utils

@@ -1,6 +1,7 @@
 import { api } from '@/config/api';
 
-//dto
+//dtos
+import { Dto } from '@/models/Dto';
 import { RoomDto } from './RoomDto';
 
 //types
@@ -11,7 +12,7 @@ import { errorHandler } from '@/utils';
 
 export const createRoomService = async (
   { roomName }: RoomDto
-): Promise<CreateRoomResponse | undefined> => {
+): Promise<Dto<CreateRoomResponse>> => {
   try {
     const { data } = await api.post('/room/create', {
       name: roomName,

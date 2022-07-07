@@ -1,6 +1,7 @@
 import { api } from '@/config/api';
 
-//dto
+//dtos
+import { Dto } from '@/models/Dto';
 import { MessageDto } from './MessageDto';
 
 //types
@@ -11,7 +12,7 @@ import { errorHandler } from '@/utils';
 
 export const sendMessageService = async (
   { text, userId, roomCode }: MessageDto
-): Promise<SendMessageResponse | undefined> => {
+): Promise<Dto<SendMessageResponse>> => {
   try {
     const { data } = await api.post('/message/create', {
       text,
