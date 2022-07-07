@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useTransition } from 'react-spring';
 
 //layouts
 import { Main } from '@/layouts';
@@ -15,39 +16,60 @@ import { CloseFormButton } from '@/styles/components/CloseFormButton';
 
 export const Home = () => {
   const [selectedForm, setSelectedForm] = useState<SelectedForm>('');
-  const [isOpening, setIsOpening] = useState(true);
-  const [isClosing, setIsClosing] = useState(false);
+  const [isOpenForm, setIsOpenForm] = useState(true);
+  const [isOpenButtonGroup, setIsOpenButtonGroup] = useState(true);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>();
-  const isFirstRendering = useRef(true);
+  const [isFirstRendering, setIsFirstRendering] = useState(true);
 
-  const openForm = () => {
-    setIsOpening(true);
-    setIsClosing(false);
-  }
+  const formTransition = useTransition(isOpenForm, {
+    from: { x: 0, y: 180, opacity: 0.3 },
+    enter: { x: 0, y: 0, opacity: 1 },
+    leave: { x: 0, y: 180, opacity: 0.3 },
+  });
 
+  const buttonGroupTransition = useTransition(isOpenButtonGroup, {
+    from: isFirstRendering ? {} : { x: 0, y: 180, opacity: 0.3 },
+    enter: { x: 0, y: 0, opacity: 1 },
+    leave: { x: 0, y: 180, opacity: 0.3 },
+  });
+  
   const openSignInForm = () => {
-    openForm();
-    setSelectedForm('signIn');
+    setIsOpenButtonGroup(false);
+    setIsOpenForm(false);
+    
+    const id = setTimeout(() => {
+      setIsOpenForm(true);
+      setSelectedForm('signIn');
+    }, 400);
+
+    setTimeoutId(id);
   }
 
   const openSignUpForm = () => {
-    openForm();
-    setSelectedForm('signUp');
+    setIsOpenButtonGroup(false);
+    setIsOpenForm(false);
+    
+    const id = setTimeout(() => {
+      setIsOpenForm(true);
+      setSelectedForm('signUp');
+    }, 400);
+
+    setTimeoutId(id);
   }
 
   const closeForm = () => {
-    setIsOpening(false);
-    setIsClosing(true);
-    
+    setIsOpenForm(false);
+
     const id = setTimeout(() => {
+      setIsOpenButtonGroup(true);
       setSelectedForm('');
-    }, 850);
+    }, 400);
 
     setTimeoutId(id);
   }
 
   useEffect(() => {
-    isFirstRendering.current = false;
+    setIsFirstRendering(false);
   }, []);
 
   useEffect(() => {
@@ -58,22 +80,15 @@ export const Home = () => {
   if (!selectedForm) {
     return (
       <Main>
-        {isOpening && (
-          <ButtonGroup 
-            className={!isFirstRendering ? 'hiding-button-group' : ''}
-            onOpenSignInForm={openSignInForm}
-            onOpenSignUpForm={openSignUpForm}
-          />
-        )}
-
-        {isClosing && (
-          <ButtonGroup 
-            className='showing-button-group'
-            onOpenSignInForm={openSignInForm}
-            onOpenSignUpForm={openSignUpForm}
-          />
-        )}
-
+        {buttonGroupTransition((style, item) => (
+          item && (
+            <ButtonGroup 
+              style={style}
+              onOpenSignInForm={openSignInForm}
+              onOpenSignUpForm={openSignUpForm}
+            />
+          )
+        ))}
       </Main>
     );
   }
@@ -83,19 +98,17 @@ export const Home = () => {
       <Wrapper>
         <CloseFormButton weight='light' onClick={closeForm} />
 
-        {selectedForm === 'signIn' && (
-          <>
-            {isOpening && <SignInForm className='opening-form' />}
-            {isClosing && <SignInForm className='closing-form' />}
-          </>
-        )}
+        {formTransition((style, item) => (
+          (item && selectedForm === 'signIn') && (
+            <SignInForm style={style} />
+          )
+        ))}
 
-        {selectedForm === 'signUp' && (
-          <>
-            {isOpening && <SignUpForm className='opening-form' />}
-            {isClosing && <SignUpForm className='closing-form' />}
-          </>
-        )}
+        {formTransition((style, item) => (
+          (item && selectedForm === 'signUp') && (
+            <SignUpForm style={style} />
+          )
+        ))}
       </Wrapper>
     </Main>
   );

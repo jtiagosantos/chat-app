@@ -1,16 +1,8 @@
 import styled from 'styled-components';
-import { slide } from '@/styles/animations/slide';
+import { animated } from 'react-spring';
 
-export const Container = styled.div`
+export const Container = styled(animated.div)`
   width: 100%;
-  
-  &.opening-form {
-    animation: ${slide} .9s ease;
-  }
-
-  &.closing-form {
-    animation: ${slide} .9s ease reverse;
-  }
 
   display: flex;
   flex-direction: column;

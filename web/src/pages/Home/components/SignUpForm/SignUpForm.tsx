@@ -20,7 +20,7 @@ import { SignUpFormProps, FormData } from './types';
 import { Container, ImageProfile } from './styles';
 import { theme } from '@/styles/theme';
 
-export const SignUpForm: FC<SignUpFormProps> = ({ className }) => {
+export const SignUpForm: FC<SignUpFormProps> = ({ ...rest }) => {
   const [imageUrl, setImageUrl] = useState('');
   const isFirstRendering = useRef(true);
 
@@ -60,7 +60,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ className }) => {
   ]);
 
   return (
-    <Container className={className}>
+    <Container {...rest}>
       {imageUrl ? (
         <ImageProfile src={imageUrl} alt='image error' />
       ): (

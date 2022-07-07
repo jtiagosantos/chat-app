@@ -18,21 +18,18 @@ import { useAuthValidation } from '@/hooks';
 import { createRoomSchema } from '@/schemas/createRoomSchema';
 
 //types
-import { CreateRoomFormProps, ComponentProps, FormData } from './types';
+import { CreateRoomFormProps, FormData } from './types';
 
 //styles
 import { Container } from './styles';
 import { theme } from '@/styles/theme';
 
-const Component: FC<ComponentProps> = ({ 
-  className, 
-  isShowCodeDialog, 
-  setCode, 
-  openCodeDialog, 
-  code 
-}) => {
+export const CreateRoomForm: FC<CreateRoomFormProps> = ({ ...rest }) => {
   const navigate = useNavigate();
   const { isUserAuthenticated } = useAuthValidation();
+
+  const [isShowCodeDialog, setIsShowCodeDialog] = useState(false);
+  const codeRef = useRef('');
 
   const { control, handleSubmit } = useForm<FormData>({
     defaultValues: {
@@ -40,6 +37,14 @@ const Component: FC<ComponentProps> = ({
     },
     resolver: yupResolver(createRoomSchema),
   });
+
+  const openCodeDialog = useCallback(() => {
+    setIsShowCodeDialog(true);
+  }, []);
+
+  const setCode = useCallback((code: string) => {
+    codeRef.current = code;
+  }, []);
 
   const { mutate, isLoading } = useMutation(createRoomService, {
     onSuccess: (data) => {
@@ -66,7 +71,7 @@ const Component: FC<ComponentProps> = ({
   }
 
   return (
-    <Container className={className}>
+    <Container {...rest}>
       {!isShowCodeDialog ? (
         <Form width="100%" onSubmit={handleSubmit(handleCreateRoom)}>
           <Input 
@@ -93,44 +98,8 @@ const Component: FC<ComponentProps> = ({
           </Button>
         </Form>
       ) : (
-        <CodeDialog code={code} />
+        <CodeDialog code={codeRef.current} />
       )}
     </Container>
-  );
-}
-
-export const CreateRoomForm: FC<CreateRoomFormProps> = ({ className }) => {
-  const [isShowCodeDialog, setIsShowCodeDialog] = useState(false);
-  const codeRef = useRef('');
-
-  const openCodeDialog = useCallback(() => {
-    setIsShowCodeDialog(true);
-  }, []);
-
-  const setCode = useCallback((code: string) => {
-    codeRef.current = code;
-  }, []);
-
-  return (
-    <>
-      {className === 'opening-form' && (
-        <Component 
-          className='opening-form'
-          isShowCodeDialog={isShowCodeDialog}
-          openCodeDialog={openCodeDialog}
-          setCode={setCode}
-          code={codeRef.current}
-        />
-      )}
-      {className === 'closing-form' && (
-        <Component 
-          className='closing-form'
-          isShowCodeDialog={isShowCodeDialog}
-          openCodeDialog={openCodeDialog}
-          setCode={setCode}
-          code={codeRef.current}
-        />
-      )}
-    </>
   );    
 }

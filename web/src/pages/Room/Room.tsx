@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useTransition } from 'react-spring';
 
 //layouts
 import { Main } from '@/layouts';
@@ -15,39 +16,60 @@ import { CloseFormButton } from '@/styles/components/CloseFormButton';
 
 export const Room = () => {
   const [selectedForm, setSelectedForm] = useState<SelectedForm>('');
-  const [isOpening, setIsOpening] = useState(true);
-  const [isClosing, setIsClosing] = useState(false);
+  const [isOpenForm, setIsOpenForm] = useState(true);
+  const [isOpenButtonGroup, setIsOpenButtonGroup] = useState(true);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>();
-  const isFirstRendering = useRef(true);
+  const [isFirstRendering, setIsFirstRendering] = useState(true);
 
-  const openForm = () => {
-    setIsOpening(true);
-    setIsClosing(false);
-  }
+  const formTransition = useTransition(isOpenForm, {
+    from: { x: 0, y: 180, opacity: 0.3 },
+    enter: { x: 0, y: 0, opacity: 1 },
+    leave: { x: 0, y: 180, opacity: 0.3 },
+  });
+
+  const buttonGroupTransition = useTransition(isOpenButtonGroup, {
+    from: isFirstRendering ? {} : { x: 0, y: 180, opacity: 0.3 },
+    enter: { x: 0, y: 0, opacity: 1 },
+    leave: { x: 0, y: 180, opacity: 0.3 },
+  });
 
   const openCreateRoomForm = () => {
-    openForm();
-    setSelectedForm('createRoom');
+    setIsOpenButtonGroup(false);
+    setIsOpenForm(false);
+    
+    const id = setTimeout(() => {
+      setIsOpenForm(true);
+      setSelectedForm('createRoom');
+    }, 400);
+
+    setTimeoutId(id);
   }
 
   const openEnterRoomForm = () => {
-    openForm();
-    setSelectedForm('enterRoom');
+    setIsOpenButtonGroup(false);
+    setIsOpenForm(false);
+    
+    const id = setTimeout(() => {
+      setIsOpenForm(true);
+      setSelectedForm('enterRoom');
+    }, 400);
+
+    setTimeoutId(id);
   }
 
   const closeForm = () => {
-    setIsOpening(false);
-    setIsClosing(true);
-    
+    setIsOpenForm(false);
+
     const id = setTimeout(() => {
+      setIsOpenButtonGroup(true);
       setSelectedForm('');
-    }, 850);
+    }, 400);
 
     setTimeoutId(id);
   }
 
   useEffect(() => {
-    isFirstRendering.current = false;
+    setIsFirstRendering(false);
   }, []);
 
   useEffect(() => {
@@ -58,21 +80,15 @@ export const Room = () => {
   if (!selectedForm) {
     return (
       <Main>
-        {isOpening && (
-          <ButtonGroup 
-            className={!isFirstRendering ? 'hiding-button-group' : ''}
-            onOpenCreateRoomForm={openCreateRoomForm}
-            onOpenEnterRoomForm={openEnterRoomForm}
-          />
-        )}
-
-        {isClosing && (
-          <ButtonGroup 
-            className='showing-button-group'
-            onOpenCreateRoomForm={openCreateRoomForm}
-            onOpenEnterRoomForm={openEnterRoomForm}
-          />
-        )}
+        {buttonGroupTransition((style, item) => (
+          item && (
+            <ButtonGroup 
+              style={style}
+              onOpenCreateRoomForm={openCreateRoomForm}
+              onOpenEnterRoomForm={openEnterRoomForm}
+            />
+          )
+        ))}
       </Main>
     );
   }
@@ -82,18 +98,17 @@ export const Room = () => {
       <Wrapper>
         <CloseFormButton weight='light' onClick={closeForm} />
 
-        {selectedForm === 'createRoom' && (
-          <CreateRoomForm
-            className={isOpening ? 'opening-form' : 'closing-form'} 
-          />
-        )}
+        {formTransition((style, item) => (
+          (item && selectedForm === 'createRoom') && (
+            <CreateRoomForm style={style} />
+          )
+        ))}
 
-        {selectedForm === 'enterRoom' && (
-          <>
-            {isOpening && <EnterRoomForm className='opening-form' />}
-            {isClosing && <EnterRoomForm className='closing-form' />}
-          </>
-        )}
+        {formTransition((style, item) => (
+          (item && selectedForm === 'enterRoom') && (
+            <EnterRoomForm style={style} />
+          )
+        ))}
       </Wrapper>
     </Main>
   );

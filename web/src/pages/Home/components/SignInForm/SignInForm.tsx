@@ -20,7 +20,7 @@ import { SignInFormProps, FormData } from './types';
 import * as S from './styles';
 import { theme } from '@/styles/theme';
 
-export const SignInForm: FC<SignInFormProps> = ({ className }) => {
+export const SignInForm: FC<SignInFormProps> = ({ ...rest }) => {
   const navigate = useNavigate();
   const { control, handleSubmit } = useForm<FormData>({
     defaultValues: {
@@ -46,7 +46,7 @@ export const SignInForm: FC<SignInFormProps> = ({ className }) => {
   }
 
   return (
-    <S.Container className={className}>
+    <S.Container {...rest}>
       <Form width="100%" onSubmit={handleSubmit(handleSignIn)}>
         <Input 
           type="email" 

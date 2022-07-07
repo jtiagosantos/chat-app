@@ -1,5 +1,5 @@
 export interface CreateRoomFormProps {
-  className: 'opening-form' | 'closing-form';
+  style: any;
 }
 
 export interface ComponentProps extends CreateRoomFormProps {

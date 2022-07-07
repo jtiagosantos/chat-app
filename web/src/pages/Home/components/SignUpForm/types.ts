@@ -1,5 +1,5 @@
 export interface SignUpFormProps {
-  className: 'opening-form' | 'closing-form';
+  style: any;
 }
 
 export interface FormData {

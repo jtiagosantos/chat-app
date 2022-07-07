@@ -1,5 +1,5 @@
 export interface SignInFormProps {
-  className: 'opening-form' | 'closing-form';
+  style: any;
 }
 
 export interface FormData {

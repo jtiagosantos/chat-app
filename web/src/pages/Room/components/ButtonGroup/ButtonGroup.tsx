@@ -12,10 +12,10 @@ import { Container } from './styles';
 export const ButtonGroup: FC<ButtonGroupProps> = ({ 
   onOpenCreateRoomForm, 
   onOpenEnterRoomForm,
-  className
+  ...rest
 }) => {
   return (
-    <Container className={className}>
+    <Container {...rest}>
       <Button 
         type="button" 
         width="100%"

@@ -23,7 +23,7 @@ import { EnterRoomFormProps, FormData } from './types';
 import { Container } from './styles';
 import { theme } from '@/styles/theme';
 
-export const EnterRoomForm: FC<EnterRoomFormProps> = ({ className }) => {
+export const EnterRoomForm: FC<EnterRoomFormProps> = ({ ...rest }) => {
   const navigate = useNavigate();
   const { isUserAuthenticated } = useAuthValidation();
 
@@ -67,7 +67,7 @@ export const EnterRoomForm: FC<EnterRoomFormProps> = ({ className }) => {
   }
 
   return (
-    <Container className={className}>
+    <Container {...rest}>
       <Form width="100%" onSubmit={handleSubmit(handleEnterRooom)}>
         <Input 
           type="text" 

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { slide } from '@/styles/animations/slide';
+import { animated } from 'react-spring';
 
-export const Container = styled.div`
+export const Container = styled(animated.div)`
   max-width: 350px;
   width: 100%;
 
@@ -10,12 +10,4 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1rem;
-
-  &.showing-button-group {
-    animation: ${slide} .9s ease;
-  }
-
-  &.hiding-button-group {
-    animation: ${slide} .9s ease reverse;
-  }
 `;
