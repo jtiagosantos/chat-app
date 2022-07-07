@@ -1,7 +1,10 @@
 import { Routes } from './routes';
 import { GlobalStyle } from './styles/global';
 
-//context
+//components
+import { Toast } from '@/components';
+
+//contexts
 import { ContextsProvider } from '@/contexts';
 
 export const App = () => {
@@ -9,6 +12,7 @@ export const App = () => {
     <ContextsProvider>
       <GlobalStyle />
       <Routes />
+      <Toast />
     </ContextsProvider>
   );
 }

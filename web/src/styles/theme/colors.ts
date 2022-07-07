@@ -14,4 +14,10 @@ export const colors = {
   manatee: '#A1A1AA',
   crimson: '#BF1650',
   overlay: 'rgba(23, 23, 23, 0.7)',
+  toast: {
+    success: '#38B233',
+    error: '#CF2E2E',
+    info: '#2E9ECF',
+    warning: '#BEC525',
+  },
 };
