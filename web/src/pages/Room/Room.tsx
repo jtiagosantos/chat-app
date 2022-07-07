@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useTransition } from 'react-spring';
 
 //layouts
 import { Main } from '@/layouts';
 
 //components
 import { ButtonGroup, CreateRoomForm, EnterRoomForm } from './components';
+
+//hooks
+import { useAnimatedTransition } from '@/hooks';
 
 //types
 import { SelectedForm } from './types';
@@ -21,17 +23,12 @@ export const Room = () => {
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>();
   const [isFirstRendering, setIsFirstRendering] = useState(true);
 
-  const formTransition = useTransition(isOpenForm, {
-    from: { x: 0, y: 180, opacity: 0.3 },
-    enter: { x: 0, y: 0, opacity: 1 },
-    leave: { x: 0, y: 180, opacity: 0.3 },
-  });
+  const formTransition = useAnimatedTransition(isOpenForm);
 
-  const buttonGroupTransition = useTransition(isOpenButtonGroup, {
-    from: isFirstRendering ? {} : { x: 0, y: 180, opacity: 0.3 },
-    enter: { x: 0, y: 0, opacity: 1 },
-    leave: { x: 0, y: 180, opacity: 0.3 },
-  });
+  const buttonGroupTransition = useAnimatedTransition(
+    isOpenButtonGroup,
+    isFirstRendering,
+  );
 
   const openCreateRoomForm = () => {
     setIsOpenButtonGroup(false);
