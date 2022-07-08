@@ -1,4 +1,11 @@
-import { FC, PropsWithChildren, useState, useMemo, useCallback } from 'react';
+import { 
+  FC, 
+  PropsWithChildren, 
+  useState, 
+  useMemo, 
+  useCallback, 
+  useEffect 
+} from 'react';
 
 //contexts
 import { ToastStateContext, ToastDispatchContext } from './toastContext';
@@ -46,6 +53,20 @@ export const ToastProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
   }), [
     handleOpenToast,
     handleCloseToast,
+  ]);
+
+  useEffect(() => {
+    let id: NodeJS.Timeout;
+
+    if (isOpen) {
+      id = setTimeout(() => {
+        setIsOpen(false);
+      }, 2000);
+    }
+
+    return () => clearTimeout(id);
+  }, [
+    isOpen,
   ]);
 
   return (
