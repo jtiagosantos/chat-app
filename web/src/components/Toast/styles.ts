@@ -6,8 +6,7 @@ import { X } from 'phosphor-react';
 import { ContainerProps } from './types';
 
 export const Container = styled(animated.div)<ContainerProps>`
-  max-width: 370px;
-  width: 100%;
+  min-width: 370px;
   height: 65px;
   position: absolute;
   bottom: 10px;
@@ -15,6 +14,7 @@ export const Container = styled(animated.div)<ContainerProps>`
   border-radius: 5px;
   background-color: ${({ theme, messagetype }) => theme.colors.toast[messagetype]};
   padding-left: 10px;
+  padding-right: 30px;
 
   display: flex;
   align-items: center;
