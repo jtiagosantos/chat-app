@@ -1,5 +1,5 @@
 export interface ContainerProps {
-  messageType: 
+  messagetype: 
     | 'success' 
     | 'error'
     | 'info'
