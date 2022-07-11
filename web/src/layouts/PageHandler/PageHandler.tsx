@@ -2,7 +2,7 @@ import { FC, PropsWithChildren, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 //hooks
-import { useAuthValidation } from '@/hooks';
+import { useAuthValidation, useToastDispatch } from '@/hooks';
 
 //types
 import { PageHandlerProps } from './types';
@@ -12,6 +12,7 @@ export const PageHandler: FC<PropsWithChildren<PageHandlerProps>> = (
 ) => {
   const navigate = useNavigate();
   const { isUserAuthenticated } = useAuthValidation();
+  const { openToast } = useToastDispatch();
 
   const navigateToHomePage = useCallback(() => {
     navigate('/');
@@ -31,13 +32,18 @@ export const PageHandler: FC<PropsWithChildren<PageHandlerProps>> = (
     }
 
     if (typePage === 'isProtectedPage' && !isUserAuthenticated) {
+      openToast({
+        messageType: 'error',
+        message: 'Unauthorized access',
+      });
       navigateToHomePage();
     }
   }, [
     typePage,
     isUserAuthenticated,
     navigateToRoomPage,
-    navigateToHomePage
+    navigateToHomePage,
+    openToast,
   ]);
 
   return <>{ children }</>;

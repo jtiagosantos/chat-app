@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from 'react-query';
 
 //hooks
-import { useAuthDispatch } from '@/hooks';
+import { useAuthDispatch, useToastDispatch } from '@/hooks';
 
 //components
 import { Form, Input, PasswordField, Button } from '@/components';
@@ -24,6 +24,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ ...rest }) => {
   const [imageUrl, setImageUrl] = useState('');
   const isFirstRendering = useRef(true);
 
+  const { openToast } = useToastDispatch();
   const { signUp } = useAuthDispatch();
   
   const { control, handleSubmit, watch } = useForm<FormData>({
@@ -37,8 +38,18 @@ export const SignUpForm: FC<SignUpFormProps> = ({ ...rest }) => {
   });
   
   const { mutate, isLoading } = useMutation(signUp, {
-    onError: () => {}, //handle
-    onSuccess: () => {}, //handle
+    onError: (error) => {
+      openToast({
+        messageType: 'error',
+        message: error as string,
+      });
+    },
+    onSuccess: () => {
+      openToast({
+        messageType: 'success',
+        message: 'User registered successfully',
+      });
+    },
   });
 
   const handleSignUp = (data: FormData) => {

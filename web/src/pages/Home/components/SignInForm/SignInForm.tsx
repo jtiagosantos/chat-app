@@ -5,7 +5,7 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
 //hooks
-import { useAuthDispatch } from '@/hooks';
+import { useAuthDispatch, useToastDispatch } from '@/hooks';
 
 //components
 import { Form, Input, Button, PasswordField } from '@/components';
@@ -30,11 +30,23 @@ export const SignInForm: FC<SignInFormProps> = ({ ...rest }) => {
     resolver: yupResolver(signInSchema),
   });
 
+  const { openToast } = useToastDispatch();
   const { signIn } = useAuthDispatch();
 
   const { mutate, isLoading } = useMutation(signIn, {
-    onError: (error) => console.log(error),
-    onSuccess: () => navigateToRoomPage(),
+    onError: (error) => {
+      openToast({
+        messageType: 'error',
+        message: error as string,
+      });
+    },
+    onSuccess: () => {
+      navigateToRoomPage();
+      openToast({
+        messageType: 'success',
+        message: 'User logged in successfully',
+      });
+    },
   });
 
   const handleSignIn = (data: FormData) => {
