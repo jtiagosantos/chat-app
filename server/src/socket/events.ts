@@ -1,6 +1,6 @@
 import { constants } from '@/constants'
 import { io } from './io';
-import { getOnlineUsers } from '@/utils/getOnlineUsers';
+import { getOnlineUsers } from '@/utils';
 
 const { EVENTS } = constants;
 

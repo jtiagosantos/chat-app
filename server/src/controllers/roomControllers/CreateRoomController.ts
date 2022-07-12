@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 import { CreateRoomUseCase } from '@/useCases';
 
 //utils
-import { generateRoomCode } from '@/utils/generateRoomCode';
+import { generateRoomCode } from '@/utils';
 
 export class CreateRoomController {
   constructor (
