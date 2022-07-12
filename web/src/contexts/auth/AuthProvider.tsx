@@ -55,16 +55,11 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
   ]);
 
   const handleSignOut = useCallback(() => {
-      setUserId('');
-      setToken('');
-      setUsername('');
-      setProfileImage('')
-  }, [
-    setUserId,
-    setToken,
-    setUsername,
-    setProfileImage,
-  ]);
+    localStorage.removeItem(USER_ID_STORAGE_KEY);
+    localStorage.removeItem(TOKEN_STORAGE_KEY);
+    localStorage.removeItem(USERNAME_STORAGE_KEY);
+    localStorage.removeItem(USER_PROFILE_IMAGE_STORAGE_KEY);
+  }, []);
 
   const authState = useMemo(() => ({
     userId,
