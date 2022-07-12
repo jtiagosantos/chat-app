@@ -1,44 +1,20 @@
-import { prisma } from '@/services/prisma';
-import { MessageDto } from '@/models/Message';
-import { Message } from '@/types/message';
+export interface Message {
+  id: number;
+  text: string;
+  user: {
+    username: string;
+    profileImage: string;
+  };
+  createdAt: Date;
+}
 
-export class MessageRepository {
-  static async create(data: MessageDto): Promise<Message> {
-    const message = await prisma.message.create({
-      data: {
-        text: data.text,
-        userId: data.userId,
-        roomCode: data.roomCode,
-        createdAt: new Date(),
-      },
-      include: {
-        user: {
-          select: {
-            username: true,
-            profileImage: true,
-          },
-        },
-      },
-    });
+export interface CreateMessageData {
+  text: string;
+  userId: number;
+  roomCode: string;
+}
 
-    return message;
-  }
-
-  static async read(roomCode: string): Promise<Array<MessageDto>> {
-    const messages = await prisma.message.findMany({
-      where: {
-        roomCode,
-      },
-      include: {
-        user: {
-          select: {
-            username: true,
-            profileImage: true,
-          }
-        }
-      }
-    });
-
-    return messages;
-  }
+export interface MessageRepository {
+  createMessage: (data: CreateMessageData) => Promise<Message>;
+  readMessages: (roomCode: string) => Promise<Array<Message>>;
 }
