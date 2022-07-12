@@ -1,25 +1,11 @@
-import { prisma } from '@/services/prisma';
-import { RoomDto } from '@/models/Room';
+export interface CreateRoomData {
+  name: string;
+  code: string;
+}
 
-export class RoomRepository {
-  static async create(data: RoomDto): Promise<RoomDto> {
-    const room = await prisma.room.create({
-      data: {
-        name: data.name,
-        code: data.code,
-      }
-    });
+type Room = Pick<CreateRoomData, 'code'>;
 
-    return room;
-  }
-
-  static async read(roomCode: string): Promise<RoomDto | null> {
-    const room = await prisma.room.findUnique({
-      where: {
-        code: roomCode,
-      }
-    });
-
-    return room;
-  }
+export interface RoomRepository {
+  createRoom: (data: CreateRoomData) => Promise<Room>;
+  readRoom: (roomCode: string) => Promise<Room | null>;
 }
