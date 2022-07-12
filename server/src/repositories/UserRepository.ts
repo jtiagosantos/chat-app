@@ -1,28 +1,21 @@
-import { prisma } from '@/services/prisma';
-import { UserDto } from '@/models/User';
-import { User } from '@/types/user';
+interface User {
+  id: number;
+  username: string;
+  email?: string;
+  profileImage: string;
+  password?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
 
-export class UserRepository {
-  static async create(data: UserDto) {
-    const user = await prisma.user.create({
-      data: {
-        username: data.username,
-        profileImage: data.profileImage,
-        email: data.email,
-        password: data.password,
-      },
-    });
+export interface CreateUserData {
+  username: string;
+  email: string;
+  profileImage: string;
+  password: string;
+}
 
-    return user;
-  }
-
-  static async read(email: string): Promise<User | null> {
-    const user = await prisma.user.findUnique({
-      where: {
-        email,
-      },
-    });
-
-    return user;
-  }
+export interface UserRepository {
+  createUser: (data: CreateUserData) => Promise<void>;
+  readUser: (email: string) => Promise<User | null>;
 }
