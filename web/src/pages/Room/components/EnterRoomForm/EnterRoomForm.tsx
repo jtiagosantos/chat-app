@@ -11,7 +11,7 @@ import { enterRoomService } from '@/services';
 import { Form, Input, Button } from '@/components';
 
 //hooks
-import { useAuthValidation } from '@/hooks';
+import { useAuthValidation, useToastDispatch } from '@/hooks';
 
 //schemas
 import { enterRoomSchema } from '@/schemas';
@@ -26,6 +26,7 @@ import { theme } from '@/styles/theme';
 export const EnterRoomForm: FC<EnterRoomFormProps> = ({ ...rest }) => {
   const navigate = useNavigate();
   const { isUserAuthenticated } = useAuthValidation();
+  const { openToast } = useToastDispatch();
 
   const { control, handleSubmit, getValues } = useForm<FormData>({
     defaultValues: {
@@ -36,7 +37,12 @@ export const EnterRoomForm: FC<EnterRoomFormProps> = ({ ...rest }) => {
 
   const { mutate, isLoading } = useMutation(enterRoomService, {
     onSuccess: () => navigateToChatPage(),
-    onError: (error) => console.log(error),
+    onError: (error) => {
+      openToast({
+        messageType: 'error',
+        message: error as string,
+      });
+    },
   });
 
   const handleEnterRooom = (data: FormData) => {
