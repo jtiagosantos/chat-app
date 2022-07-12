@@ -1,4 +1,4 @@
-import { prisma } from '@/services/prisma';
+import { prisma } from '@/config/prisma';
 
 //repositories
 import { MessageRepository } from '@/repositories';
