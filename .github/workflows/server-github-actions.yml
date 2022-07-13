@@ -1,0 +1,41 @@
+name: Server Github Actions
+
+on:
+  push:
+    branches:
+      - master
+
+jobs: 
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+        with:
+          working-directory: server
+
+      - name: Create .env file
+        run: |
+          cd server
+          touch .env
+          echo DATABASE_URL=${{secrets.DATABASE_URL}} >> .env
+
+      - name: Run migrations
+        run: |
+          cd server
+          npx prisma migrate deploy
