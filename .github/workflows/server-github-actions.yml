@@ -39,3 +39,13 @@ jobs:
         run: |
           cd server
           npx prisma migrate deploy
+
+      - name: Install Railway
+        run: npm i -g @railway/cli
+
+      - name: Deploy API on Railway
+        run: |
+          cd server
+          npx railway up
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
