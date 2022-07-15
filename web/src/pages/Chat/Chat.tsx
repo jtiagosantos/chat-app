@@ -17,6 +17,7 @@ import { ProfileBar } from './components';
 import { MessageContent } from './components';
 import { UserDialog } from './components';
 import { Input } from '@/components';
+import { SpinnerLoading } from '@/components';
 
 //hooks
 import { useAuthState } from '@/hooks';
@@ -65,7 +66,7 @@ export const Chat = () => {
     onSuccess: (data) => setMessages(data!.reverse()),
   });
 
-  const { mutate: sendMessage } = useMutation(sendMessageService, {
+  const { mutate: sendMessage, isLoading } = useMutation(sendMessageService, {
     onSuccess: (data) => {
       reset();
       socketRef?.current?.emit(SEND_MESSAGE, data);
@@ -189,7 +190,16 @@ export const Chat = () => {
           />
 
           <S.SendMessageButton type="submit" disabled={!watchMessageText}>
-            <PaperPlaneRight color={theme.colors.white} weight='bold' size={18} />
+            {isLoading ? (
+              <SpinnerLoading 
+                size={20}
+                borderSize={3}
+                secondaryColor={theme.colors.mediumslateblue}
+                primaryColor={theme.colors.white}
+              />
+            ) : (
+              <PaperPlaneRight color={theme.colors.white} weight='bold' size={18} />
+            )}
           </S.SendMessageButton>
         </form>
       </S.ChatBox>
