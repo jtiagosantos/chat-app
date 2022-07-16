@@ -53,6 +53,10 @@ export const MessageList = styled.ul`
     background-color: ${({ theme }) => theme.colors.lightgray};
     border-radius: 5px;
   }
+
+  li:first-of-type {
+    margin-bottom: 1rem;
+  }
 `;
 
 export const SendMessageButton = styled.button`
