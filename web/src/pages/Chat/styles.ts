@@ -80,4 +80,12 @@ export const SendMessageButton = styled.button`
       filter: none;
     }
   }
+
+  @media(max-width: 700px) {
+    width: 2.9rem;
+  }
+
+  @media(max-width: 460px) {
+    width: 3.1rem;
+  }
 `;
