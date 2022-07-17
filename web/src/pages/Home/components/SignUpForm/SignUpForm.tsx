@@ -21,9 +21,6 @@ import { Container, ImageProfile } from './styles';
 import { theme } from '@/styles/theme';
 
 export const SignUpForm: FC<SignUpFormProps> = ({ ...rest }) => {
-  const [imageUrl, setImageUrl] = useState('');
-  const isFirstRendering = useRef(true);
-
   const { openToast } = useToastDispatch();
   const { signUp } = useAuthDispatch();
   
@@ -58,22 +55,10 @@ export const SignUpForm: FC<SignUpFormProps> = ({ ...rest }) => {
 
   const watchProfileImage = watch('profileImage');
 
-  useEffect(() => {
-    if (isFirstRendering.current) {
-      isFirstRendering.current = false;
-      
-      return;
-    }
-
-    setImageUrl(watchProfileImage);
-  }, [
-    watchProfileImage
-  ]);
-
   return (
     <Container {...rest}>
-      {imageUrl ? (
-        <ImageProfile src={imageUrl} alt='image error' />
+      {watchProfileImage ? (
+        <ImageProfile src={watchProfileImage} alt='Error loading image' />
       ): (
         <UserCircle size={125} color={theme.colors.white} weight='fill' />
       )}
