@@ -4,14 +4,23 @@ import { animated } from 'react-spring';
 export const Container = styled(animated.div)`
   position: absolute;
   left: 30px;
-  bottom: -20px;
-  right: 70%;
+  bottom: -18px;
 
   min-width: 270px;
   background-color: ${({ theme }) => theme.colors.black};
   border-radius: 8px;
 
   overflow: hidden;
+
+  @media(max-width: 1000px) {
+    left: 28px;
+    bottom: -16px;
+  }
+
+  @media(max-width: 720px) {
+    left: 26px;
+    bottom: -15px;
+  }
 `;
 
 export const Wrapper = styled.div`
