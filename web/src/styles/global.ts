@@ -9,21 +9,24 @@ export const GlobalStyle = createGlobalStyle`
     letter-spacing: 1px;
   }
 
-  html {
+  html, body {
     width: 100%;
     height: 100vh;
     overflow: hidden;
-
+  }
+  
+  html {
     @media(max-width: 1000px) {
       font-size: 93.75%;
     }
-
+    
     @media(max-width: 720px) {
       font-size: 87.5%; 
     }
   }
-
+  
   body {
+    position: fixed;
     background-color: ${({ theme }) => theme.colors.bunker};
     -webkit-font-smoothing: antialiased;
   }
