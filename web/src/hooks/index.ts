@@ -7,3 +7,4 @@ export { useAuthValidation } from './useAuthValidation';
 export { useTransition } from './useTransition';
 export { useToastState } from './toast/useToastState';
 export { useToastDispatch } from './toast/useToastDispatch';
+export { useWebShare } from './useWebShare';
