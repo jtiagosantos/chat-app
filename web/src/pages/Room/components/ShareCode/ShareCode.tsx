@@ -13,7 +13,7 @@ import { CodeDialogProps } from './types';
 //styles
 import { Container } from './styles';
 
-export const CodeDialog: FC<CodeDialogProps> = ({ code }) => {
+export const ShareCode: FC<CodeDialogProps> = ({ code }) => {
   const { openToast } = useToastDispatch();
 
   const copyRoomCodeToClipboard = () => {
