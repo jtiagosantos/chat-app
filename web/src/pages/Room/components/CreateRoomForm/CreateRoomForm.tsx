@@ -1,4 +1,4 @@
-import { FC, useRef, useState, useCallback } from 'react';
+import { FC, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -38,18 +38,18 @@ export const CreateRoomForm: FC<CreateRoomFormProps> = ({ ...rest }) => {
     resolver: yupResolver(createRoomSchema),
   });
 
-  const openShareCode = useCallback(() => {
+  const openShareCode = () => {
     setIsShowShareCode(true);
-  }, []);
+  };
 
-  const setCode = useCallback((code: string) => {
+  const setCode = (code: string) => {
     codeRef.current = code;
-  }, []);
+  };
 
   const { mutate, isLoading } = useMutation(createRoomService, {
     onSuccess: (data) => {
-      setCode(data?.code!)
-      openShareCode()
+      setCode(data?.code!);
+      openShareCode();
     },
     onError: (error) => console.log(error)
   });

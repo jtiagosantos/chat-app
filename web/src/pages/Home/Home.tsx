@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 //layouts
 import { Main } from '@/layouts';
@@ -34,7 +34,7 @@ export const Home = () => {
     isFirstRendering,
   );
 
-  const openForm = (form: SelectedForm) => {
+  const openForm = useCallback((form: SelectedForm) => {
     setIsOpenButtonGroup(false);
     setIsOpenForm(false);
     
@@ -44,7 +44,7 @@ export const Home = () => {
     }, 400);
   
     setTimeoutId(id);
-  }
+  }, []);
 
   const closeForm = () => {
     setIsOpenForm(false);

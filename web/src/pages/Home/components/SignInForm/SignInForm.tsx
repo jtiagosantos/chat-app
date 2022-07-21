@@ -34,17 +34,17 @@ export const SignInForm: FC<SignInFormProps> = ({ ...rest }) => {
   const { signIn } = useAuthDispatch();
 
   const { mutate, isLoading } = useMutation(signIn, {
-    onError: (error) => {
-      openToast({
-        messageType: 'error',
-        message: error as string,
-      });
-    },
     onSuccess: () => {
       navigateToRoomPage();
       openToast({
         messageType: 'success',
         message: 'User logged in successfully',
+      });
+    },
+    onError: (error) => {
+      openToast({
+        messageType: 'error',
+        message: error as string,
       });
     },
   });

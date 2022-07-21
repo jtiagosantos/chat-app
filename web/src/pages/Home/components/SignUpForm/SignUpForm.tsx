@@ -35,16 +35,16 @@ export const SignUpForm: FC<SignUpFormProps> = ({ ...rest }) => {
   });
   
   const { mutate, isLoading } = useMutation(signUp, {
-    onError: (error) => {
-      openToast({
-        messageType: 'error',
-        message: error as string,
-      });
-    },
     onSuccess: () => {
       openToast({
         messageType: 'success',
         message: 'User registered successfully',
+      });
+    },
+    onError: (error) => {
+      openToast({
+        messageType: 'error',
+        message: error as string,
       });
     },
   });
