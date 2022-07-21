@@ -13,11 +13,12 @@ import { sendMessageService } from '@/services';
 import { fetchMessagesService } from '@/services';
 
 //components
+import { Input } from '@/components';
+import { SpinnerLoading } from '@/components';
 import { ProfileBar } from './components';
 import { MessageContent } from './components';
 import { UserDialog } from './components';
-import { Input } from '@/components';
-import { SpinnerLoading } from '@/components';
+import { FetchingMessagesLoading } from './components';
 
 //hooks
 import { useAuthState } from '@/hooks';
@@ -62,11 +63,17 @@ export const Chat = () => {
 
   const watchMessageText = watch('messageText');
 
-  const { mutate: fetchMessages } = useMutation(fetchMessagesService, {
+  const {
+    mutate: fetchMessages, 
+    isLoading: isFetchingMessages,
+  } = useMutation(fetchMessagesService, {
     onSuccess: (data) => setMessages(data!.reverse()),
   });
 
-  const { mutate: sendMessage, isLoading } = useMutation(sendMessageService, {
+  const {
+    mutate: sendMessage, 
+    isLoading: isSendingMessage,
+  } = useMutation(sendMessageService, {
     onSuccess: (data) => {
       reset();
       socketRef?.current?.emit(SEND_MESSAGE, data);
@@ -163,17 +170,21 @@ export const Chat = () => {
       />
 
       <S.ChatBox>
-        <S.MessageList>
-          {messages.map((message) => (
-            <MessageContent 
-              key={message.id} 
-              text={message.text} 
-              username={message.user.username}
-              profilePhotoUrl={message.user.profileImage}
-              dateTime={message.createdAt}
-            />
-          ))}
-        </S.MessageList>
+        {isFetchingMessages ? (
+          <FetchingMessagesLoading />
+        ) : (
+          <S.MessageList>
+            {messages.map((message) => (
+              <MessageContent 
+                key={message.id} 
+                text={message.text} 
+                username={message.user.username}
+                profilePhotoUrl={message.user.profileImage}
+                dateTime={message.createdAt}
+              />
+            ))}
+          </S.MessageList>
+        )}
 
         <form onSubmit={handleSubmit(handleSendMessage)}>
           <Input 
@@ -190,7 +201,7 @@ export const Chat = () => {
           />
 
           <S.SendMessageButton type="submit" disabled={!watchMessageText}>
-            {isLoading ? (
+            {isSendingMessage ? (
               <SpinnerLoading 
                 size={20}
                 borderSize={3}
