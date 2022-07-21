@@ -41,6 +41,14 @@ export const Routes = () => {
             </PageHandler>
           } 
         />
+        <Route 
+          path='*' 
+          element={
+            <PageHandler typePage='isNotProtectedPage'>
+              <Home />
+            </PageHandler>
+          } 
+        />
       </Router>
     </BrowserRouter>
   );
