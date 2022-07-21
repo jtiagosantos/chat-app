@@ -12,7 +12,7 @@ import { Form, Input, Button } from '@/components';
 import { ShareCode } from '../ShareCode/ShareCode';
 
 //hooks
-import { useAuthValidation } from '@/hooks';
+import { useAuthValidation, useToastDispatch } from '@/hooks';
 
 //schemas
 import { createRoomSchema } from '@/schemas/createRoomSchema';
@@ -27,6 +27,7 @@ import { theme } from '@/styles/theme';
 export const CreateRoomForm: FC<CreateRoomFormProps> = ({ ...rest }) => {
   const navigate = useNavigate();
   const { isUserAuthenticated } = useAuthValidation();
+  const { openToast } = useToastDispatch();
 
   const [isShowShareCode, setIsShowShareCode] = useState(false);
   const codeRef = useRef('');
@@ -51,7 +52,12 @@ export const CreateRoomForm: FC<CreateRoomFormProps> = ({ ...rest }) => {
       setCode(data?.code!);
       openShareCode();
     },
-    onError: (error) => console.log(error)
+    onError: () => {
+      openToast({
+        messageType: 'error',
+        message: 'Error creating room. Try again',
+      });
+    }
   });
 
   const handleCreateRoom = (data: FormData) => {
