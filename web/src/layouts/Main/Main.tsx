@@ -1,18 +1,33 @@
 import { FC, PropsWithChildren } from 'react';
 
+//components
+import { Header } from '@/components';
+
 //images
 import bannerImage from '@/images/banner.svg';
 
-//styles
-import { Container, ImageWrapper } from './styles';
+//types
+import { MainProps } from './types';
 
-export const Main: FC<PropsWithChildren<unknown>> = ({ children }) => {
+//styles
+import * as S from './styles';
+
+export const Main: FC<PropsWithChildren<MainProps>> = ({ 
+  showHeader = false, 
+  children 
+}) => {
   return (
-    <Container>
-      {children}
-      <ImageWrapper>
-        <img src={bannerImage} alt="" />
-      </ImageWrapper>
-    </Container>
+    <>
+      {showHeader && <Header />}
+
+      <S.Container>
+        <S.ContentWrapper>
+          {children}
+          <S.ImageWrapper>
+            <img src={bannerImage} alt="" />
+          </S.ImageWrapper>
+        </S.ContentWrapper>
+      </S.Container>
+    </>
   );
 }
