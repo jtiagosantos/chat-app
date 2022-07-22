@@ -1,4 +1,14 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const zoomIn = keyframes`
+  0% {
+    transform: scale(0.7);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+`;
 
 export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.woodsmoke};
@@ -10,6 +20,8 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   gap: 2rem;
+
+  animation: ${zoomIn} 200ms ease;
 
   h1 {
     color: ${({ theme }) => theme.colors.lightgray};
@@ -29,7 +41,7 @@ export const Actions = styled.div`
 
   svg {
     cursor: pointer;
-    
+
     transition: filter 0.2ms;
 
     &:hover {
