@@ -10,6 +10,7 @@ export const Container = styled.div`
 
   position: fixed;
   top: 0;
+  z-index: 9;
   
   background: ${({ theme }) => theme.colors.overlay};
 `;
