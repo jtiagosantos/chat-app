@@ -13,12 +13,23 @@ import { MainProps } from './types';
 import * as S from './styles';
 
 export const Main: FC<PropsWithChildren<MainProps>> = ({ 
+  headerProperties,
   showHeader = false, 
   children 
 }) => {
+  const profileImage = headerProperties?.profileImage;
+  const username = headerProperties?.username;
+  const onlineUsersNumber = headerProperties?.onlineUsersNumber;
+
   return (
     <>
-      {showHeader && <Header />}
+      {showHeader && (
+        <Header 
+          profileImage={profileImage} 
+          username={username} 
+          onlineUsersNumber={onlineUsersNumber} 
+        />
+      )}
 
       <S.Container>
         <S.ContentWrapper>
