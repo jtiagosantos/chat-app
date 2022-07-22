@@ -15,7 +15,7 @@ import { fetchMessagesService } from '@/services';
 //components
 import { Input } from '@/components';
 import { SpinnerLoading } from '@/components';
-import { ProfileBar } from './components';
+import { Header } from '@/components';
 import { MessageContent } from './components';
 import { UserDialog } from './components';
 import { FetchingMessagesLoading } from './components';
@@ -162,60 +162,62 @@ export const Chat = () => {
   ]);
 
   return (
-    <S.Container>
-      <ProfileBar 
+    <>
+      <Header 
+        profileImage={profileImage} 
         username={username} 
-        profilePhotoURL={profileImage} 
-        quantityUsersOnline={quantityUsersOnline}
+        onlineUsersNumber={quantityUsersOnline}
       />
 
-      <S.ChatBox>
-        {isFetchingMessages ? (
-          <FetchingMessagesLoading />
-        ) : (
-          <S.MessageList>
-            {messages.map((message) => (
-              <MessageContent 
-                key={message.id} 
-                text={message.text} 
-                username={message.user.username}
-                profilePhotoUrl={message.user.profileImage}
-                dateTime={message.createdAt}
-              />
-            ))}
-          </S.MessageList>
-        )}
+      <S.Container>
+        <S.ChatBox>
+          {isFetchingMessages ? (
+            <FetchingMessagesLoading />
+          ) : (
+            <S.MessageList>
+              {messages.map((message) => (
+                <MessageContent 
+                  key={message.id} 
+                  text={message.text} 
+                  username={message.user.username}
+                  profilePhotoUrl={message.user.profileImage}
+                  dateTime={message.createdAt}
+                />
+              ))}
+            </S.MessageList>
+          )}
 
-        <form onSubmit={handleSubmit(handleSendMessage)}>
-          <Input 
-            type="text" 
-            width="100%"
-            height="2.5rem"
-            padding="0.5rem 0.625rem"
-            textColor={theme.colors.manatee}
-            placeholderColor={theme.colors.manatee}
-            fontSize="0.875rem"
-            placeholder="message text..." 
-            control={control}
-            name='messageText'
-          />
+          <form onSubmit={handleSubmit(handleSendMessage)}>
+            <Input 
+              type="text" 
+              width="100%"
+              height="2.5rem"
+              padding="0.5rem 0.625rem"
+              textColor={theme.colors.manatee}
+              placeholderColor={theme.colors.manatee}
+              fontSize="0.875rem"
+              placeholder="message text..." 
+              control={control}
+              name='messageText'
+            />
 
-          <S.SendMessageButton type="submit" disabled={!watchMessageText}>
-            {isSendingMessage ? (
-              <SpinnerLoading 
-                size={20}
-                borderSize={3}
-                secondaryColor={theme.colors.mediumslateblue}
-                primaryColor={theme.colors.white}
-              />
-            ) : (
-              <PaperPlaneRight color={theme.colors.white} weight='bold' size={18} />
-            )}
-          </S.SendMessageButton>
-        </form>
-      </S.ChatBox>
+            <S.SendMessageButton type="submit" disabled={!watchMessageText}>
+              {isSendingMessage ? (
+                <SpinnerLoading 
+                  size={20}
+                  borderSize={3}
+                  secondaryColor={theme.colors.mediumslateblue}
+                  primaryColor={theme.colors.white}
+                />
+              ) : (
+                <PaperPlaneRight color={theme.colors.white} weight='bold' size={18} />
+              )}
+            </S.SendMessageButton>
+          </form>
+        </S.ChatBox>
 
-      <UserDialog />
-    </S.Container>
+        <UserDialog />
+      </S.Container>
+    </>
   );
 }

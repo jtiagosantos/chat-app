@@ -7,7 +7,7 @@ import { Main } from '@/layouts';
 import { ButtonGroup, CreateRoomForm, EnterRoomForm } from './components';
 
 //hooks
-import { useTransition } from '@/hooks';
+import { useTransition, useAuthState } from '@/hooks';
 
 //constants
 import { FORM_ANIMATION_STYLES, BUTTON_GROUP_ANIMATION_STYLES } from '@/constants';
@@ -26,6 +26,8 @@ export const Room = () => {
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>();
   const [isFirstRendering, setIsFirstRendering] = useState(true);
 
+  const { profileImage, username } = useAuthState();
+  
   const formTransition = useTransition(isOpenForm, FORM_ANIMATION_STYLES);
 
   const buttonGroupTransition = useTransition(
@@ -68,7 +70,7 @@ export const Room = () => {
 
   if (!selectedForm) {
     return (
-      <Main showHeader>
+      <Main showHeader headerProperties={{ profileImage, username }}>
         {buttonGroupTransition((style, item) => (
           item && (
             <ButtonGroup 
@@ -83,7 +85,7 @@ export const Room = () => {
   }
 
   return (
-    <Main showHeader>
+    <Main showHeader headerProperties={{ profileImage, username }}>
       <Wrapper>
         <CloseFormButton weight='light' onClick={closeForm} />
 
