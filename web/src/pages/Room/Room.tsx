@@ -68,7 +68,7 @@ export const Room = () => {
 
   if (!selectedForm) {
     return (
-      <Main>
+      <Main showHeader>
         {buttonGroupTransition((style, item) => (
           item && (
             <ButtonGroup 
@@ -83,7 +83,7 @@ export const Room = () => {
   }
 
   return (
-    <Main>
+    <Main showHeader>
       <Wrapper>
         <CloseFormButton weight='light' onClick={closeForm} />
 
