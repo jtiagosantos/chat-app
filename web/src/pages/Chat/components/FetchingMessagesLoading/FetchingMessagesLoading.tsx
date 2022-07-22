@@ -5,8 +5,8 @@ import { Shimmer } from '@/styles/components/Shimmer';
 export const FetchingMessagesLoading = () => {
   return (
     <S.MessageList>
-      {new Array(5).fill(null).map(() => (
-        <S.MessageContainer>
+      {new Array(5).fill(null).map((_, index) => (
+        <S.MessageContainer key={index}>
           <S.Wrapper>
             <Shimmer width='25px' height='25px' />
             <S.Username>

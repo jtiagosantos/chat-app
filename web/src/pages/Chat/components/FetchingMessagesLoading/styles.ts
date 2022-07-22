@@ -34,7 +34,7 @@ export const Username = styled.div`
   }
 `;
 
-export const MessageText = styled.p`
+export const MessageText = styled.div`
   margin-top: 10px;
 
   div {
