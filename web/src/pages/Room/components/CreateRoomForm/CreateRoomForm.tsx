@@ -1,4 +1,4 @@
-import { FC, useRef, useState, useCallback } from 'react';
+import { FC, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,10 +9,10 @@ import { createRoomService } from '@/services';
 
 //components
 import { Form, Input, Button } from '@/components';
-import { CodeDialog } from '../CodeDialog/CodeDialog';
+import { ShareCode } from '../ShareCode/ShareCode';
 
 //hooks
-import { useAuthValidation } from '@/hooks';
+import { useAuthValidation, useToastDispatch } from '@/hooks';
 
 //schemas
 import { createRoomSchema } from '@/schemas/createRoomSchema';
@@ -27,8 +27,9 @@ import { theme } from '@/styles/theme';
 export const CreateRoomForm: FC<CreateRoomFormProps> = ({ ...rest }) => {
   const navigate = useNavigate();
   const { isUserAuthenticated } = useAuthValidation();
+  const { openToast } = useToastDispatch();
 
-  const [isShowCodeDialog, setIsShowCodeDialog] = useState(false);
+  const [isShowShareCode, setIsShowShareCode] = useState(false);
   const codeRef = useRef('');
 
   const { control, handleSubmit } = useForm<FormData>({
@@ -38,20 +39,25 @@ export const CreateRoomForm: FC<CreateRoomFormProps> = ({ ...rest }) => {
     resolver: yupResolver(createRoomSchema),
   });
 
-  const openCodeDialog = useCallback(() => {
-    setIsShowCodeDialog(true);
-  }, []);
+  const openShareCode = () => {
+    setIsShowShareCode(true);
+  };
 
-  const setCode = useCallback((code: string) => {
+  const setCode = (code: string) => {
     codeRef.current = code;
-  }, []);
+  };
 
   const { mutate, isLoading } = useMutation(createRoomService, {
     onSuccess: (data) => {
-      setCode(data?.code!)
-      openCodeDialog()
+      setCode(data?.code!);
+      openShareCode();
     },
-    onError: (error) => console.log(error)
+    onError: () => {
+      openToast({
+        messageType: 'error',
+        message: 'Error creating room. Try again',
+      });
+    }
   });
 
   const handleCreateRoom = (data: FormData) => {
@@ -72,7 +78,7 @@ export const CreateRoomForm: FC<CreateRoomFormProps> = ({ ...rest }) => {
 
   return (
     <Container {...rest}>
-      {!isShowCodeDialog ? (
+      {!isShowShareCode ? (
         <Form width="100%" onSubmit={handleSubmit(handleCreateRoom)}>
           <Input 
             type="text" 
@@ -98,7 +104,7 @@ export const CreateRoomForm: FC<CreateRoomFormProps> = ({ ...rest }) => {
           </Button>
         </Form>
       ) : (
-        <CodeDialog code={codeRef.current} />
+        <ShareCode code={codeRef.current} />
       )}
     </Container>
   );    

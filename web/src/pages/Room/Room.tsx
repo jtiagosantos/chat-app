@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 //layouts
 import { Main } from '@/layouts';
@@ -7,7 +7,10 @@ import { Main } from '@/layouts';
 import { ButtonGroup, CreateRoomForm, EnterRoomForm } from './components';
 
 //hooks
-import { useAnimatedTransition } from '@/hooks';
+import { useTransition, useAuthState } from '@/hooks';
+
+//constants
+import { FORM_ANIMATION_STYLES, BUTTON_GROUP_ANIMATION_STYLES } from '@/constants';
 
 //types
 import { SelectedForm } from './types';
@@ -23,14 +26,17 @@ export const Room = () => {
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>();
   const [isFirstRendering, setIsFirstRendering] = useState(true);
 
-  const formTransition = useAnimatedTransition(isOpenForm);
+  const { profileImage, username } = useAuthState();
+  
+  const formTransition = useTransition(isOpenForm, FORM_ANIMATION_STYLES);
 
-  const buttonGroupTransition = useAnimatedTransition(
+  const buttonGroupTransition = useTransition(
     isOpenButtonGroup,
+    BUTTON_GROUP_ANIMATION_STYLES,
     isFirstRendering,
   );
 
-  const openForm = (form: SelectedForm) => {
+  const openForm = useCallback((form: SelectedForm) => {
     setIsOpenButtonGroup(false);
     setIsOpenForm(false);
     
@@ -40,7 +46,7 @@ export const Room = () => {
     }, 400);
 
     setTimeoutId(id);
-  }
+  }, []);
 
   const closeForm = () => {
     setIsOpenForm(false);
@@ -64,7 +70,7 @@ export const Room = () => {
 
   if (!selectedForm) {
     return (
-      <Main>
+      <Main showHeader headerProperties={{ profileImage, username }}>
         {buttonGroupTransition((style, item) => (
           item && (
             <ButtonGroup 
@@ -79,7 +85,7 @@ export const Room = () => {
   }
 
   return (
-    <Main>
+    <Main showHeader headerProperties={{ profileImage, username }}>
       <Wrapper>
         <CloseFormButton weight='light' onClick={closeForm} />
 

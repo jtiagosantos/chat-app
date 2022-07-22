@@ -24,6 +24,13 @@ export const Container = styled(animated.div)<ContainerProps>`
     color: ${({ theme }) => theme.colors.white};
     margin-left: 5px;
   }
+
+  @media(max-width: 470px) {
+    width: 100%;
+    bottom: 0;
+    right: 0;
+    border-radius: 0;
+  }
 `;
 
 export const CloseToastIcon = styled(X)`

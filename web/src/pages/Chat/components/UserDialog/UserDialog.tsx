@@ -1,8 +1,14 @@
 import { X } from 'phosphor-react';
-import { useTransition } from 'react-spring';
 
 //hooks
-import { useUserDialogDispatch, useUserDialogState } from '@/hooks';
+import { 
+  useUserDialogDispatch, 
+  useUserDialogState, 
+  useTransition 
+} from '@/hooks';
+
+//constans
+import { USER_DIALOG_ANIMATION_STYLES } from '@/constants';
 
 //styles
 import * as S from './styles';
@@ -14,11 +20,10 @@ export const UserDialog = () => {
 
   const { name, profileImage } = user;
 
-  const dialogTransition = useTransition(isOpenedDialog, {
-    from: { x: -50, y: 0, opacity: 0 },
-    enter: { x: 0, y: 0, opacity: 1 },
-    leave: { x: -50, y: 0, opacity: 0 },
-  });
+  const dialogTransition = useTransition(
+    isOpenedDialog, 
+    USER_DIALOG_ANIMATION_STYLES
+  );
 
   return (
     <>

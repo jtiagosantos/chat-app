@@ -7,6 +7,11 @@ export const Container = styled.main`
   height: 100vh;
   margin: 0 auto;
   padding: 0 1rem;
+`;
+
+export const ContentWrapper = styled.div`
+  width: 100%;
+  height: 100%;
   position: relative;
 
   display: flex;
@@ -29,7 +34,7 @@ export const Container = styled.main`
       opacity: .5;
     }
   }
-`;
+`
 
 export const ImageWrapper = styled.div`
   max-width: 313px;

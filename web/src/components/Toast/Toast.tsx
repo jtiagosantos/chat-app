@@ -4,10 +4,12 @@ import {
   Info,
   Warning
 } from 'phosphor-react';
-import { useTransition } from 'react-spring';
 
 //hooks
-import { useToastState, useToastDispatch } from '@/hooks';
+import { useToastState, useToastDispatch, useTransition } from '@/hooks';
+
+//constants
+import { TOAST_ANIMATION_STYLES } from '@/constants';
 
 //styles
 import { theme } from '@/styles/theme';
@@ -17,11 +19,7 @@ export const Toast = () => {
   const { messageType, message, isOpen } = useToastState();
   const { closeToast } = useToastDispatch();
 
-  const toastTransition = useTransition(isOpen, {
-    from: { x: 150, y: 0, opacity: 0.1 },
-    enter: { x: 0, y: 0, opacity: 1 },
-    leave: { x: 420, y: 0, opacity: 0.1 }  
-  });
+  const toastTransition = useTransition(isOpen, TOAST_ANIMATION_STYLES);
 
   return (
     <>

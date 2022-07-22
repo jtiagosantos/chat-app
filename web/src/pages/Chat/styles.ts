@@ -53,6 +53,10 @@ export const MessageList = styled.ul`
     background-color: ${({ theme }) => theme.colors.lightgray};
     border-radius: 5px;
   }
+
+  li:first-of-type {
+    margin-bottom: 1rem;
+  }
 `;
 
 export const SendMessageButton = styled.button`
@@ -79,5 +83,13 @@ export const SendMessageButton = styled.button`
     &:hover {
       filter: none;
     }
+  }
+
+  @media(max-width: 700px) {
+    width: 2.9rem;
+  }
+
+  @media(max-width: 460px) {
+    width: 3.1rem;
   }
 `;
