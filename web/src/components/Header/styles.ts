@@ -22,7 +22,7 @@ const divStyles = css`
 `;
 
 export const Profile = styled.div`
-  ${divStyles}
+  ${divStyles};
 
   img {
     max-width: 2rem;
@@ -32,6 +32,31 @@ export const Profile = styled.div`
 
   h1 {
     font-size: 1rem;
+    font-weight: normal;
+    color: ${({ theme }) => theme.colors.mischka};
+  }
+`;
+
+export const Wrapper = styled.div`
+  ${divStyles};
+
+  gap: 3rem;
+`;
+
+export const Online = styled.div`
+  ${divStyles}
+
+  span {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color: ${({ theme }) => theme.colors.limegreen};
+    box-shadow: 0px 0px 5px 1px ${({ theme }) => theme.colors.lightgreen};
+  }
+
+  h2 {
+    font-size: 0.9rem;
     font-weight: normal;
     color: ${({ theme }) => theme.colors.mischka};
   }
