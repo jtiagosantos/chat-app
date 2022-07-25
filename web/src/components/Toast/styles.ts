@@ -9,7 +9,7 @@ export const Container = styled(animated.div)<ContainerProps>`
   min-width: 370px;
   height: 65px;
   position: absolute;
-  bottom: 10px;
+  top: 10px;
   right: 10px;
   border-radius: 5px;
   background-color: ${({ theme, messagetype }) => theme.colors.toast[messagetype]};
@@ -27,7 +27,7 @@ export const Container = styled(animated.div)<ContainerProps>`
 
   @media(max-width: 470px) {
     width: 100%;
-    bottom: 0;
+    top: 0;
     right: 0;
     border-radius: 0;
   }
