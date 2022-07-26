@@ -4,7 +4,7 @@ import { animated } from 'react-spring';
 export const Container = styled(animated.div)`
   position: absolute;
   left: 30px;
-  bottom: -18px;
+  bottom: 46px;
 
   min-width: 270px;
   background-color: ${({ theme }) => theme.colors.black};
@@ -14,12 +14,12 @@ export const Container = styled(animated.div)`
 
   @media(max-width: 1000px) {
     left: 28px;
-    bottom: -16px;
+    bottom: 42.5px;
   }
 
   @media(max-width: 720px) {
     left: 26px;
-    bottom: -15px;
+    bottom: 40px;
   }
 `;
 
