@@ -23,6 +23,7 @@ const main = async () => {
     },
     update: {},
     create: {
+      userId: 1,
       name: 'admin room',
       code: 'BaGRUPpYRJoZUn30qXbXWXPrmG6Pcc',
     },
