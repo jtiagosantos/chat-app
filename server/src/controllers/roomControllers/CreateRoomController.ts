@@ -12,7 +12,7 @@ export class CreateRoomController {
   ) {}
 
   public async handle (request: Request, response: Response) {
-    const { name } = request.body;
+    const { name, userId } = request.body;
 
     if (!name) {
       response.status(400).json({
@@ -27,6 +27,7 @@ export class CreateRoomController {
       const roomCode = generateRoomCode();
 
       const room = await this.createRoomUseCase.execute({
+        userId,
         name,
         code: roomCode,
       });
