@@ -6,8 +6,12 @@ export interface CreateRoomData {
 
 type Room = Pick<CreateRoomData, 'code'>;
 
+type RoomByUser = Omit<CreateRoomData, 'userId'> & {
+  id: number;
+};
+
 export interface RoomRepository {
   createRoom: (data: CreateRoomData) => Promise<Room>;
   readRoom: (roomCode: string) => Promise<Room | null>;
-  readRooms: (userId: number) => Promise<Array<Room>>;
+  readRooms: (userId: number) => Promise<Array<RoomByUser>>;
 }

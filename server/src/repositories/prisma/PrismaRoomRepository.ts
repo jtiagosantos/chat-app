@@ -30,6 +30,12 @@ export class PrismaRoomRepository implements RoomRepository {
   }
 
   public async readRooms (userId: number) {
-    return  {} as any;
+    const rooms = await prisma.room.findMany({
+      where: {
+        userId,
+      }
+    });
+
+    return rooms;
   }
 }
