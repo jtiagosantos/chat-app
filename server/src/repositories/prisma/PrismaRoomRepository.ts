@@ -33,7 +33,12 @@ export class PrismaRoomRepository implements RoomRepository {
     const rooms = await prisma.room.findMany({
       where: {
         userId,
-      }
+      },
+      select: {
+        id: true,
+        name: true,
+        code: true,
+      },
     });
 
     return rooms;
