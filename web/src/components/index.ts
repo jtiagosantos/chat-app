@@ -8,3 +8,4 @@ export { Error } from './Error/Error';
 export { Toast } from './Toast/Toast';
 export { Header } from './Header/Header';
 export { ConfirmSignOut } from './ConfirmSignOut/ConfirmSignOut';
+export { RoomsList } from './RoomsList/RoomsList';
