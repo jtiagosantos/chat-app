@@ -12,7 +12,11 @@ import { Form, Input, Button } from '@/components';
 import { ShareCode } from '../ShareCode/ShareCode';
 
 //hooks
-import { useAuthValidation, useToastDispatch } from '@/hooks';
+import { 
+  useAuthValidation, 
+  useToastDispatch, 
+  useRoomsByUserDispatch 
+} from '@/hooks';
 
 //schemas
 import { createRoomSchema } from '@/schemas/createRoomSchema';
@@ -28,6 +32,7 @@ export const CreateRoomForm: FC<CreateRoomFormProps> = ({ ...rest }) => {
   const navigate = useNavigate();
   const { isUserAuthenticated } = useAuthValidation();
   const { openToast } = useToastDispatch();
+  const { refetchRooms } = useRoomsByUserDispatch();
 
   const [isShowShareCode, setIsShowShareCode] = useState(false);
   const codeRef = useRef('');
@@ -49,6 +54,7 @@ export const CreateRoomForm: FC<CreateRoomFormProps> = ({ ...rest }) => {
 
   const { mutate, isLoading } = useMutation(createRoomService, {
     onSuccess: (data) => {
+      refetchRooms();
       setCode(data?.code!);
       openShareCode();
     },
