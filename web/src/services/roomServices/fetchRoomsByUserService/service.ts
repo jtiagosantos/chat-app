@@ -15,7 +15,7 @@ export const fetchRoomsByUserService = async (): Promise<
   try {
     const { data } = await api.get('/room/by-user');
 
-    return  data;
+    return data;
   } catch (error) {
     errorHandler(error);
   }
