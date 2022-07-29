@@ -1,3 +1,8 @@
+import { QueryObserverResult } from 'react-query';
+
+//dtos
+import { Dto } from '@/models/Dto';
+
 export interface Room {
   id: number;
   name: string;
@@ -6,8 +11,9 @@ export interface Room {
 
 export interface RoomsByUserStateContextData {
   rooms: Array<Room>;
+  isLoading: Boolean;
 }
 
 export interface RoomsByUserDispatchContextData {
-  fetchRooms: () => Promise<void>;
+  refetchRooms: () => Promise<QueryObserverResult<Dto<Array<Room>>, unknown>>;
 }

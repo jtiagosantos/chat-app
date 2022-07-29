@@ -1,10 +1,10 @@
 import { 
   FC, 
   PropsWithChildren, 
-  useState, 
   useMemo, 
   useCallback, 
 } from 'react';
+import { useQuery } from 'react-query';
 
 //services
 import { fetchRoomsByUserService } from '@/services';
@@ -12,33 +12,24 @@ import { fetchRoomsByUserService } from '@/services';
 //contexts
 import { RoomsByUserStateContext, RoomsByUserDispatchContext } from './roomsByUserContext';
 
-//types
-import { Room } from './types';
-
 export const RoomsByUserProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
   const RoomsByUserStateProvider = RoomsByUserStateContext.Provider;
   const RoomsByUserDispatchProvider = RoomsByUserDispatchContext.Provider;
 
-  const [rooms, setRooms] = useState<Array<Room>>([]);
+  const { data, isLoading, refetch } = useQuery('rooms', fetchRoomsByUserService);
 
-  const handleFetchRooms = useCallback(async () => {
-    const response = await fetchRoomsByUserService();
-
-    if (response) {
-      setRooms(response);
-    }
-  }, [
-
-  ]);
+  const handleFetchRooms = useCallback(() => refetch(), [refetch]);
 
   const roomsByUserState = useMemo(() => ({
-    rooms,
+    rooms: data || [],
+    isLoading,
   }), [
-    rooms,
+    data,
+    isLoading,
   ]);
 
   const roomsByUserDispatch = useMemo(() => ({
-    fetchRooms: handleFetchRooms,
+    refetchRooms: handleFetchRooms,
   }), [
     handleFetchRooms,
   ]);
