@@ -1,9 +1,11 @@
 import { FC, useRef } from 'react';
-import { PencilSimple, SignOut } from 'phosphor-react';
+import { PencilSimple, SignOut, Book } from 'phosphor-react';
+
+//hooks
+import { useRoomsByUserState } from '@/hooks';
 
 //components
-import { Modal } from '@/components';
-import { ConfirmSignOut } from '@/components';
+import { Modal, ConfirmSignOut, RoomsList, SpinnerLoading } from '@/components';
 
 //types
 import { HeaderProps } from './types';
@@ -14,10 +16,16 @@ import { theme } from '@/styles/theme';
 import * as S from './styles';
 
 export const Header: FC<HeaderProps> = ({ profileImage, username, onlineUsersNumber }) => {
-  const modalRef = useRef<ModalHandler>(null);
+  const { rooms, isLoading } = useRoomsByUserState();
+  
+  const confirmSingOutModalRef = useRef<ModalHandler>(null);
+  const roomsListModalRef = useRef<ModalHandler>(null);
 
-  const openConfirmSignOut = () => modalRef.current?.open();
-  const closeConfirmSignOut = () => modalRef.current?.close();
+  const openConfirmSignOut = () => confirmSingOutModalRef.current?.open();
+  const closeConfirmSignOut = () => confirmSingOutModalRef.current?.close();
+
+  const openRoomsList = () => roomsListModalRef.current?.open();
+  const closeRoomsList = () => roomsListModalRef.current?.close();
 
   return (
     <>
@@ -26,6 +34,21 @@ export const Header: FC<HeaderProps> = ({ profileImage, username, onlineUsersNum
           <img src={profileImage} alt='' />
           <h1>{username}</h1>
           <PencilSimple size={18} color={theme.colors.white} weight='regular' />
+          {!isLoading ? (
+            <Book 
+              size={18} 
+              color={theme.colors.white} 
+              weight='regular' 
+              onClick={openRoomsList}
+            />
+          ) : (
+            <SpinnerLoading 
+              size={15}
+              borderSize={1}
+              primaryColor={theme.colors.white}
+              secondaryColor={theme.colors.mediumslateblue}
+            />
+          )}
         </S.Profile>
         <S.Wrapper>
           {!!onlineUsersNumber && (
@@ -43,8 +66,12 @@ export const Header: FC<HeaderProps> = ({ profileImage, username, onlineUsersNum
         </S.Wrapper>
       </S.Container>
       
-      <Modal ref={modalRef}>
+      <Modal ref={confirmSingOutModalRef}>
         <ConfirmSignOut onCloseConfirmSignOut={closeConfirmSignOut} />
+      </Modal>
+
+      <Modal ref={roomsListModalRef}>
+        <RoomsList rooms={rooms} onCloseRoomsList={closeRoomsList} />
       </Modal>
     </>
   );
