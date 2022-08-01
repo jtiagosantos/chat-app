@@ -11,12 +11,11 @@ import { SendMessageResponse } from './types';
 import { errorHandler } from '@/utils';
 
 export const sendMessageService = async (
-  { text, userId, roomCode }: MessageDto
+  { text, roomCode }: MessageDto
 ): Promise<Dto<SendMessageResponse>> => {
   try {
     const { data } = await api.post('/message/create', {
       text,
-      userId,
       roomCode,
     });
 

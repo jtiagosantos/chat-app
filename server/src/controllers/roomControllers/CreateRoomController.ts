@@ -12,7 +12,8 @@ export class CreateRoomController {
   ) {}
 
   public async handle (request: Request, response: Response) {
-    const { name, userId } = request.body;
+    const { name } = request.body;
+    const { userId } = request;
 
     if (!name) {
       response.status(400).json({

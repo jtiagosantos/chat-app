@@ -47,7 +47,7 @@ export const Chat = () => {
   const [searchParams] = useSearchParams();
   const roomCode = searchParams.get('room_code') as string;
   const socketRef = useRef<Socket<DefaultEventsMap, DefaultEventsMap>>();
-  const { userId, username, profileImage } = useAuthState();
+  const { username, profileImage } = useAuthState();
   const navigate = useNavigate();
   const { isUserAuthenticated } = useAuthValidation();
 
@@ -98,7 +98,6 @@ export const Chat = () => {
     }
 
     const message = {
-      userId: Number(userId),
       text: messageText,
       roomCode: roomCode,
     };
