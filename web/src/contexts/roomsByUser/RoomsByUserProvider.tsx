@@ -16,16 +16,17 @@ export const RoomsByUserProvider: FC<PropsWithChildren<unknown>> = ({ children }
   const RoomsByUserStateProvider = RoomsByUserStateContext.Provider;
   const RoomsByUserDispatchProvider = RoomsByUserDispatchContext.Provider;
 
-  const { data, isLoading, refetch } = useQuery('rooms', fetchRoomsByUserService);
+  const { data, isLoading, refetch, isRefetching } = useQuery('rooms', fetchRoomsByUserService);
 
   const handleFetchRooms = useCallback(() => refetch(), [refetch]);
 
   const roomsByUserState = useMemo(() => ({
     rooms: data || [],
-    isLoading,
+    isLoading: isLoading || isRefetching,
   }), [
     data,
     isLoading,
+    isRefetching,
   ]);
 
   const roomsByUserDispatch = useMemo(() => ({
