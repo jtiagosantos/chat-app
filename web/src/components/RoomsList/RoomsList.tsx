@@ -36,7 +36,7 @@ export const RoomsList: FC<RoomsListProps> = ({ onCloseRoomsList, rooms }) => {
     <S.Container>
       <X 
         size={30} 
-        color={theme.colors.white}
+        color={theme.colors.lightgray}
         weight='duotone' 
         onClick={onCloseRoomsList}
       />
