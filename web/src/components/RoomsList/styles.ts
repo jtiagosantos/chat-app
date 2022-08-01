@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components';
 import { zoomIn } from '@/styles/animations/zoomIn';
 
 export const Container = styled.div`
+  max-width: 500px;
+  width: 100%;
   background-color: ${({ theme }) => theme.colors.woodsmoke};
   border-radius: 8px;
   padding: 1rem;
@@ -17,6 +19,12 @@ export const Container = styled.div`
     position: absolute;
     right: 10px;
     cursor: pointer;
+  }
+
+  h2 {
+    color: ${({ theme }) => theme.colors.lightgray};
+    font-size: 1rem;
+    font-weight: 500;
   }
 `;
 

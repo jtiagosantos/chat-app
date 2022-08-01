@@ -42,17 +42,21 @@ export const RoomsList: FC<RoomsListProps> = ({ onCloseRoomsList, rooms }) => {
       />
       <S.Title>My rooms</S.Title>
       {!selectedRoom ? (
-        <S.List>
-          {rooms.map((room) => (
-            <S.ListItem 
-              key={room.id} 
-              onClick={() => setSelectedRoom(room)}
-            >
-              <S.RoomName>{room.name}</S.RoomName>
-              <S.RoomCode>{room.code}</S.RoomCode>
-            </S.ListItem>
-          ))}
-        </S.List>
+        !!rooms.length ? (
+          <S.List>
+            {rooms.map((room) => (
+              <S.ListItem 
+                key={room.id} 
+                onClick={() => setSelectedRoom(room)}
+              >
+                <S.RoomName>{room.name}</S.RoomName>
+                <S.RoomCode>{room.code}</S.RoomCode>
+              </S.ListItem>
+            ))}
+          </S.List>
+        ) : (
+          <h2>Create a room to list it here!</h2>
+        )
       ) : (
         <>
           <S.RoomData>
