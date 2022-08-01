@@ -38,5 +38,9 @@ export const Actions = styled.div`
     &:hover {
       filter: brightness(0.8);
     }
+
+    &:first-of-type {
+      opacity: 0.7;
+    }
   }
 `;

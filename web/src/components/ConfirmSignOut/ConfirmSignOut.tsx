@@ -35,13 +35,13 @@ export const ConfirmSignOut: FC<ConfirmSignOutProps> = ({
       <Actions> 
         <XCircle 
           size={80} 
-          color={theme.colors.lightgreen} 
+          color={theme.colors.mediumslateblue} 
           weight='regular' 
           onClick={onCloseConfirmSignOut}
         />
         <CheckCircle 
           size={80} 
-          color={theme.colors.crimson} 
+          color={theme.colors.mediumslateblue} 
           weight='regular' 
           onClick={handleSignOut} 
         />
