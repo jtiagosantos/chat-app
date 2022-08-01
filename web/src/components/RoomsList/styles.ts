@@ -60,7 +60,6 @@ export const ListItem = styled.li`
   max-width: 465px;
   min-height: 35px;
   width: 100%;
-  color: ${({ theme }) => theme.colors.white};
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
@@ -73,6 +72,7 @@ const pStyles = css`
   text-align: center;
   text-overflow: ellipsis;
   overflow: hidden;
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 export const RoomName = styled.p`
@@ -90,5 +90,39 @@ export const RoomCode = styled.p`
 
   @media(max-width: 445px) {
     width: 250px;
+  }
+`;
+
+export const RoomData = styled.div`
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+`;
+
+export const Actions = styled.div`
+  width: 100%;
+  margin: 3rem 0 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+
+  svg {
+    cursor: pointer;
+    transition: filter 0.2s;
+
+    &:hover {
+      filter: brightness(0.8);
+    }
+  }
+
+  svg:not(:first-of-type) {
+    background-color: ${({ theme }) => theme.colors.mediumslateblue};
+    padding: 5px;
+    border-radius: 8px;
   }
 `;
