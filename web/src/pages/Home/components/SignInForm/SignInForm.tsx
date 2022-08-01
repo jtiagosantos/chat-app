@@ -5,7 +5,7 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
 //hooks
-import { useAuthDispatch, useToastDispatch } from '@/hooks';
+import { useAuthDispatch, useToastDispatch, useRoomsByUserDispatch } from '@/hooks';
 
 //components
 import { Form, Input, Button, PasswordField } from '@/components';
@@ -32,6 +32,7 @@ export const SignInForm: FC<SignInFormProps> = ({ ...rest }) => {
 
   const { openToast } = useToastDispatch();
   const { signIn } = useAuthDispatch();
+  const { refetchRooms } = useRoomsByUserDispatch();
 
   const { mutate, isLoading } = useMutation(signIn, {
     onSuccess: () => {
@@ -40,6 +41,7 @@ export const SignInForm: FC<SignInFormProps> = ({ ...rest }) => {
         messageType: 'success',
         message: 'User logged in successfully',
       });
+      refetchRooms();
     },
     onError: (error) => {
       openToast({
