@@ -2,18 +2,18 @@ import { FC, useState } from 'react';
 import { X, ArrowBendUpLeft, Copy, ShareNetwork } from 'phosphor-react';
 
 //hooks
-import { useToastDispatch, useWebShare } from '@/hooks';
+import { useToastDispatch, useWebShare, useTheme } from '@/hooks';
 
 //types
 import { RoomsListProps, Room } from './types';
 
 //styles
 import * as S from './styles';
-import { theme } from '@/styles/theme';
 
 export const RoomsList: FC<RoomsListProps> = ({ onCloseRoomsList, rooms }) => {
   const { openToast } = useToastDispatch();
   const { share } = useWebShare();
+  const { colors } = useTheme();
 
   const [selectedRoom, setSelectedRoom] = useState<Room | undefined>(undefined);
 
@@ -36,7 +36,7 @@ export const RoomsList: FC<RoomsListProps> = ({ onCloseRoomsList, rooms }) => {
     <S.Container>
       <X 
         size={30} 
-        color={theme.colors.lightgray}
+        color={colors.lightgray}
         weight='duotone' 
         onClick={onCloseRoomsList}
       />
@@ -66,19 +66,19 @@ export const RoomsList: FC<RoomsListProps> = ({ onCloseRoomsList, rooms }) => {
           <S.Actions>
             <ArrowBendUpLeft 
               size={50} 
-              color={theme.colors.white}
+              color={colors.white}
               weight='duotone' 
               onClick={() => setSelectedRoom(undefined)}
             />
             <Copy 
               size={60} 
-              color={theme.colors.white}
+              color={colors.white}
               weight='duotone' 
               onClick={handleCopyRoomCodeToClipboard}
             />
             <ShareNetwork 
               size={60} 
-              color={theme.colors.white}
+              color={colors.white}
               weight='duotone' 
               onClick={handleShareRoomCode}
             />

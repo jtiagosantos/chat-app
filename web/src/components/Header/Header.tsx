@@ -2,7 +2,7 @@ import { FC, useRef } from 'react';
 import { PencilSimple, SignOut, Book } from 'phosphor-react';
 
 //hooks
-import { useRoomsByUserState } from '@/hooks';
+import { useRoomsByUserState, useTheme } from '@/hooks';
 
 //components
 import { Modal, ConfirmSignOut, RoomsList, SpinnerLoading } from '@/components';
@@ -12,11 +12,11 @@ import { HeaderProps } from './types';
 import { ModalHandler } from '../Modal/types';
 
 //styles
-import { theme } from '@/styles/theme';
 import * as S from './styles';
 
 export const Header: FC<HeaderProps> = ({ profileImage, username, onlineUsersNumber }) => {
   const { rooms, isLoading } = useRoomsByUserState();
+  const { colors } = useTheme();
   
   const confirmSingOutModalRef = useRef<ModalHandler>(null);
   const roomsListModalRef = useRef<ModalHandler>(null);
@@ -33,11 +33,11 @@ export const Header: FC<HeaderProps> = ({ profileImage, username, onlineUsersNum
         <S.Profile>
           <img src={profileImage} alt='' />
           <h1>{username}</h1>
-          <PencilSimple size={18} color={theme.colors.white} weight='regular' />
+          <PencilSimple size={18} color={colors.white} weight='regular' />
           {!isLoading ? (
             <Book 
               size={18} 
-              color={theme.colors.white} 
+              color={colors.white} 
               weight='regular' 
               onClick={openRoomsList}
             />
@@ -45,8 +45,8 @@ export const Header: FC<HeaderProps> = ({ profileImage, username, onlineUsersNum
             <SpinnerLoading 
               size={15}
               borderSize={1}
-              primaryColor={theme.colors.white}
-              secondaryColor={theme.colors.mediumslateblue}
+              primaryColor={colors.white}
+              secondaryColor={colors.mediumslateblue}
             />
           )}
         </S.Profile>
@@ -59,7 +59,7 @@ export const Header: FC<HeaderProps> = ({ profileImage, username, onlineUsersNum
           )}
           <SignOut 
             size={22} 
-            color={theme.colors.white} 
+            color={colors.white} 
             weight='bold' 
             onClick={openConfirmSignOut}
           />

@@ -3,14 +3,18 @@ import { FC } from 'react';
 //components
 import { SpinnerLoading } from '@/components';
 
+//hooks
+import { useTheme } from '@/hooks';
+
 //types
 import { ButtonProps } from './types';
 
 //styles
 import { Container } from './styles';
-import { theme } from '@/styles/theme';
 
 export const Button: FC<ButtonProps> = ({ children, loading, icon, ...rest }) => {
+  const { colors } = useTheme();
+
   const styleProperties = { 
     width: rest.width, 
     height: rest.height, 
@@ -33,8 +37,8 @@ export const Button: FC<ButtonProps> = ({ children, loading, icon, ...rest }) =>
         <SpinnerLoading 
           size={20}
           borderSize={3}
-          secondaryColor={theme.colors.mediumslateblue}
-          primaryColor={theme.colors.white}
+          secondaryColor={colors.mediumslateblue}
+          primaryColor={colors.white}
         />
       )}
     </Container>

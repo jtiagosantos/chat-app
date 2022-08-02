@@ -1,11 +1,11 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC } from 'react';
 import { UserCircle } from 'phosphor-react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from 'react-query';
 
 //hooks
-import { useAuthDispatch, useToastDispatch } from '@/hooks';
+import { useAuthDispatch, useToastDispatch, useTheme } from '@/hooks';
 
 //components
 import { Form, Input, PasswordField, Button } from '@/components';
@@ -18,11 +18,11 @@ import { SignUpFormProps, FormData } from './types';
 
 //styles
 import { Container, ImageProfile } from './styles';
-import { theme } from '@/styles/theme';
 
 export const SignUpForm: FC<SignUpFormProps> = ({ ...rest }) => {
   const { openToast } = useToastDispatch();
   const { signUp } = useAuthDispatch();
+  const { colors } = useTheme();
   
   const { control, handleSubmit, watch } = useForm<FormData>({
     defaultValues: {
@@ -60,7 +60,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ ...rest }) => {
       {watchProfileImage ? (
         <ImageProfile src={watchProfileImage} alt='Error loading image' />
       ): (
-        <UserCircle size={125} color={theme.colors.white} weight='fill' />
+        <UserCircle size={125} color={colors.white} weight='fill' />
       )}
 
       <Form width="100%" marginTop="30px" onSubmit={handleSubmit(handleSignUp)}>
@@ -69,8 +69,8 @@ export const SignUpForm: FC<SignUpFormProps> = ({ ...rest }) => {
           width="100%"
           height="2.5rem"
           fontSize="0.875rem"
-          textColor={theme.colors.manatee}
-          placeholderColor={theme.colors.manatee}
+          textColor={colors.manatee}
+          placeholderColor={colors.manatee}
           padding="0.5rem 0.625rem"
           placeholder="Insert your username"
           control={control}
@@ -81,8 +81,8 @@ export const SignUpForm: FC<SignUpFormProps> = ({ ...rest }) => {
           width="100%"
           height="2.5rem"
           fontSize="0.875rem"
-          textColor={theme.colors.manatee}
-          placeholderColor={theme.colors.manatee}
+          textColor={colors.manatee}
+          placeholderColor={colors.manatee}
           padding="0.5rem 0.625rem"
           placeholder="Insert your profile image url"
           control={control}
@@ -93,8 +93,8 @@ export const SignUpForm: FC<SignUpFormProps> = ({ ...rest }) => {
           width="100%"
           height="2.5rem"
           fontSize="0.875rem"
-          textColor={theme.colors.manatee}
-          placeholderColor={theme.colors.manatee}
+          textColor={colors.manatee}
+          placeholderColor={colors.manatee}
           padding="0.5rem 0.625rem"
           placeholder="Insert your e-mail"
           control={control}

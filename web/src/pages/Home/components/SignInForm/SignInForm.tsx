@@ -5,7 +5,12 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
 //hooks
-import { useAuthDispatch, useToastDispatch, useRoomsByUserDispatch } from '@/hooks';
+import { 
+  useAuthDispatch, 
+  useToastDispatch, 
+  useRoomsByUserDispatch,
+  useTheme, 
+} from '@/hooks';
 
 //components
 import { Form, Input, Button, PasswordField } from '@/components';
@@ -18,10 +23,10 @@ import { SignInFormProps, FormData } from './types';
 
 //styles
 import * as S from './styles';
-import { theme } from '@/styles/theme';
 
 export const SignInForm: FC<SignInFormProps> = ({ ...rest }) => {
   const navigate = useNavigate();
+  const { colors } = useTheme();
   const { control, handleSubmit } = useForm<FormData>({
     defaultValues: {
       email: '',
@@ -67,8 +72,8 @@ export const SignInForm: FC<SignInFormProps> = ({ ...rest }) => {
           width="100%"
           height="2.5rem"
           fontSize="0.875rem"
-          textColor={theme.colors.manatee}
-          placeholderColor={theme.colors.manatee}
+          textColor={colors.manatee}
+          placeholderColor={colors.manatee}
           padding="0.5rem 0.625rem"
           placeholder="Insert your e-mail" 
           control={control}
