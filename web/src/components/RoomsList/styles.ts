@@ -64,6 +64,12 @@ export const ListItem = styled.li`
   cursor: pointer;
 
   display: flex;
+
+  transition: filter 0.2s;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
 `;
 
 const pStyles = css`
