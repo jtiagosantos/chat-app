@@ -16,7 +16,9 @@ export const RoomsByUserProvider: FC<PropsWithChildren<unknown>> = ({ children }
   const RoomsByUserStateProvider = RoomsByUserStateContext.Provider;
   const RoomsByUserDispatchProvider = RoomsByUserDispatchContext.Provider;
 
-  const { data, isLoading, refetch, isRefetching } = useQuery('rooms', fetchRoomsByUserService);
+  const { data, isLoading, refetch, isRefetching } = useQuery('rooms', fetchRoomsByUserService, {
+    retry: false,
+  });
 
   const handleFetchRooms = useCallback(() => refetch(), [refetch]);
 
