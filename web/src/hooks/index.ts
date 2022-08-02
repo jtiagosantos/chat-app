@@ -8,3 +8,6 @@ export { useTransition } from './useTransition';
 export { useToastState } from './toast/useToastState';
 export { useToastDispatch } from './toast/useToastDispatch';
 export { useWebShare } from './useWebShare';
+export { useRoomsByUserState } from './useRoomsByUser/useRoomsByUserState';
+export { useRoomsByUserDispatch } from './useRoomsByUser/useRoomsByUserDispatch';
+export { useTheme } from './useTheme';

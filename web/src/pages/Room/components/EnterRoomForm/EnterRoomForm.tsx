@@ -11,7 +11,7 @@ import { enterRoomService } from '@/services';
 import { Form, Input, Button } from '@/components';
 
 //hooks
-import { useAuthValidation, useToastDispatch } from '@/hooks';
+import { useAuthValidation, useToastDispatch, useTheme } from '@/hooks';
 
 //schemas
 import { enterRoomSchema } from '@/schemas';
@@ -21,12 +21,12 @@ import { EnterRoomFormProps, FormData } from './types';
 
 //styles
 import { Container } from './styles';
-import { theme } from '@/styles/theme';
 
 export const EnterRoomForm: FC<EnterRoomFormProps> = ({ ...rest }) => {
   const navigate = useNavigate();
   const { isUserAuthenticated } = useAuthValidation();
   const { openToast } = useToastDispatch();
+  const { colors } = useTheme();
 
   const { control, handleSubmit, getValues } = useForm<FormData>({
     defaultValues: {
@@ -80,8 +80,8 @@ export const EnterRoomForm: FC<EnterRoomFormProps> = ({ ...rest }) => {
           width="100%"
           height="2.5rem"
           fontSize="0.875rem"
-          textColor={theme.colors.manatee}
-          placeholderColor={theme.colors.manatee}
+          textColor={colors.manatee}
+          placeholderColor={colors.manatee}
           padding="0.5rem 0.625rem"
           placeholder="Insert the room code"
           control={control}

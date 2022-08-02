@@ -15,6 +15,7 @@ export const Container = styled(animated.div)<ContainerProps>`
   background-color: ${({ theme, messagetype }) => theme.colors.toast[messagetype]};
   padding-left: 10px;
   padding-right: 30px;
+  z-index: 10;
 
   display: flex;
   align-items: center;

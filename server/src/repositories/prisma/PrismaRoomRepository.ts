@@ -7,9 +7,10 @@ import { RoomRepository } from '@/repositories';
 import { CreateRoomData } from '../RoomRepository';
 
 export class PrismaRoomRepository implements RoomRepository {
-  public async createRoom ({ name, code }: CreateRoomData) {
+  public async createRoom ({ name, code, userId }: CreateRoomData) {
     const room = await prisma.room.create({
       data: {
+        userId,
         name,
         code,
       }
@@ -26,5 +27,20 @@ export class PrismaRoomRepository implements RoomRepository {
     });
 
     return room;
+  }
+
+  public async readRooms (userId: number) {
+    const rooms = await prisma.room.findMany({
+      where: {
+        userId,
+      },
+      select: {
+        id: true,
+        name: true,
+        code: true,
+      },
+    });
+
+    return rooms;
   }
 }

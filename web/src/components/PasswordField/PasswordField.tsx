@@ -4,14 +4,17 @@ import { Eye, EyeSlash } from 'phosphor-react';
 //components
 import { Input } from '@/components';
 
+//hooks
+import { useTheme } from '@/hooks';
+
 //types
 import { PasswordFieldProps } from './types';
 
 //styles
 import { Container } from './styles';
-import { theme } from '@/styles/theme';
 
 export const PasswordField: FC<PasswordFieldProps> = ({ control, name, ...rest }) => {
+  const { colors } = useTheme();
   const [isShowPassword, setIsShowPassword] = useState(false);
 
   const handleShowPassword = () => {
@@ -25,8 +28,8 @@ export const PasswordField: FC<PasswordFieldProps> = ({ control, name, ...rest }
         width="100%"
         height="2.5rem"
         fontSize="0.875rem"
-        textColor={theme.colors.manatee}
-        placeholderColor={theme.colors.manatee}
+        textColor={colors.manatee}
+        placeholderColor={colors.manatee}
         padding="0.5rem 3rem 0.5rem 0.625rem"
         placeholder="Insert your password"  
         control={control}

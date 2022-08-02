@@ -2,6 +2,7 @@
 import { RoomRepository } from '@/repositories';
 
 interface CreateRoomUseCaseDto {
+  userId: number;
   name: string;
   code: string;
 }
@@ -11,8 +12,9 @@ export class CreateRoomUseCase {
     private roomRepository: RoomRepository,
   ) {}
 
-  public async execute ({ name, code }: CreateRoomUseCaseDto) {
+  public async execute ({ name, code, userId }: CreateRoomUseCaseDto) {
     return await this.roomRepository.createRoom({
+      userId,
       name,
       code,
     });

@@ -21,8 +21,7 @@ import { UserDialog } from './components';
 import { FetchingMessagesLoading } from './components';
 
 //hooks
-import { useAuthState } from '@/hooks';
-import { useAuthValidation } from '@/hooks';
+import { useAuthState, useAuthValidation, useTheme } from '@/hooks';
 
 //schemas
 import { chatSchema } from '@/schemas';
@@ -41,15 +40,15 @@ import {
 
 //styles
 import * as S from './styles';
-import { theme } from '@/styles/theme';
 
 export const Chat = () => {
   const [searchParams] = useSearchParams();
   const roomCode = searchParams.get('room_code') as string;
   const socketRef = useRef<Socket<DefaultEventsMap, DefaultEventsMap>>();
-  const { userId, username, profileImage } = useAuthState();
+  const { username, profileImage } = useAuthState();
   const navigate = useNavigate();
   const { isUserAuthenticated } = useAuthValidation();
+  const { colors } = useTheme();
 
   const [messages, setMessages] = useState<Array<Message>>([]);
   const [quantityUsersOnline, setQuantityUsersOnline] = useState<number>(0);
@@ -98,7 +97,6 @@ export const Chat = () => {
     }
 
     const message = {
-      userId: Number(userId),
       text: messageText,
       roomCode: roomCode,
     };
@@ -193,8 +191,8 @@ export const Chat = () => {
               width="100%"
               height="2.5rem"
               padding="0.5rem 0.625rem"
-              textColor={theme.colors.manatee}
-              placeholderColor={theme.colors.manatee}
+              textColor={colors.manatee}
+              placeholderColor={colors.manatee}
               fontSize="0.875rem"
               placeholder="message text..." 
               control={control}
@@ -206,11 +204,11 @@ export const Chat = () => {
                 <SpinnerLoading 
                   size={20}
                   borderSize={3}
-                  secondaryColor={theme.colors.mediumslateblue}
-                  primaryColor={theme.colors.white}
+                  secondaryColor={colors.mediumslateblue}
+                  primaryColor={colors.white}
                 />
               ) : (
-                <PaperPlaneRight color={theme.colors.white} weight='bold' size={18} />
+                <PaperPlaneRight color={colors.white} weight='bold' size={18} />
               )}
             </S.SendMessageButton>
           </form>

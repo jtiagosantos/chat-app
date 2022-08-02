@@ -4,7 +4,8 @@ import { X } from 'phosphor-react';
 import { 
   useUserDialogDispatch, 
   useUserDialogState, 
-  useTransition 
+  useTransition,
+  useTheme,
 } from '@/hooks';
 
 //constans
@@ -12,11 +13,11 @@ import { USER_DIALOG_ANIMATION_STYLES } from '@/constants';
 
 //styles
 import * as S from './styles';
-import { theme } from '@/styles/theme';
 
 export const UserDialog = () => {
   const { user, isOpenedDialog } = useUserDialogState();
   const { closeDialog } = useUserDialogDispatch();
+  const { colors } = useTheme();
 
   const { name, profileImage } = user;
 
@@ -34,7 +35,7 @@ export const UserDialog = () => {
               <X 
                 size={20} 
                 weight='bold' 
-                color={theme.colors.white}
+                color={colors.white}
                 onClick={closeDialog} 
               />
             </S.Wrapper>

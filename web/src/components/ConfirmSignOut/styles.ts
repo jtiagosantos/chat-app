@@ -1,14 +1,5 @@
-import styled, { keyframes } from 'styled-components';
-
-const zoomIn = keyframes`
-  0% {
-    transform: scale(0.7);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-`;
+import styled from 'styled-components';
+import { zoomIn } from '@/styles/animations/zoomIn';
 
 export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.woodsmoke};
@@ -46,6 +37,10 @@ export const Actions = styled.div`
 
     &:hover {
       filter: brightness(0.8);
+    }
+
+    &:first-of-type {
+      opacity: 0.7;
     }
   }
 `;

@@ -9,7 +9,8 @@ export class SendMessageController {
   ) {}
 
   public async handle (request: Request, response: Response) {
-    const { text, userId, roomCode } = request.body;
+    const { text, roomCode } = request.body;
+    const { userId } = request;
 
     if (!text) {
       response.status(400).json({

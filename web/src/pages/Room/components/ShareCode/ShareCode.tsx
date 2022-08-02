@@ -28,7 +28,7 @@ export const ShareCode: FC<CodeDialogProps> = ({ code }) => {
   const handleShareRoomCode = async () => {
     await share({
       title: 'Room code',
-      url: code,
+      text: code,
     });
   }
 

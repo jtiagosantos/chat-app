@@ -12,7 +12,12 @@ import { Form, Input, Button } from '@/components';
 import { ShareCode } from '../ShareCode/ShareCode';
 
 //hooks
-import { useAuthValidation, useToastDispatch } from '@/hooks';
+import { 
+  useAuthValidation, 
+  useToastDispatch, 
+  useRoomsByUserDispatch,
+  useTheme,
+} from '@/hooks';
 
 //schemas
 import { createRoomSchema } from '@/schemas/createRoomSchema';
@@ -22,12 +27,13 @@ import { CreateRoomFormProps, FormData } from './types';
 
 //styles
 import { Container } from './styles';
-import { theme } from '@/styles/theme';
 
 export const CreateRoomForm: FC<CreateRoomFormProps> = ({ ...rest }) => {
   const navigate = useNavigate();
   const { isUserAuthenticated } = useAuthValidation();
   const { openToast } = useToastDispatch();
+  const { refetchRooms } = useRoomsByUserDispatch();
+  const { colors } = useTheme();
 
   const [isShowShareCode, setIsShowShareCode] = useState(false);
   const codeRef = useRef('');
@@ -49,6 +55,7 @@ export const CreateRoomForm: FC<CreateRoomFormProps> = ({ ...rest }) => {
 
   const { mutate, isLoading } = useMutation(createRoomService, {
     onSuccess: (data) => {
+      refetchRooms();
       setCode(data?.code!);
       openShareCode();
     },
@@ -85,8 +92,8 @@ export const CreateRoomForm: FC<CreateRoomFormProps> = ({ ...rest }) => {
             width="100%"
             height="2.5rem"
             fontSize="0.875rem"
-            textColor={theme.colors.manatee}
-            placeholderColor={theme.colors.manatee}
+            textColor={colors.manatee}
+            placeholderColor={colors.manatee}
             padding="0.5rem 0.625rem"
             placeholder="Insert the room name" 
             control={control}

@@ -6,18 +6,23 @@ import {
 } from 'phosphor-react';
 
 //hooks
-import { useToastState, useToastDispatch, useTransition } from '@/hooks';
+import { 
+  useToastState, 
+  useToastDispatch, 
+  useTransition, 
+  useTheme,
+} from '@/hooks';
 
 //constants
 import { TOAST_ANIMATION_STYLES } from '@/constants';
 
 //styles
-import { theme } from '@/styles/theme';
 import { Container, CloseToastIcon } from './styles';
 
 export const Toast = () => {
   const { messageType, message, isOpen } = useToastState();
   const { closeToast } = useToastDispatch();
+  const { colors } = useTheme();
 
   const toastTransition = useTransition(isOpen, TOAST_ANIMATION_STYLES);
 
@@ -30,7 +35,7 @@ export const Toast = () => {
               <CheckCircle 
                 weight='bold' 
                 size={25} 
-                color={theme.colors.white} 
+                color={colors.white} 
               />
             )}
       
@@ -38,7 +43,7 @@ export const Toast = () => {
               <WarningCircle 
                 weight='bold' 
                 size={25} 
-                color={theme.colors.white} 
+                color={colors.white} 
               />
             )}
       
@@ -46,7 +51,7 @@ export const Toast = () => {
               <Info 
                 weight='bold' 
                 size={25} 
-                color={theme.colors.white} 
+                color={colors.white} 
               />
             )}
             
@@ -54,7 +59,7 @@ export const Toast = () => {
               <Warning 
                 weight='bold' 
                 size={25} 
-                color={theme.colors.white} 
+                color={colors.white} 
               />
             )}
 
@@ -63,7 +68,7 @@ export const Toast = () => {
             <CloseToastIcon 
               weight='bold' 
               size={18}
-              color={theme.colors.white} 
+              color={colors.white} 
               onClick={closeToast}
             />
           </Container>
